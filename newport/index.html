@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranav S | Designer & Developer</title>
+
+    <!-- Meta Tags -->
+    <meta name="description"
+        content="Portfolio of Pranav S - UI/UX Designer & Full-Stack Developer focusing on elegant user experiences and robust systems.">
+
+    <!-- External Assets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- LinkedIn Platform Script -->
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+
+    <style>
+        :root {
+            --primary: #4ade80;
+            /* Lime 500 */
+            --bg: #f5f5f5;
+            --text: #000000;
+            --border: #000000;
+            --thickness: 4px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* Neo-Brutalist Shadow */
+        .brutal-shadow {
+            box-shadow: 6px 6px 0 0 var(--border);
+        }
+
+        .brutal-shadow-hover:hover {
+            box-shadow: 2px 2px 0 0 var(--border);
+            transform: translate(2px, 2px);
+        }
+
+        .brutal-shadow-large {
+            box-shadow: 12px 12px 0 0 var(--border);
+        }
+
+        /* Paper Texture Overlay */
+        #texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+            border-left: var(--thickness) solid var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border: 2px solid var(--bg);
+        }
+
+        /* Animations */
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(74, 222, 128, 0.1);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Poster Gallery Reset Loop */
+        .gallery-track {
+            display: flex;
+            gap: 1.5rem;
+            animation: scroll 40s linear infinite;
+        }
+
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-300px * 15 - 1.5rem * 15));
+                /* Adjusted for 15 posters */
+            }
+        }
+
+        @keyframes brutalFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        .animate-brutal-float {
+            animation: brutalFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+
+            0%,
+            100% {
+                border-color: black;
+            }
+
+            50% {
+                border-color: #0077b5;
+            }
+        }
+
+        .animate-border-pulse {
+            animation: borderPulse 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-lime-300">
+    <div id="texture-overlay"></div>
+    <div class="scanline"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] border-b-4 border-black bg-white/80 backdrop-blur-md">
+        <div class="max-w-[1440px] mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#hero" class="flex items-center gap-2">
+                <img src="Vector.png" alt="PASE Logo" class="h-10 w-auto"
+                    onerror="this.src='https://placehold.co/400x100/000/fff?text=PASE'">
+            </a>
+            <div class="hidden md:flex gap-4 font-bold uppercase tracking-tighter">
+                <a href="#about"
+                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">About</a>
+                <a href="#skills"
+                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Skills</a>
+                <a href="#projects"
+                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Posters</a>
+                <a href="#experience"
+                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Experience</a>
+                <a href="#contact"
+                    class="bg-black text-white px-6 py-2 border-2 border-black hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#4ade80]">Let's
+                    Talk</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden border-4 border-black p-2 bg-lime-400"
+                onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-nav"
+        class="hidden fixed inset-0 z-[200] bg-lime-400 flex flex-col items-center justify-center gap-8 font-black text-4xl uppercase border-8 border-black">
+        <button class="absolute top-6 right-6" onclick="document.getElementById('mobile-nav').classList.add('hidden')">
+            <i data-lucide="x" class="w-12 h-12"></i>
+        </button>
+        <a href="#about" onclick="document.getElementById('mobile-nav').classList.add('hidden')">About</a>
+        <a href="#skills" onclick="document.getElementById('mobile-nav').classList.add('hidden')">Skills</a>
+        <a href="#projects" onclick="document.getElementById('mobile-nav').classList.add('hidden')">Posters</a>
+        <a href="#experience" onclick="document.getElementById('mobile-nav').classList.add('hidden')">Experience</a>
+        <a href="#contact" onclick="document.getElementById('mobile-nav').classList.add('hidden')">Contact</a>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero"
+            class="min-h-screen flex flex-col justify-center items-center relative section-padding pt-32 text-center bg-white">
+            <div class="absolute inset-0 opacity-5 pointer-events-none"
+                style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+            <div class="relative z-10 max-w-5xl">
+                <div
+                    class="mb-6 inline-block bg-lime-400 border-4 border-black px-4 py-1 font-black uppercase brutal-shadow">
+                    Available for collaborations
+                </div>
+
+                <h1 class="text-6xl md:text-[120px] font-black uppercase leading-[0.85] tracking-tighter mb-8">
+                    DESIGNING <br> <span class="bg-black text-white px-4">DIGITAL</span> BRUTALISM
+                </h1>
+
+                <p class="text-xl md:text-3xl font-bold uppercase mono tracking-tight mb-12 max-w-3xl mx-auto">
+                    I'M PRANAV S, A <span id="typewriter"
+                        class="text-lime-600 typewriter-cursor underline decoration-4 underline-offset-8"></span>
+                    BUILDING USER-CENTRIC EXPERIENCES AND CREATIVE SOLUTIONS.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="#projects"
+                        class="bg-black text-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover transition-all flex items-center gap-3">
+                        View Posters <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="#contact"
+                        class="bg-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover hover:bg-lime-400 transition-all">
+                        Connect Now
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-10 hidden lg:block opacity-20">
+                <img src="Vector.png" alt="" class="w-64">
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-black text-white section-padding border-y-8 border-black">
+            <div class="max-w-[1440px] mx-auto grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-12 lg:col-span-5 relative">
+                    <div class="aspect-square bg-lime-400 border-8 border-white brutal-shadow-large overflow-hidden">
+                        <img id="profile-img" src="pasekahukum.png" alt="Pranav S"
+                            class="w-full h-full object-cover grayscale contrast-125"
+                            onerror="this.src='https://placehold.co/800x800/000/fff?text=PRANAV'">
+                    </div>
+                </div>
+                <div class="md:col-span-12 lg:col-span-7">
+                    <h2 class="text-5xl md:text-8xl font-black uppercase mb-8 tracking-tighter italic">About Me</h2>
+                    <div id="about-content" class="space-y-6 text-xl md:text-2xl font-medium text-gray-300">
+                        <!-- Bio injected via script -->
+                    </div>
+                    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                            <span class="block text-3xl font-black text-lime-400">3+</span>
+                            <span class="uppercase text-xs font-bold tracking-widest">Years Exp</span>
+                        </div>
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                            <span class="block text-3xl font-black text-lime-400">20+</span>
+                            <span class="uppercase text-xs font-bold tracking-widest">Projects</span>
+                        </div>
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                            <span class="block text-3xl font-black text-lime-400">100%</span>
+                            <span class="uppercase text-xs font-bold tracking-widest">Efficiency</span>
+                        </div>
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                            <span class="block text-3xl font-black text-lime-400">∞</span>
+                            <span class="uppercase text-xs font-bold tracking-widest">Passion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="bg-lime-400 section-padding">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+                    <h2 class="text-5xl md:text-[100px] font-black uppercase tracking-tighter leading-none">Toolkit</h2>
+                    <p class="text-2xl font-black uppercase border-b-8 border-black">Mastering the Tech Stack</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="skills-grid">
+                    <!-- Dynamic Skills Injection -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects / Posters Section -->
+        <section id="projects" class="bg-white section-padding border-y-8 border-black overflow-hidden">
+            <div class="max-w-[1440px] mx-auto mb-16 px-4">
+                <h2 class="text-5xl md:text-[100px] font-black uppercase tracking-tighter leading-none mb-4">Poster
+                    Design Works</h2>
+            </div>
+
+            <div class="relative">
+                <div class="flex gap-6 overflow-x-hidden" id="posters-scroller">
+                    <div class="gallery-track" id="posters-container">
+                        <!-- Dynamic Posters Injection -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="bg-gray-100 section-padding">
+            <div class="max-w-[1440px] mx-auto">
+                <h2 class="text-5xl md:text-8xl font-black uppercase mb-16 tracking-tighter text-center">Journey</h2>
+                <div class="grid gap-8" id="experience-grid">
+                    <!-- Dynamic Experience Injection -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-black text-white section-padding">
+            <div class="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Traditional Contact -->
+                <div class="text-center lg:text-left">
+                    <h2 class="text-6xl md:text-[100px] font-black uppercase mb-8 tracking-tighter leading-none">Let's
+                        <br> Collaborate
+                    </h2>
+                    <p class="text-2xl font-bold uppercase mono mb-12 text-gray-400">I'm currently seeking new
+                        challenges in development and design.</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <a href="mailto:pranavs2005@ieee.org"
+                            class="bg-lime-400 text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                            <i data-lucide="mail"></i> Email Me
+                        </a>
+                        <a href="https://github.com/pase5" target="_blank"
+                            class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                            <i data-lucide="github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: LinkedIn Browser Simulation -->
+                <div class="relative flex flex-col items-center">
+                    <div
+                        class="w-full max-w-[450px] bg-white border-4 border-black brutal-shadow-large overflow-hidden animate-brutal-float">
+                        <!-- Browser Header -->
+                        <div
+                            class="bg-black text-white px-4 py-2 flex items-center justify-between border-b-4 border-black">
+                            <div class="flex gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <div class="bg-gray-800 px-3 py-0.5 text-[10px] mono rounded-full opacity-80">
+                                linkedin.com/in/ps2005
+                            </div>
+                            <div class="w-10"></div>
+                        </div>
+
+                        <!-- Page Content -->
+                        <div
+                            class="relative p-6 bg-[#f3f6f8] min-h-[300px] flex flex-col items-center justify-center text-center">
+                            <!-- Subtle LinkedIn Pattern Context -->
+                            <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
+                                style="background-image: url('https://static.licdn.com/aero-v1/sc/h/ah67m88rnuvckclpueks0becl'); background-size: cover;">
+                            </div>
+
+                            <!-- Header Label -->
+                            <div class="absolute top-4 left-6 flex items-center gap-2 opacity-40">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-[#0077b5]"></i>
+                                <span class="text-[10px] font-black uppercase tracking-tighter">Verified Profile</span>
+                            </div>
+
+                            <!-- Custom High-Fidelity LinkedIn Card Simulation -->
+                            <div id="li-card"
+                                class="relative z-10 w-[260px] bg-white border border-gray-200 shadow-sm transition-transform duration-500 hover:scale-[1.02] overflow-hidden text-center p-6 flex flex-col items-center">
+                                <div
+                                    class="w-24 h-24 rounded-full border-4 border-white shadow-md overflow-hidden mb-4 bg-gray-100 flex items-center justify-center">
+                                    <img id="li-card-img" src="pasekahukum.png" alt="Pranav S"
+                                        class="w-full h-full object-cover grayscale transition-all duration-700 opacity-0"
+                                        onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <h4 id="li-card-name" class="text-xl font-bold text-gray-900 mb-1 leading-tight">Pranav
+                                    S</h4>
+                                <p id="li-card-headline"
+                                    class="text-[11px] font-medium text-gray-500 leading-tight mb-5 px-4 min-h-[30px]">
+                                    UI/UX Designer & Creative Developer</p>
+                                <a href="https://in.linkedin.com/in/ps2005" target="_blank"
+                                    class="w-full py-2 bg-[#0077b5] text-white text-[11px] font-black uppercase rounded-full hover:bg-[#005c8a] transition-colors shadow-sm">View
+                                    Profile</a>
+                                <div class="mt-4 opacity-10">
+                                    <i data-lucide="linkedin" class="w-6 h-6 text-[#0077b5]"></i>
+                                </div>
+                            </div>
+
+                            <!-- Live Sync Indicator -->
+                            <div class="mt-6 flex items-center gap-2 bg-black/5 px-3 py-1 rounded-full relative z-10">
+                                <span class="relative flex h-2 w-2">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                                <span class="text-[9px] font-black uppercase tracking-widest opacity-60">Live Feed
+                                    Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t-8 border-black py-12 px-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <span class="text-4xl font-black uppercase tracking-tighter">Pranav S</span>
+                <p class="font-bold opacity-60 mt-2">© 2025. BUILT WITH BRUTALISM & PASSION.</p>
+            </div>
+            <div class="flex gap-8 font-black uppercase">
+                <a href="#hero" class="hover:text-lime-500">Back Top</a>
+                <a href="#projects" class="hover:text-lime-500">Posters</a>
+                <a href="mailto:pranavs2005@ieee.org" class="hover:text-lime-500">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Provider
+        const DATA = {
+            roles: ["UI/UX Designer", "Creative Developer", "Problem Solver", "IEEE Leader"],
+            profileImage: "pasekahukum.png", // <--- CHANGE YOUR IMAGE HERE ANYTIME 
+            about: [
+                "I am a 3rd-year B.Tech Computer Science Engineering student with a strong passion for UI/UX design, creative development, and technology-driven problem solving. I enjoy designing clean, user-centric digital experiences that balance aesthetics with functionality.",
+                "I have hands-on experience in UI/UX designing using Figma and Canva, along with basic 3D design in Blender and front-end development using HTML, CSS, and JavaScript. I have designed web interfaces, posters, event creatives, and digital assets for technical projects and large-scale events, focusing on usability, consistency, and visual impact.",
+                "I am an active IEEE member and currently hold multiple leadership roles, including IEEE Vice Chair at IEEE SB CEAL, SPS Kerala Section Travancore Hub Student Representative, and involvement with IEEE SPS Kerala Chapter and IEEEXtreme. Through IEEE, I have gained valuable experience in leadership, teamwork, event planning, publicity, and technical coordination, while contributing to workshops, conferences, and outreach programs.",
+                "These roles have strengthened my ability to work in teams, manage responsibilities, and design solutions for real-world use cases. I am continuously learning and evolving as a designer and developer, aiming to create impactful, meaningful, and user-focused digital products."
+            ],
+            skills: [
+                { title: "Design & Creative", items: ["Figma", "Photoshop", "Premiere Pro"], icon: "palette" },
+                { title: "Management", items: ["Social Media Management", "Media Management", "Event Management"], icon: "briefcase" },
+                { title: "Personal", items: ["Leadership"], icon: "sparkles" }
+            ],
+            experience: [
+                {
+                    title: "IEEE Vice Chair @ IEEE SB CEAL",
+                    date: "2024 - Present",
+                    desc: "Leading student branch activities, coordinating technical events, and managing organizational growth.",
+                    icon: "users"
+                },
+                {
+                    title: "THSR @ IEEE SPS Kerala Section",
+                    date: "2024 - Present",
+                    desc: "Travancore Hub Student Representative for the Signal Processing Society, bridging hub activities with the section.",
+                    icon: "radio"
+                },
+                {
+                    title: "TechX 2025 Ambassador",
+                    date: "2024 - 2025",
+                    desc: "Promoting technical excellence and innovation as an official ambassador for TechX 2025.",
+                    icon: "award"
+                },
+                {
+                    title: "IEEEXtreme 19.0 Ambassador",
+                    date: "2024 - Present",
+                    desc: "Driving engagement and coordinating the global a 24-hour programming competition within the region.",
+                    icon: "terminal"
+                }
+            ],
+            posterCount: 15
+        };
+
+        // Initialize Typewriter
+        let roleIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function type() {
+            const currentRole = DATA.roles[roleIdx];
+            if (isDeleting) {
+                typewriterEl.textContent = currentRole.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typewriterEl.textContent = currentRole.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 150;
+
+            if (!isDeleting && charIdx === currentRole.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                roleIdx = (roleIdx + 1) % DATA.roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Render Dynamic Content
+        function renderDynamicContent() {
+            // Profile Image
+            document.getElementById('profile-img').src = DATA.profileImage;
+
+            // About Bio
+            const aboutContainer = document.getElementById('about-content');
+            aboutContainer.innerHTML = DATA.about.map(p => `<p>${p}</p>`).join('');
+
+            // Skills
+            const skillsGrid = document.getElementById('skills-grid');
+            DATA.skills.forEach(skill => {
+                skillsGrid.innerHTML += `
+                    <div class="bg-white border-4 border-black p-8 brutal-shadow-hover transition-all group">
+                        <div class="bg-black text-white w-12 h-12 flex items-center justify-center mb-6 brutal-shadow group-hover:bg-lime-500 group-hover:text-black transition-colors">
+                            <i data-lucide="${skill.icon}"></i>
+                        </div>
+                        <h3 class="text-2xl font-black uppercase mb-4">${skill.title}</h3>
+                        <ul class="space-y-2 font-bold opacity-60">
+                            ${skill.items.map(i => `<li>- ${i}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+
+            // Experience
+            const expGrid = document.getElementById('experience-grid');
+            DATA.experience.forEach(exp => {
+                expGrid.innerHTML += `
+                    <div class="flex flex-col md:flex-row gap-6 bg-white border-4 border-black p-8 brutal-shadow-hover transition-all relative overflow-hidden group">
+                        <div class="md:w-1/4">
+                            <span class="bg-black text-white px-4 py-1 text-sm font-black uppercase italic">${exp.date}</span>
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-3xl font-black uppercase mb-2 group-hover:text-lime-600 transition-colors">${exp.title}</h3>
+                            <p class="text-lg font-medium opacity-70">${exp.desc}</p>
+                        </div>
+                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i data-lucide="${exp.icon}" class="w-32 h-32"></i>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Posters (Infinite Scroll Mockup)
+            const postersContainer = document.getElementById('posters-container');
+            const posterItems = [];
+            for (let i = 1; i <= DATA.posterCount; i++) {
+                posterItems.push(`
+                    <div class="flex-none w-[300px] aspect-square border-4 border-black bg-white brutal-shadow overflow-hidden group cursor-pointer">
+                        <img src="poster/${i}.png" alt="Poster ${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x800/000/fff?text=POSTER+${i}'">
+                    </div>
+                `);
+            }
+            postersContainer.innerHTML = [...posterItems, ...posterItems].join('');
+        }
+
+        // LinkedIn DP Synchronization
+        async function syncLinkedInDP() {
+            const badgeUrl = `https://badges.linkedin.com/profile?locale=en_US&badgetype=VERTICAL&badgetheme=light&uid=1258334476&version=v1&maxsize=medium&trk=profile-badge&vanityname=ps2005`;
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(badgeUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                const content = data.contents;
+
+                // Match the profile image URL
+                const imgRegex = /src=\\"(https:\/\/media\.licdn\.com\/dms\/image\/[^"]+)\\"/;
+                const imgMatch = content.match(imgRegex);
+
+                // Match the Name
+                const nameRegex = /badge-base__link [^>]+>([^<]+)<\/a>/;
+                const nameMatch = content.match(nameRegex);
+
+                // Match the Headline
+                const headlineRegex = /badge-base__headline [^>]+>([^<]+)<\/div>/;
+                const headlineMatch = content.match(headlineRegex);
+
+                if (imgMatch) {
+                    const liveImageUrl = imgMatch[1].replace(/\\/g, '');
+                    console.log("LinkedIn DP Synced:", liveImageUrl);
+
+                    // Update DATA object
+                    DATA.profileImage = liveImageUrl;
+
+                    // Update all profile image elements
+                    const profileImgs = document.querySelectorAll('#profile-img, .hero-profile-img, #li-card-img');
+                    profileImgs.forEach(img => {
+                        img.src = liveImageUrl;
+                    });
+                }
+
+                if (nameMatch) {
+                    const liveName = nameMatch[1].trim();
+                    const nameEl = document.getElementById('li-card-name');
+                    if (nameEl) nameEl.textContent = liveName;
+                }
+
+                if (headlineMatch) {
+                    const liveHeadline = headlineMatch[1].trim();
+                    const headlineEl = document.getElementById('li-card-headline');
+                    if (headlineEl) headlineEl.textContent = liveHeadline;
+                }
+
+            } catch (error) {
+                console.error("LinkedIn sync failed, using default:", error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDynamicContent();
+            lucide.createIcons();
+            type();
+            syncLinkedInDP(); // Trigger sync
+
+            // ScrollReveal
+            ScrollReveal().reveal('.reveal', { delay: 200, distance: '50px', origin: 'bottom', duration: 1000 });
+            ScrollReveal().reveal('#skills-grid > div', { delay: 300, interval: 100, distance: '30px', origin: 'bottom' });
+            ScrollReveal().reveal('#experience-grid > div', { delay: 400, interval: 200, distance: '30px', scale: 0.95 });
+        });
+    </script>
+</body>
+
+</html>
