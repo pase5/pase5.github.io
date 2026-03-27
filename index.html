@@ -122,26 +122,13 @@
             }
         }
 
-        /* Poster Gallery Reset Loop */
-        .gallery-track {
-            display: flex;
-            gap: 1.5rem;
-            animation: scroll 40s linear infinite;
+        /* Custom Utilities */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-
-        .gallery-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(calc(-300px * 15 - 1.5rem * 15));
-                /* Adjusted for 15 posters */
-            }
+        .no-scrollbar {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
 
         @keyframes brutalFloat {
@@ -174,6 +161,47 @@
 
         .animate-border-pulse {
             animation: borderPulse 2s infinite;
+        }
+
+        /* Doodles */
+        .walking-wrapper { 
+            position: absolute; bottom: 0; left: 0; 
+            will-change: transform; 
+            animation: walkRight linear infinite; 
+            --scale: 1;
+        }
+        .walking-wrapper.delay-1 { animation-delay: -5s; animation-duration: 22s; z-index: 10; padding-bottom: 2rem; --scale: 0.9; }
+        .walking-wrapper.delay-2 { animation-delay: -14s; animation-duration: 35s; z-index: 8; opacity: 0.4; padding-bottom: 3.5rem; --scale: 0.65; }
+        .walking-wrapper.delay-3 { animation-delay: -2s; animation-duration: 18s; z-index: 12; padding-bottom: 1.5rem; --scale: 1.1; }
+        
+        @keyframes walkRight {
+            0% { transform: translateX(-300px) scale(var(--scale)); }
+            100% { transform: translateX(110vw) scale(var(--scale)); }
+        }
+
+        .walking-person { animation: walkBounce 0.4s infinite alternate ease-in-out; }
+        .walking-person.dog { animation: walkBounce 0.25s infinite alternate ease-in-out; }
+        @keyframes walkBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .doodle-arm1, .doodle-leg2 { animation: swingLimb 0.8s ease-in-out infinite; will-change: transform; }
+        .doodle-arm2, .doodle-leg1 { animation: swingLimbReverse 0.8s ease-in-out infinite; will-change: transform; }
+        .walking-person.dog .doodle-arm1, .walking-person.dog .doodle-leg2 { animation: swingLimb 0.5s ease-in-out infinite; }
+        .walking-person.dog .doodle-arm2, .walking-person.dog .doodle-leg1 { animation: swingLimbReverse 0.5s ease-in-out infinite; }
+
+        @keyframes swingLimb {
+            0%, 100% { transform: rotate(-35deg); }
+            50% { transform: rotate(35deg); }
+        }
+        @keyframes swingLimbReverse {
+            0%, 100% { transform: rotate(35deg); }
+            50% { transform: rotate(-35deg); }
+        }
+        @keyframes wag {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(20deg); }
         }
     </style>
 </head>
@@ -227,7 +255,7 @@
     <main>
         <!-- Hero Section -->
         <section id="hero"
-            class="min-h-screen flex flex-col justify-center items-center relative section-padding pt-32 text-center bg-white">
+            class="min-h-screen flex flex-col justify-center items-center relative section-padding pt-32 text-center bg-white overflow-hidden">
             <div class="absolute inset-0 opacity-5 pointer-events-none"
                 style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
 
@@ -261,6 +289,62 @@
 
             <div class="absolute bottom-10 left-10 hidden lg:block opacity-20">
                 <img src="Vector.png" alt="" class="w-64">
+            </div>
+
+            <!-- Doodles Container -->
+            <div class="absolute bottom-0 left-0 w-full h-40 pointer-events-none z-20">
+                <!-- Person 1 -->
+                <div class="walking-wrapper delay-1">
+                    <div class="walking-person text-black">
+                        <svg viewBox="0 0 100 100" class="w-20 h-20 stroke-current fill-none stroke-[6]">
+                            <line x1="50" y1="30" x2="50" y2="60" stroke-linecap="square" />
+                            <circle cx="50" cy="20" r="10" class="fill-current" />
+                            <line x1="50" y1="35" x2="30" y2="60" class="doodle-arm1" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="35" x2="70" y2="60" class="doodle-arm2" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="60" x2="30" y2="90" class="doodle-leg1" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                            <line x1="50" y1="60" x2="70" y2="90" class="doodle-leg2" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Person 2 (Distant) -->
+                <div class="walking-wrapper delay-2">
+                    <div class="walking-person text-black">
+                        <svg viewBox="0 0 100 100" class="w-20 h-20 stroke-current fill-none stroke-[6]">
+                            <line x1="50" y1="30" x2="50" y2="60" stroke-linecap="square" />
+                            <circle cx="50" cy="20" r="10" class="fill-current" />
+                            <line x1="50" y1="35" x2="30" y2="60" class="doodle-arm1" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="35" x2="70" y2="60" class="doodle-arm2" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="60" x2="30" y2="90" class="doodle-leg1" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                            <line x1="50" y1="60" x2="70" y2="90" class="doodle-leg2" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Person 3 w/ Dog -->
+                <div class="walking-wrapper delay-3 flex items-end gap-2">
+                    <div class="walking-person dog text-black">
+                        <svg viewBox="0 0 100 100" class="w-12 h-12 stroke-current fill-none stroke-[8]">
+                            <line x1="20" y1="50" x2="80" y2="50" stroke-linecap="square" />
+                            <circle cx="85" cy="40" r="10" class="fill-current" />
+                            <line x1="30" y1="50" x2="25" y2="80" class="doodle-arm1" stroke-linecap="square" style="transform-origin: 30px 50px;" />
+                            <line x1="30" y1="50" x2="35" y2="80" class="doodle-arm2" stroke-linecap="square" style="transform-origin: 30px 50px;" />
+                            <line x1="75" y1="50" x2="70" y2="80" class="doodle-leg1" stroke-linecap="square" style="transform-origin: 75px 50px;" />
+                            <line x1="75" y1="50" x2="80" y2="80" class="doodle-leg2" stroke-linecap="square" style="transform-origin: 75px 50px;" />
+                            <line x1="20" y1="50" x2="5" y2="30" stroke-linecap="square" style="transform-origin: 20px 50px; animation: wag 0.3s ease-in-out infinite alternate;" />
+                        </svg>
+                    </div>
+                    <div class="walking-person text-lime-500">
+                        <svg viewBox="0 0 100 100" class="w-24 h-24 stroke-current fill-none stroke-[6]">
+                            <line x1="50" y1="30" x2="50" y2="60" stroke-linecap="square" />
+                            <circle cx="50" cy="20" r="10" class="fill-current" />
+                            <line x1="50" y1="35" x2="30" y2="60" class="doodle-arm1" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="35" x2="70" y2="60" class="doodle-arm2" stroke-linecap="square" style="transform-origin: 50px 35px;" />
+                            <line x1="50" y1="60" x2="30" y2="90" class="doodle-leg1" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                            <line x1="50" y1="60" x2="70" y2="90" class="doodle-leg2" stroke-linecap="square" style="transform-origin: 50px 60px;" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -322,8 +406,8 @@
             </div>
 
             <div class="relative">
-                <div class="flex gap-6 overflow-x-hidden" id="posters-scroller">
-                    <div class="gallery-track" id="posters-container">
+                <div class="flex gap-6 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing" style="scroll-behavior: auto;" id="posters-scroller">
+                    <div class="flex gap-6 w-max" id="posters-container">
                         <!-- Dynamic Posters Injection -->
                     </div>
                 </div>
@@ -489,7 +573,7 @@
                     icon: "terminal"
                 }
             ],
-            posterCount: 19
+            posterCount: 24
         };
 
         // Initialize Typewriter
@@ -566,18 +650,78 @@
                 `;
             });
 
-            // Posters (Infinite Scroll Mockup)
+            // Posters (Infinite Scroll Array)
             const postersContainer = document.getElementById('posters-container');
             const posterItems = [];
             for (let i = 1; i <= DATA.posterCount; i++) {
                 posterItems.push(`
                     <div class="flex-none w-[300px] aspect-square border-4 border-black bg-white brutal-shadow overflow-hidden group cursor-pointer">
-                        <img src="poster/${i}.png" alt="Poster ${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        <img src="poster/${i}.png" alt="Poster ${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 select-none"
+                             draggable="false"
                              onerror="this.src='https://placehold.co/800x800/000/fff?text=POSTER+${i}'">
                     </div>
                 `);
             }
-            postersContainer.innerHTML = [...posterItems, ...posterItems].join('');
+            // Multiplying by 4 to create enough buffer for safe infinite looping
+            postersContainer.innerHTML = [...posterItems, ...posterItems, ...posterItems, ...posterItems].join('');
+        }
+
+        // Setup manual and auto-scroll for posters
+        function setupPosterScroll() {
+            const scroller = document.getElementById('posters-scroller');
+            let isHovered = false;
+            let isDragging = false;
+            let startX, scrollLeft;
+
+            const itemWidth = 300;
+            const gap = 24;
+            const singleSetWidth = DATA.posterCount * (itemWidth + gap);
+
+            // Start at the beginning of the 2nd set so user can smoothly scroll left if they want
+            scroller.scrollLeft = singleSetWidth;
+
+            scroller.addEventListener('mouseenter', () => isHovered = true);
+            scroller.addEventListener('mouseleave', () => {
+                isHovered = false;
+                isDragging = false;
+            });
+
+            // Drag to scroll
+            scroller.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.pageX - scroller.offsetLeft;
+                scrollLeft = scroller.scrollLeft;
+                // Prevent ghost image dragging and text selection on mouse down
+                e.preventDefault();
+            });
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX - scroller.offsetLeft;
+                const walk = (x - startX) * 1.5; // Drag speed multiplier
+                scroller.scrollLeft = scrollLeft - walk;
+            });
+
+            // Auto scroll frame loop
+            function autoScroll() {
+                if (!isHovered && !isDragging) {
+                    scroller.scrollLeft += 1; // Animation speed
+                }
+                
+                // Infinite loop wrapping limits
+                // Prevent hitting boundaries and instantly warp without visual change
+                if (scroller.scrollLeft >= singleSetWidth * 2) {
+                    scroller.scrollLeft -= singleSetWidth;
+                } else if (scroller.scrollLeft <= singleSetWidth * 0.5) {
+                    scroller.scrollLeft += singleSetWidth;
+                }
+                
+                requestAnimationFrame(autoScroll);
+            }
+            autoScroll();
         }
 
         // LinkedIn DP Synchronization
@@ -636,6 +780,7 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderDynamicContent();
+            setupPosterScroll(); // Initialize infinite auto & manual scroll
             lucide.createIcons();
             type();
             syncLinkedInDP(); // Trigger sync
