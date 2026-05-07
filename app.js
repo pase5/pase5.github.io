@@ -100,6 +100,19 @@ function type() {
     setTimeout(type, typeSpeed);
 }
 
+// Live Status Clock
+function updateLiveStatus() {
+    const timeEl = document.getElementById('live-time');
+    if (!timeEl) return;
+    const now = new Date();
+    timeEl.textContent = now.toLocaleTimeString('en-US', { 
+        hour12: false, 
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit'
+    }) + ' UTC';
+}
+
 // Render Dynamic Content
 function renderDynamicContent() {
     // Profile Image
@@ -309,6 +322,16 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
     type();
     syncLinkedInDP();
+    
+    // Start Live Clock
+    updateLiveStatus();
+    setInterval(updateLiveStatus, 1000);
+
+    // Mobile Menu Stagger
+    const mobileLinks = document.querySelectorAll('#mobile-nav a');
+    mobileLinks.forEach((link, i) => {
+        link.style.transitionDelay = `${i * 100}ms`;
+    });
 
     // ScrollReveal
     ScrollReveal().reveal('.reveal', { 

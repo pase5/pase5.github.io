@@ -23,7 +23,7 @@
 </head>
 
 <body class="selection:bg-lime-300">
-    <div id="texture-overlay"></div>
+    <div id="noise-overlay"></div>
     <div class="scanline"></div>
 
     <!-- Navigation -->
@@ -157,7 +157,7 @@
             <div class="h-[200vh] relative" id="projects-horizontal-container">
                 <div class="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
                     <div class="max-w-[1440px] mx-auto w-full px-6 mb-12">
-                        <h2 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">Selected <br> Projects</h2>
+                        <h2 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">MY <br> Projects</h2>
                     </div>
                     <div class="flex gap-6 md:gap-8 px-6 w-max transition-transform duration-75 ease-out" id="projects-grid">
                         <!-- Dynamic Projects Injection -->
@@ -197,11 +197,14 @@
                     <h2 class="text-6xl md:text-[120px] font-black uppercase mb-8 tracking-tighter leading-none">Let's <br> Collaborate</h2>
                     <p class="text-2xl font-bold uppercase mono mb-12 text-gray-400">Seeking new challenges in development and design.</p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="mailto:pranavs2005@ieee.org" class="bg-lime-400 text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                        <a href="mailto:pranavs2005@ieee.org" class="bg-lime-400 text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all border-4 border-black">
                             <i data-lucide="mail"></i> Email Me
                         </a>
-                        <a href="https://github.com/pase5" target="_blank" class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                        <a href="https://github.com/pase5" target="_blank" class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all border-4 border-black">
                             <i data-lucide="github"></i> GitHub
+                        </a>
+                        <a href="https://drive.google.com/file/d/1uy5cZS1ig52GOcy8R26v8Kcydxxr1soR/view?usp=sharing" target="_blank" class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all border-4 border-black">
+                            <i data-lucide="file-text"></i> My CV
                         </a>
                     </div>
                 </div>
@@ -242,6 +245,13 @@
             <div class="text-center md:text-left">
                 <span class="text-4xl font-black uppercase tracking-tighter">Pranav S</span>
                 <p class="font-bold opacity-60 mt-2">© 2025. BUILT WITH PASSION.</p>
+                <div class="mt-4 flex items-center gap-4 justify-center md:justify-start font-black uppercase text-xs">
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Status: Open for Projects
+                    </span>
+                    <span id="live-time" class="opacity-40">00:00:00 UTC</span>
+                </div>
             </div>
             <div class="flex gap-8 font-black uppercase">
                 <a href="#hero" class="hover:text-lime-500">Top</a>
