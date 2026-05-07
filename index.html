@@ -17,154 +17,9 @@
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <!-- LinkedIn Platform Script -->
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-
-    <style>
-        :root {
-            --primary: #4ade80;
-            /* Lime 500 */
-            --bg: #f5f5f5;
-            --text: #000000;
-            --border: #000000;
-            --thickness: 4px;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        .mono {
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        /* Neo-Brutalist Shadow */
-        .brutal-shadow {
-            box-shadow: 6px 6px 0 0 var(--border);
-        }
-
-        .brutal-shadow-hover:hover {
-            box-shadow: 2px 2px 0 0 var(--border);
-            transform: translate(2px, 2px);
-        }
-
-        .brutal-shadow-large {
-            box-shadow: 12px 12px 0 0 var(--border);
-        }
-
-        /* Paper Texture Overlay */
-        #texture-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-            border-left: var(--thickness) solid var(--border);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border: 2px solid var(--bg);
-        }
-
-        /* Animations */
-        @keyframes scanline {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            100% {
-                transform: translateY(100%);
-            }
-        }
-
-        .scanline {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: rgba(74, 222, 128, 0.1);
-            animation: scanline 8s linear infinite;
-            pointer-events: none;
-        }
-
-        .typewriter-cursor::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-
-            from,
-            to {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-        }
-
-        /* Custom Utilities */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-
-        @keyframes brutalFloat {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-10px) rotate(1deg);
-            }
-        }
-
-        .animate-brutal-float {
-            animation: brutalFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes borderPulse {
-
-            0%,
-            100% {
-                border-color: black;
-            }
-
-            50% {
-                border-color: #0077b5;
-            }
-        }
-
-        .animate-border-pulse {
-            animation: borderPulse 2s infinite;
-        }
-
-
-    </style>
+    
+    <!-- Modular Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="selection:bg-lime-300">
@@ -179,19 +34,12 @@
                     onerror="this.src='https://placehold.co/400x100/000/fff?text=PASE'">
             </a>
             <div class="hidden md:flex gap-4 font-bold uppercase tracking-tighter">
-                <a href="#about"
-                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">About</a>
-                <a href="#skills"
-                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Skills</a>
-                <a href="#tech-projects"
-                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Projects</a>
-                <a href="#projects"
-                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Posters</a>
-                <a href="#experience"
-                    class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Experience</a>
-                <a href="#contact"
-                    class="bg-black text-white px-6 py-2 border-2 border-black hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#4ade80]">Let's
-                    Talk</a>
+                <a href="#about" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">About</a>
+                <a href="#skills" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Skills</a>
+                <a href="#tech-projects" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Projects</a>
+                <a href="#projects" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Posters</a>
+                <a href="#experience" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Experience</a>
+                <a href="#contact" class="bg-black text-white px-6 py-2 border-2 border-black hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#4ade80]">Let's Talk</a>
             </div>
 
             <!-- Mobile Menu Toggle -->
@@ -203,8 +51,7 @@
     </nav>
 
     <!-- Mobile Navigation -->
-    <div id="mobile-nav"
-        class="hidden fixed inset-0 z-[200] bg-lime-400 flex flex-col items-center justify-center gap-8 font-black text-4xl uppercase border-8 border-black">
+    <div id="mobile-nav" class="hidden fixed inset-0 z-[200] bg-lime-400 flex flex-col items-center justify-center gap-8 font-black text-4xl uppercase border-8 border-black">
         <button class="absolute top-6 right-6" onclick="document.getElementById('mobile-nav').classList.add('hidden')">
             <i data-lucide="x" class="w-12 h-12"></i>
         </button>
@@ -218,34 +65,29 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="hero"
-            class="min-h-screen flex flex-col justify-center items-center relative section-padding pt-32 text-center bg-white overflow-hidden">
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center relative section-padding pt-32 text-center bg-white overflow-hidden">
             <div class="absolute inset-0 opacity-5 pointer-events-none"
                 style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
 
-            <div class="relative z-10 max-w-5xl">
-                <div
-                    class="mb-6 inline-block bg-lime-400 border-4 border-black px-4 py-1 font-black uppercase brutal-shadow">
+            <div class="relative z-10 max-w-5xl scroll-skew">
+                <div class="mb-6 inline-block bg-lime-400 border-4 border-black px-4 py-1 font-black uppercase brutal-shadow reveal-text active">
                     Available for collaborations
                 </div>
 
-                <h1 class="text-6xl md:text-[120px] font-black uppercase leading-[0.85] tracking-tighter mb-8">
+                <h1 class="text-6xl md:text-[120px] font-black uppercase leading-[0.85] tracking-tighter mb-8 reveal-text active">
                     DESIGNING <br> <span class="bg-black text-white px-4">DIGITAL</span> BRUTALISM
                 </h1>
 
-                <p class="text-xl md:text-3xl font-bold uppercase mono tracking-tight mb-12 max-w-3xl mx-auto">
-                    I'M PRANAV S, A <span id="typewriter"
-                        class="text-lime-600 typewriter-cursor underline decoration-4 underline-offset-8"></span>
+                <p class="text-xl md:text-3xl font-bold uppercase mono tracking-tight mb-12 max-w-3xl mx-auto reveal-text active">
+                    I'M PRANAV S, A <span id="typewriter" class="text-lime-600 typewriter-cursor underline decoration-4 underline-offset-8"></span>
                     BUILDING USER-CENTRIC EXPERIENCES AND CREATIVE SOLUTIONS.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="#tech-projects"
-                        class="bg-black text-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover transition-all flex items-center gap-3">
+                    <a href="#tech-projects" class="bg-black text-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover transition-all flex items-center gap-3">
                         View Projects <i data-lucide="arrow-right"></i>
                     </a>
-                    <a href="#projects"
-                        class="bg-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover hover:bg-lime-400 transition-all flex items-center gap-3">
+                    <a href="#projects" class="bg-white border-4 border-black px-12 py-5 text-xl font-bold uppercase brutal-shadow-hover hover:bg-lime-400 transition-all flex items-center gap-3">
                         Posters <i data-lucide="palette"></i>
                     </a>
                 </div>
@@ -254,39 +96,35 @@
             <div class="absolute bottom-10 left-10 hidden lg:block opacity-20">
                 <img src="Vector.png" alt="" class="w-64">
             </div>
-
-
         </section>
 
         <!-- About Section -->
         <section id="about" class="bg-black text-white section-padding border-y-8 border-black">
             <div class="max-w-[1440px] mx-auto grid md:grid-cols-12 gap-12 items-center">
-                <div class="md:col-span-12 lg:col-span-5 relative">
+                <div class="md:col-span-12 lg:col-span-5 relative scroll-skew">
                     <div class="aspect-square bg-lime-400 border-8 border-white brutal-shadow-large overflow-hidden">
-                        <img id="profile-img" src="profile.png" alt="Pranav S"
-                            class="w-full h-full object-cover  contrast-150"
-                            onerror="this.src='https://placehold.co/800x800/000/fff?text=PRANAV'">
+                        <img id="profile-img" src="profile.png" alt="Pranav S" class="w-full h-full object-cover contrast-150">
                     </div>
                 </div>
                 <div class="md:col-span-12 lg:col-span-7">
-                    <h2 class="text-5xl md:text-8xl font-black uppercase mb-8 tracking-tighter italic">About Me</h2>
+                    <h2 class="text-5xl md:text-8xl font-black uppercase mb-8 tracking-tighter italic reveal-text active">About Me</h2>
                     <div id="about-content" class="space-y-6 text-xl md:text-2xl font-medium text-gray-300">
                         <!-- Bio injected via script -->
                     </div>
                     <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors brutal-shadow-small">
                             <span class="block text-3xl font-black text-lime-400">3+</span>
                             <span class="uppercase text-xs font-bold tracking-widest">Years Exp</span>
                         </div>
-                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors brutal-shadow-small">
                             <span class="block text-3xl font-black text-lime-400">20+</span>
                             <span class="uppercase text-xs font-bold tracking-widest">Projects</span>
                         </div>
-                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors brutal-shadow-small">
                             <span class="block text-3xl font-black text-lime-400">100%</span>
                             <span class="uppercase text-xs font-bold tracking-widest">Efficiency</span>
                         </div>
-                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors">
+                        <div class="border-2 border-gray-700 p-4 hover:border-lime-400 transition-colors brutal-shadow-small">
                             <span class="block text-3xl font-black text-lime-400">∞</span>
                             <span class="uppercase text-xs font-bold tracking-widest">Passion</span>
                         </div>
@@ -315,12 +153,9 @@
                     <div class="max-w-[1440px] mx-auto w-full px-6 mb-12">
                         <h2 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">Selected <br> Projects</h2>
                     </div>
-                    
                     <div class="flex gap-8 px-6 w-max transition-transform duration-75 ease-out" id="projects-grid">
                         <!-- Dynamic Projects Injection -->
                     </div>
-
-
                 </div>
             </div>
         </section>
@@ -328,12 +163,10 @@
         <!-- Posters Section -->
         <section id="projects" class="bg-white section-padding border-y-8 border-black overflow-hidden">
             <div class="max-w-[1440px] mx-auto mb-16 px-4">
-                <h2 class="text-5xl md:text-[100px] font-black uppercase tracking-tighter leading-none mb-4">Poster
-                    Design Works</h2>
+                <h2 class="text-5xl md:text-[100px] font-black uppercase tracking-tighter leading-none mb-4">Poster Design Works</h2>
             </div>
-
             <div class="relative">
-                <div class="flex gap-6 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing" style="scroll-behavior: auto;" id="posters-scroller">
+                <div class="flex gap-6 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing" id="posters-scroller">
                     <div class="flex gap-6 w-max" id="posters-container">
                         <!-- Dynamic Posters Injection -->
                     </div>
@@ -354,88 +187,42 @@
         <!-- Contact Section -->
         <section id="contact" class="bg-black text-white section-padding">
             <div class="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Left: Traditional Contact -->
                 <div class="text-center lg:text-left">
-                    <h2 class="text-6xl md:text-[100px] font-black uppercase mb-8 tracking-tighter leading-none">Let's
-                        <br> Collaborate
-                    </h2>
-                    <p class="text-2xl font-bold uppercase mono mb-12 text-gray-400">I'm currently seeking new
-                        challenges in development and design.</p>
+                    <h2 class="text-6xl md:text-[120px] font-black uppercase mb-8 tracking-tighter leading-none">Let's <br> Collaborate</h2>
+                    <p class="text-2xl font-bold uppercase mono mb-12 text-gray-400">Seeking new challenges in development and design.</p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="mailto:pranavs2005@ieee.org"
-                            class="bg-lime-400 text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                        <a href="mailto:pranavs2005@ieee.org" class="bg-lime-400 text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
                             <i data-lucide="mail"></i> Email Me
                         </a>
-                        <a href="https://github.com/pase5" target="_blank"
-                            class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
+                        <a href="https://github.com/pase5" target="_blank" class="bg-white text-black px-8 py-4 text-xl font-black uppercase brutal-shadow-hover flex items-center gap-3 transition-all">
                             <i data-lucide="github"></i> GitHub
                         </a>
                     </div>
                 </div>
 
-                <!-- Right: LinkedIn Browser Simulation -->
                 <div class="relative flex flex-col items-center">
-                    <div
-                        class="w-full max-w-[450px] bg-white border-4 border-black brutal-shadow-large overflow-hidden animate-brutal-float">
-                        <!-- Browser Header -->
-                        <div
-                            class="bg-black text-white px-4 py-2 flex items-center justify-between border-b-4 border-black">
+                    <div class="w-full max-w-[450px] bg-white border-4 border-black brutal-shadow-large overflow-hidden animate-brutal-float">
+                        <div class="bg-black text-white px-4 py-2 flex items-center justify-between border-b-4 border-black">
                             <div class="flex gap-1.5">
                                 <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
                                 <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
                                 <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
                             </div>
-                            <div class="bg-gray-800 px-3 py-0.5 text-[10px] mono rounded-full opacity-80">
-                                linkedin.com/in/pranavs5
-                            </div>
+                            <div class="bg-gray-800 px-3 py-0.5 text-[10px] mono rounded-full opacity-80 italic">linkedin.com/in/pranavs5</div>
                             <div class="w-10"></div>
                         </div>
 
-                        <!-- Page Content -->
-                        <div
-                            class="relative p-6 bg-[#f3f6f8] min-h-[300px] flex flex-col items-center justify-center text-center">
-                            <!-- Subtle LinkedIn Pattern Context -->
-                            <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
-                                style="background-image: url('https://static.licdn.com/aero-v1/sc/h/ah67m88rnuvckclpueks0becl'); background-size: cover;">
-                            </div>
-
-                            <!-- Header Label -->
-                            <div class="absolute top-4 left-6 flex items-center gap-2 opacity-40">
-                                <i data-lucide="linkedin" class="w-4 h-4 text-[#0077b5]"></i>
-                                <span class="text-[10px] font-black uppercase tracking-tighter">Verified Profile</span>
-                            </div>
-
-                            <!-- Custom High-Fidelity LinkedIn Card Simulation -->
-                            <div id="li-card"
-                                class="relative z-10 w-[260px] bg-white border border-gray-200 shadow-sm transition-transform duration-500 hover:scale-[1.02] overflow-hidden text-center p-6 flex flex-col items-center">
-                                <div
-                                    class="w-24 h-24 rounded-full border-4 border-white shadow-md overflow-hidden mb-4 bg-gray-100 flex items-center justify-center">
-                                    <img id="li-card-img" src="profile.png" alt="Pranav S"
-                                        class="w-full h-full object-cover  transition-all duration-700 opacity-0"
-                                        onload="this.classList.remove('opacity-0')">
+                        <div class="relative p-6 bg-[#f3f6f8] min-h-[300px] flex flex-col items-center justify-center text-center">
+                            <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('https://static.licdn.com/aero-v1/sc/h/ah67m88rnuvckclpueks0becl'); background-size: cover;"></div>
+                            <div id="li-card" class="relative z-10 w-[260px] bg-white border border-gray-200 shadow-sm transition-transform duration-500 hover:scale-[1.02] overflow-hidden text-center p-6 flex flex-col items-center">
+                                <div class="w-24 h-24 rounded-full border-4 border-white shadow-md overflow-hidden mb-4 bg-gray-100 flex items-center justify-center">
+                                    <img id="li-card-img" src="profile.png" alt="Pranav S" class="w-full h-full object-cover">
                                 </div>
-                                <h4 id="li-card-name" class="text-xl font-bold text-gray-900 mb-1 leading-tight">Pranav
-                                    S</h4>
-                                <p id="li-card-headline"
-                                    class="text-[11px] font-medium text-gray-500 leading-tight mb-5 px-4 min-h-[30px]">
-                                    Student Rep @ IEEE SPS | Graphic Designer @ Smart Cities | Comm Lead @ CS SYP</p>
-                                <a href="https://in.linkedin.com/in/pranavs5" target="_blank"
-                                    class="w-full py-2 bg-[#0077b5] text-white text-[11px] font-black uppercase rounded-full hover:bg-[#005c8a] transition-colors shadow-sm">View
-                                    Profile</a>
-                                <div class="mt-4 opacity-10">
-                                    <i data-lucide="linkedin" class="w-6 h-6 text-[#0077b5]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Live Sync Indicator -->
-                            <div class="mt-6 flex items-center gap-2 bg-black/5 px-3 py-1 rounded-full relative z-10">
-                                <span class="relative flex h-2 w-2">
-                                    <span
-                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                                </span>
-                                <span class="text-[9px] font-black uppercase tracking-widest opacity-60">Live Feed
-                                    Active</span>
+                                <h4 id="li-card-name" class="text-xl font-bold text-gray-900 mb-1 leading-tight">Pranav S</h4>
+                                <p id="li-card-headline" class="text-[11px] font-medium text-gray-500 leading-tight mb-5 px-4 min-h-[30px]">
+                                    Student Rep @ IEEE SPS | Graphic Designer @ Smart Cities | Comm Lead @ CS SYP
+                                </p>
+                                <a href="https://in.linkedin.com/in/pranavs5" target="_blank" class="w-full py-2 bg-[#0077b5] text-white text-[11px] font-black uppercase rounded-full hover:bg-[#005c8a] transition-colors shadow-sm">View Profile</a>
                             </div>
                         </div>
                     </div>
@@ -448,356 +235,18 @@
         <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <span class="text-4xl font-black uppercase tracking-tighter">Pranav S</span>
-                <p class="font-bold opacity-60 mt-2">© 2025. BUILT WITH BRUTALISM & PASSION.</p>
+                <p class="font-bold opacity-60 mt-2">© 2025. BUILT WITH PASSION.</p>
             </div>
             <div class="flex gap-8 font-black uppercase">
-                <a href="#hero" class="hover:text-lime-500">Back Top</a>
-                <a href="#projects" class="hover:text-lime-500">Posters</a>
+                <a href="#hero" class="hover:text-lime-500">Top</a>
+                <a href="#tech-projects" class="hover:text-lime-500">Projects</a>
                 <a href="mailto:pranavs2005@ieee.org" class="hover:text-lime-500">Contact</a>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Data Provider
-        const DATA = {
-            roles: ["Student Representative @ IEEE SPS KC", "Graphic Designer @ IEEE Smart Cities", "Communication Lead @ IEEE CS SYP HIZE"],
-            profileImage: "profile.png", 
-            about: [
-                "I am a B.Tech Computer Science Engineering student at College of Engineering, Attingal (2023 - Present) with a strong passion for UI/UX design, creative development, and technology-driven problem solving.",
-                "I enjoy designing clean, user-centric digital experiences that balance aesthetics with functionality. I have hands-on experience in UI/UX designing using Figma, and front-end development using HTML, CSS, JavaScript, and React.",
-                "I am an active IEEE member and currently hold key leadership roles, including Student Representative for the IEEE Signal Processing Society Kerala Chapter, Graphic Designer at IEEE Smart Cities Community, and Communication Lead at IEEE CS SYP HIZE.",
-                "My work focuses on the intersection of design and technology, where I contribute to global technical communities through creative direction and strategic communication."
-            ],
-            skills: [
-                { title: "Languages", items: ["HTML", "CSS", "Javascript", "Python", "React"], icon: "code" },
-                { title: "Design Platforms", items: ["Figma", "Photoshop", "Premiere Pro", "Canva", "AfterEffects"], icon: "palette" },
-                { title: "Other Tools", items: ["MS Word", "MS Excel", "PowerPoint"], icon: "layout" }
-            ],
-            projects: [
-                {
-                    title: "IRIS",
-                    subtitle: "Event Website",
-                    desc: "Designed and developed a responsive event website with a focus on visual hierarchy, layout consistency, and cross-device UX.",
-                    tech: ["HTML", "CSS", "JavaScript"],
-                    link: "https://thepase.ceal.in/iris-main/",
-                    image: "iris_website_preview_1778136891629.png"
-                },
-                {
-                    title: "Transitix",
-                    subtitle: "Smart Traffic Management System",
-                    desc: "Designed and built a modular traffic dashboard with 2D/3D visualization using Three.js and FastAPI. Implemented dynamic signal control with computer vision (OpenCV).",
-                    tech: ["Three.js", "FastAPI", "OpenCV"],
-                    link: "#"
-                },
-                {
-                    title: "Zia",
-                    subtitle: "AI Calling System for Hospital Administration",
-                    desc: "Designed the UI/UX for an AI-powered hospital calling assistant using Flask and Twilio. Built interaction flows for call handling and administrative workflows with OpenAI.",
-                    tech: ["Flask", "Twilio", "OpenAI", "SQLAlchemy"],
-                    link: "#"
-                },
-                {
-                    title: "Iku2",
-                    subtitle: "Gesture-Based Interaction Interface",
-                    desc: "Designed visual feedback systems and real-time interaction flows for a touchless gesture-recognition interface built with Python and computer vision.",
-                    tech: ["Python", "OpenCV", "MediaPipe"],
-                    link: "#"
-                }
-            ],
-            experience: [
-                {
-                    title: "Student Representative @ IEEE SPS Kerala Chapter",
-                    date: "2024 - Present",
-                    desc: "Representing student interests and coordinating activities for the Signal Processing Society Kerala Chapter.",
-                    icon: "radio"
-                },
-                {
-                    title: "Graphic Designer @ IEEE Smart Cities Community",
-                    date: "2023 - Present",
-                    desc: "Creating visual assets and branding materials for IEEE Smart Cities global initiatives.",
-                    icon: "brush"
-                },
-                {
-                    title: "Communication Lead @ IEEE CS SYP HIZE",
-                    date: "2024 - Present",
-                    desc: "Managing communication channels and outreach for the Computer Society Students & Young Professionals HIZE.",
-                    icon: "message-square"
-                }
-            ],
-            posterCount: 24
-        };
-
-        // Initialize Typewriter
-        let roleIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function type() {
-            const currentRole = DATA.roles[roleIdx];
-            if (isDeleting) {
-                typewriterEl.textContent = currentRole.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                typewriterEl.textContent = currentRole.substring(0, charIdx + 1);
-                charIdx++;
-            }
-
-            let typeSpeed = isDeleting ? 50 : 150;
-
-            if (!isDeleting && charIdx === currentRole.length) {
-                isDeleting = true;
-                typeSpeed = 2000; // Pause at end
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                roleIdx = (roleIdx + 1) % DATA.roles.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        // Render Dynamic Content
-        function renderDynamicContent() {
-            // Profile Image
-            document.getElementById('profile-img').src = DATA.profileImage;
-
-            // About Bio
-            const aboutContainer = document.getElementById('about-content');
-            aboutContainer.innerHTML = DATA.about.map(p => `<p>${p}</p>`).join('');
-
-            // Technical Projects
-            const projectsGrid = document.getElementById('projects-grid');
-            DATA.projects.forEach(project => {
-                projectsGrid.innerHTML += `
-                    <div class="flex-none w-[300px] md:w-[450px] bg-white text-black border-4 border-black p-8 brutal-shadow-hover transition-all group relative overflow-hidden flex flex-col">
-                        <div class="flex-grow">
-                            <div class="flex justify-between items-start mb-6">
-                                <h3 class="text-4xl md:text-6xl font-black uppercase leading-none">${project.title}</h3>
-                                <div class="bg-lime-400 border-2 border-black p-2 brutal-shadow-small group-hover:-translate-y-1 transition-transform">
-                                    <i data-lucide="code-2" class="w-6 h-6"></i>
-                                </div>
-                            </div>
-                            <p class="text-xs font-black text-lime-600 uppercase mb-4 tracking-widest bg-lime-100 inline-block px-2 py-0.5 border border-lime-600">${project.subtitle}</p>
-                            <p class="text-base md:text-lg mb-8 opacity-80 leading-tight font-bold">${project.desc}</p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-8">
-                                ${project.tech.map(t => `<span class="bg-black text-white px-2 py-0.5 text-[9px] font-black uppercase tracking-widest">${t}</span>`).join('')}
-                            </div>
-                        </div>
-                        
-                        <a href="${project.link}" target="_blank" class="mt-auto inline-flex items-center justify-between w-full font-black uppercase border-4 border-black p-4 bg-black text-white hover:bg-lime-400 hover:text-black transition-all group/btn">
-                            View Live <i data-lucide="arrow-up-right" class="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform"></i>
-                        </a>
-
-                        <!-- Hidden Image Preview on Hover -->
-                        <div class="absolute inset-0 opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity duration-500">
-                             <img src="${project.image || 'https://placehold.co/800x800/000/fff?text=' + project.title}" 
-                                  alt="${project.title}" 
-                                  class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Skills
-            const skillsGrid = document.getElementById('skills-grid');
-            DATA.skills.forEach(skill => {
-                skillsGrid.innerHTML += `
-                    <div class="bg-white border-4 border-black p-8 brutal-shadow-hover transition-all group">
-                        <div class="bg-black text-white w-12 h-12 flex items-center justify-center mb-6 brutal-shadow group-hover:bg-lime-500 group-hover:text-black transition-colors">
-                            <i data-lucide="${skill.icon}"></i>
-                        </div>
-                        <h3 class="text-2xl font-black uppercase mb-4">${skill.title}</h3>
-                        <ul class="space-y-2 font-bold opacity-60">
-                            ${skill.items.map(i => `<li>- ${i}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            });
-
-            // Experience
-            const expGrid = document.getElementById('experience-grid');
-            DATA.experience.forEach(exp => {
-                expGrid.innerHTML += `
-                    <div class="flex flex-col md:flex-row gap-6 bg-white border-4 border-black p-8 brutal-shadow-hover transition-all relative overflow-hidden group">
-                        <div class="md:w-1/4">
-                            <span class="bg-black text-white px-4 py-1 text-sm font-black uppercase italic">${exp.date}</span>
-                        </div>
-                        <div class="md:w-3/4">
-                            <h3 class="text-3xl font-black uppercase mb-2 group-hover:text-lime-600 transition-colors">${exp.title}</h3>
-                            <p class="text-lg font-medium opacity-70">${exp.desc}</p>
-                        </div>
-                        <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                            <i data-lucide="${exp.icon}" class="w-32 h-32"></i>
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Posters (Infinite Scroll Array)
-            const postersContainer = document.getElementById('posters-container');
-            const posterItems = [];
-            for (let i = 1; i <= DATA.posterCount; i++) {
-                posterItems.push(`
-                    <div class="flex-none w-[300px] aspect-square border-4 border-black bg-white brutal-shadow overflow-hidden group cursor-pointer">
-                        <img src="poster/${i}.png" alt="Poster ${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 select-none"
-                             draggable="false"
-                             onerror="this.src='https://placehold.co/800x800/000/fff?text=POSTER+${i}'">
-                    </div>
-                `);
-            }
-            // Multiplying by 4 to create enough buffer for safe infinite looping
-            postersContainer.innerHTML = [...posterItems, ...posterItems, ...posterItems, ...posterItems].join('');
-        }
-
-        // Setup manual and auto-scroll for posters
-        function setupPosterScroll() {
-            const scroller = document.getElementById('posters-scroller');
-            let isHovered = false;
-            let isDragging = false;
-            let startX, scrollLeft;
-
-            const itemWidth = 300;
-            const gap = 24;
-            const singleSetWidth = DATA.posterCount * (itemWidth + gap);
-
-            // Start at the beginning of the 2nd set so user can smoothly scroll left if they want
-            scroller.scrollLeft = singleSetWidth;
-
-            scroller.addEventListener('mouseenter', () => isHovered = true);
-            scroller.addEventListener('mouseleave', () => {
-                isHovered = false;
-                isDragging = false;
-            });
-
-            // Drag to scroll
-            scroller.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                startX = e.pageX - scroller.offsetLeft;
-                scrollLeft = scroller.scrollLeft;
-                // Prevent ghost image dragging and text selection on mouse down
-                e.preventDefault();
-            });
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                const x = e.pageX - scroller.offsetLeft;
-                const walk = (x - startX) * 1.5; // Drag speed multiplier
-                scroller.scrollLeft = scrollLeft - walk;
-            });
-
-            // Auto scroll frame loop
-            function autoScroll() {
-                if (!isHovered && !isDragging) {
-                    scroller.scrollLeft += 1; // Animation speed
-                }
-                
-                // Infinite loop wrapping limits
-                // Prevent hitting boundaries and instantly warp without visual change
-                if (scroller.scrollLeft >= singleSetWidth * 2) {
-                    scroller.scrollLeft -= singleSetWidth;
-                } else if (scroller.scrollLeft <= singleSetWidth * 0.5) {
-                    scroller.scrollLeft += singleSetWidth;
-                }
-                
-                requestAnimationFrame(autoScroll);
-            }
-            autoScroll();
-        }
-
-        // LinkedIn DP Synchronization
-        async function syncLinkedInDP() {
-            const badgeUrl = `https://badges.linkedin.com/profile?locale=en_US&badgetype=VERTICAL&badgetheme=light&uid=1258334476&version=v1&maxsize=medium&trk=profile-badge&vanityname=pranavs5`;
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(badgeUrl)}`;
-
-            try {
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
-                const content = data.contents;
-
-                // Match the profile image URL
-                const imgRegex = /src=\\"(https:\/\/media\.licdn\.com\/dms\/image\/[^"]+)\\"/;
-                const imgMatch = content.match(imgRegex);
-
-                // Match the Name
-                const nameRegex = /badge-base__link [^>]+>([^<]+)<\/a>/;
-                const nameMatch = content.match(nameRegex);
-
-                // Match the Headline
-                const headlineRegex = /badge-base__headline [^>]+>([^<]+)<\/div>/;
-                const headlineMatch = content.match(headlineRegex);
-
-                if (imgMatch) {
-                    const liveImageUrl = imgMatch[1].replace(/\\/g, '');
-                    console.log("LinkedIn DP Synced:", liveImageUrl);
-
-                    // Update DATA object
-                    DATA.profileImage = liveImageUrl;
-
-                    // Update all profile image elements
-                    const profileImgs = document.querySelectorAll('#profile-img, .hero-profile-img, #li-card-img');
-                    profileImgs.forEach(img => {
-                        img.src = liveImageUrl;
-                    });
-                }
-
-                if (nameMatch) {
-                    const liveName = nameMatch[1].trim();
-                    const nameEl = document.getElementById('li-card-name');
-                    if (nameEl) nameEl.textContent = liveName;
-                }
-
-                if (headlineMatch) {
-                    const liveHeadline = headlineMatch[1].trim();
-                    const headlineEl = document.getElementById('li-card-headline');
-                    if (headlineEl) headlineEl.textContent = liveHeadline;
-                }
-
-            } catch (error) {
-                console.error("LinkedIn sync failed, using default:", error);
-            }
-        }
-
-        // Horizontal Project Scroll
-        function setupHorizontalScroll() {
-            const container = document.getElementById('projects-horizontal-container');
-            const grid = document.getElementById('projects-grid');
-
-            window.addEventListener('scroll', () => {
-                const containerTop = container.offsetTop;
-                const containerHeight = container.offsetHeight;
-                const scrollPos = window.scrollY;
-                const viewportHeight = window.innerHeight;
-
-                if (scrollPos >= containerTop && scrollPos <= containerTop + containerHeight - viewportHeight) {
-                    const scrollFraction = (scrollPos - containerTop) / (containerHeight - viewportHeight);
-                    const maxTranslate = grid.scrollWidth - window.innerWidth + 120; // 120 for padding/buffer
-                    
-                    grid.style.transform = `translateX(-${scrollFraction * maxTranslate}px)`;
-                }
-            });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDynamicContent();
-            setupHorizontalScroll();
-            setupPosterScroll(); // Initialize infinite auto & manual scroll
-            lucide.createIcons();
-            type();
-            syncLinkedInDP(); // Trigger sync
-
-            // ScrollReveal
-            ScrollReveal().reveal('.reveal', { delay: 200, distance: '50px', origin: 'bottom', duration: 1000 });
-            ScrollReveal().reveal('#skills-grid > div', { delay: 300, interval: 100, distance: '30px', origin: 'bottom' });
-            ScrollReveal().reveal('#experience-grid > div', { delay: 400, interval: 200, distance: '30px', scale: 0.95 });
-        });
-    </script>
+    <!-- Modular Script -->
+    <script src="app.js"></script>
 </body>
 
 </html>
