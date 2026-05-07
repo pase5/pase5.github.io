@@ -117,7 +117,7 @@ function renderDynamicContent() {
     if (projectsGrid) {
         DATA.projects.forEach(project => {
             projectsGrid.innerHTML += `
-                <div class="flex-none w-[300px] md:w-[450px] bg-white text-black border-4 border-black p-8 brutal-shadow-hover transition-all group relative overflow-hidden flex flex-col scroll-skew">
+                <div class="flex-none w-[280px] md:w-[450px] bg-white text-black border-4 border-black p-6 md:p-8 brutal-shadow-hover transition-all group relative overflow-hidden flex flex-col scroll-skew">
                     <div class="flex-grow">
                         <div class="flex justify-between items-start mb-6">
                             <h3 class="text-4xl md:text-6xl font-black uppercase leading-none">${project.title}</h3>

@@ -69,6 +69,15 @@
             <div class="absolute inset-0 opacity-5 pointer-events-none"
                 style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
 
+            <!-- Decorative Floating Elements -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.05]">
+                <div class="absolute top-[10%] left-[5%] w-64 h-64 border-8 border-black animate-float-slow"></div>
+                <div class="absolute bottom-[15%] right-[10%] w-48 h-48 border-8 border-black rounded-full animate-float-delayed"></div>
+                <div class="absolute top-[25%] right-[5%] text-[180px] font-black animate-spin-very-slow select-none">+</div>
+                <div class="absolute bottom-[5%] left-[15%] w-32 h-32 border-t-8 border-l-8 border-black animate-float-slow"></div>
+                <div class="absolute top-[50%] left-[2%] w-10 h-10 bg-black animate-pulse"></div>
+            </div>
+
             <div class="relative z-10 max-w-5xl scroll-skew">
                 <div class="mb-6 inline-block bg-lime-400 border-4 border-black px-4 py-1 font-black uppercase brutal-shadow reveal-text active">
                     Available for collaborations
@@ -93,9 +102,6 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-10 left-10 hidden lg:block opacity-20">
-                <img src="Vector.png" alt="" class="w-64">
-            </div>
         </section>
 
         <!-- About Section -->
@@ -153,7 +159,7 @@
                     <div class="max-w-[1440px] mx-auto w-full px-6 mb-12">
                         <h2 class="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none">Selected <br> Projects</h2>
                     </div>
-                    <div class="flex gap-8 px-6 w-max transition-transform duration-75 ease-out" id="projects-grid">
+                    <div class="flex gap-6 md:gap-8 px-6 w-max transition-transform duration-75 ease-out" id="projects-grid">
                         <!-- Dynamic Projects Injection -->
                     </div>
                 </div>

@@ -6,6 +6,16 @@
     --thickness: 4px;
 }
 
+.section-padding {
+    padding: 100px 24px;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 16px;
+    }
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg);
@@ -35,17 +45,29 @@ body {
     box-shadow: 3px 3px 0 0 var(--border);
 }
 
-/* Paper Texture Overlay */
-#texture-overlay {
+/* Noise Overlay */
+#noise-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-    opacity: 0.15;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 9998;
+    filter: contrast(150%) brightness(150%);
+}
+
+/* Custom Selection */
+::selection {
+    background: var(--primary);
+    color: black;
+}
+
+/* Scroll Margin for Fixed Nav */
+section {
+    scroll-margin-top: 80px;
 }
 
 /* Custom Scrollbar */
@@ -109,3 +131,38 @@ body {
 }
 
 /* Cinematic Transitions */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-float-slow {
+    animation: float 10s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float 12s ease-in-out infinite 2s;
+}
+
+.animate-spin-very-slow {
+    animation: spinSlow 20s linear infinite;
+}
+
+/* Mobile Responsiveness Overrides */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 4rem !important; /* Cap giant hero text */
+        line-height: 0.9 !important;
+    }
+    h2 {
+        font-size: 3rem !important;
+    }
+    .brutal-shadow-large {
+        box-shadow: 6px 6px 0 0 var(--border);
+    }
+}
