@@ -221,17 +221,49 @@
                             <div class="w-10"></div>
                         </div>
 
-                        <div class="relative p-6 bg-[#f3f6f8] min-h-[300px] flex flex-col items-center justify-center text-center">
-                            <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('https://static.licdn.com/aero-v1/sc/h/ah67m88rnuvckclpueks0becl'); background-size: cover;"></div>
-                            <div id="li-card" class="relative z-10 w-[260px] bg-white border border-gray-200 shadow-sm transition-transform duration-500 hover:scale-[1.02] overflow-hidden text-center p-6 flex flex-col items-center">
-                                <div class="w-24 h-24 rounded-full border-4 border-white shadow-md overflow-hidden mb-4 bg-gray-100 flex items-center justify-center">
-                                    <img id="li-card-img" src="profile.png" alt="Pranav S" class="w-full h-full object-cover">
+                        <div class="relative p-6 bg-[#f3f2ef] min-h-[500px] flex flex-col items-center justify-center">
+                            <!-- LinkedIn Card -->
+                            <div class="relative z-10 w-full max-w-[360px] bg-white border border-gray-200 rounded-xl shadow-xl transition-transform duration-500 hover:scale-[1.02]">
+                                <!-- Header/Banner with Dot Pattern -->
+                                <div class="h-24 w-full bg-[#0077b5] rounded-t-xl relative overflow-hidden">
+                                    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(white 1px, transparent 0); background-size: 8px 8px;"></div>
                                 </div>
-                                <h4 id="li-card-name" class="text-xl font-bold text-gray-900 mb-1 leading-tight">Pranav S</h4>
-                                <p id="li-card-headline" class="text-[11px] font-medium text-gray-500 leading-tight mb-5 px-4 min-h-[30px]">
-                                    Student Rep @ IEEE SPS | Graphic Designer @ Smart Cities | Comm Lead @ CS SYP
-                                </p>
-                                <a href="https://in.linkedin.com/in/pranavs5" target="_blank" class="w-full py-2 bg-[#0077b5] text-white text-[11px] font-black uppercase rounded-full hover:bg-[#005c8a] transition-colors shadow-sm">View Profile</a>
+                                
+                                <!-- Profile Photo Overlap (Higher Z-Index) -->
+                                <div class="px-6 -mt-12 mb-4 relative z-20">
+                                    <div class="w-24 h-24 rounded-full border-4 border-white shadow-sm overflow-hidden bg-white">
+                                        <img id="li-card-img" src="profile.png" alt="Pranav S" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="px-6 pb-8 text-left">
+                                    <h4 class="text-2xl font-bold text-gray-900 leading-tight">Pranav S</h4>
+                                    <p class="text-[14px] text-gray-600 leading-normal mt-1">
+                                        Student Rep @ IEEE SPS | Graphic Designer @ Smart Cities | Comm Lead @ CS SYP
+                                    </p>
+                                    <p class="text-[12px] text-gray-400 mt-2">
+                                        College of Engineering Attingal • Kerala, India
+                                    </p>
+                                    
+                                    <div class="mt-4 flex items-center gap-2 text-[12px] font-bold text-[#0077b5]">
+                                        <div class="flex -space-x-1.5">
+                                            <div class="w-5 h-5 rounded-full bg-gray-200 border-2 border-white"></div>
+                                            <div class="w-5 h-5 rounded-full bg-gray-300 border-2 border-white"></div>
+                                        </div>
+                                        <span>500+ connections</span>
+                                    </div>
+
+                                    <div class="mt-6 flex flex-col gap-2">
+                                        <a href="https://in.linkedin.com/in/pranavs5" target="_blank" 
+                                           class="w-full py-2.5 bg-[#0077b5] text-white text-center font-bold rounded-full hover:bg-[#005c8a] transition-all text-[16px]">
+                                            View Profile
+                                        </a>
+                                        <button class="w-full py-2.5 border-2 border-[#0077b5] text-[#0077b5] font-bold rounded-full hover:bg-blue-50 transition-all text-[16px]">
+                                            Message
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
