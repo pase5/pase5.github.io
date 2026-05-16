@@ -314,32 +314,138 @@ function setupPosterScroll() {
     autoScroll();
 }
 
+// ============================================================
+// ACCENT COLOUR SWITCHER
+// ============================================================
+
+const ACCENTS = {
+    lime:   '#a3e635',
+    coral:  '#f87171',
+    sky:    '#38bdf8',
+    purple: '#c084fc',
+    amber:  '#fbbf24',
+    teal:   '#2dd4bf',
+};
+
+function applyAccent(key) {
+    var root = document.documentElement;
+
+    // ---- Direct CSS variable injection (most reliable) ----
+    // This ensures var(--primary) resolves correctly even if
+    // Tailwind's CDN overrides [data-accent] attribute selectors.
+    var colors = {
+        lime:   { p: '#a3e635', pd: '#65a30d', pl: '#d9f99d' },
+        coral:  { p: '#f87171', pd: '#dc2626', pl: '#fee2e2' },
+        sky:    { p: '#38bdf8', pd: '#0284c7', pl: '#e0f2fe' },
+        purple: { p: '#c084fc', pd: '#9333ea', pl: '#f3e8ff' },
+        amber:  { p: '#fbbf24', pd: '#d97706', pl: '#fef3c7' },
+        teal:   { p: '#2dd4bf', pd: '#0d9488', pl: '#ccfbf1' },
+    };
+
+    var c = colors[key] || colors.lime;
+    root.style.setProperty('--primary',       c.p);
+    root.style.setProperty('--primary-dark',  c.pd);
+    root.style.setProperty('--primary-light', c.pl);
+
+    // Also set data-accent for the CSS attribute selectors
+    root.setAttribute('data-accent', key);
+
+    // Update active state in panel
+    document.querySelectorAll('.palette-option').forEach(function(el) {
+        var isActive = el.dataset.accent === key;
+        el.classList.toggle('active', isActive);
+        el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        el.style.background = isActive ? (c.p + '44') : '';
+    });
+
+    // Tint the toggle button
+    var btn = document.getElementById('palette-toggle-btn');
+    if (btn) btn.style.background = c.p;
+
+    localStorage.setItem('pase-accent', key);
+}
+
+function setupPaletteSwitcher() {
+    var toggleBtn = document.getElementById('palette-toggle-btn');
+    var panel     = document.getElementById('palette-panel');
+    if (!toggleBtn || !panel) return;
+
+    // Restore saved accent on load (instant, no flash)
+    var saved = localStorage.getItem('pase-accent') || 'lime';
+    // Apply without transition briefly
+    document.documentElement.style.cssText += ';transition:none!important';
+    applyAccent(saved);
+    requestAnimationFrame(function() {
+        document.documentElement.style.cssText =
+            document.documentElement.style.cssText.replace(';transition:none!important', '');
+    });
+
+    // Toggle panel open/close
+    toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = panel.classList.toggle('visible');
+        toggleBtn.classList.toggle('open', isOpen);
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Select accent
+    document.querySelectorAll('.palette-option').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            e.stopPropagation();
+            applyAccent(el.dataset.accent);
+            setTimeout(function() {
+                panel.classList.remove('visible');
+                toggleBtn.classList.remove('open');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }, 500);
+        });
+
+        el.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#palette-switcher')) {
+            panel.classList.remove('visible');
+            toggleBtn.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     renderDynamicContent();
     setupHorizontalScroll();
     setupPosterScroll();
+    setupPaletteSwitcher();
     lucide.createIcons();
     type();
     syncLinkedInDP();
-    
+
     // Start Live Clock
     updateLiveStatus();
     setInterval(updateLiveStatus, 1000);
 
     // Mobile Menu Stagger
-    const mobileLinks = document.querySelectorAll('#mobile-nav a');
-    mobileLinks.forEach((link, i) => {
-        link.style.transitionDelay = `${i * 100}ms`;
+    var mobileLinks = document.querySelectorAll('#mobile-nav a');
+    mobileLinks.forEach(function(link, i) {
+        link.style.transitionDelay = (i * 100) + 'ms';
     });
 
     // ScrollReveal
-    ScrollReveal().reveal('.reveal', { 
-        delay: 200, 
-        distance: '50px', 
-        origin: 'bottom', 
+    ScrollReveal().reveal('.reveal', {
+        delay: 200,
+        distance: '50px',
+        origin: 'bottom',
         duration: 1000,
-        interval: 100 
+        interval: 100
     });
     ScrollReveal().reveal('h2', { delay: 100, distance: '80px', origin: 'left', duration: 1200 });
 });

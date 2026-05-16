@@ -1,9 +1,61 @@
+/* ========== ACCENT COLOUR SYSTEM ========== */
+/* Only the accent/highlight colour changes.
+   Black, white, background and borders are ALWAYS fixed. */
+
 :root {
-    --primary: #4ade80;
-    --bg: #f5f5f5;
-    --text: #000000;
-    --border: #000000;
-    --thickness: 4px;
+    /* Fixed base — never changes */
+    --bg:            #f5f5f5;
+    --bg-alt:        #ffffff;
+    --text:          #000000;
+    --border:        #000000;
+    --thickness:     4px;
+
+    /* Accent — overridden per data-accent attribute */
+    --primary:       #a3e635;
+    --primary-dark:  #65a30d;
+    --primary-light: #d9f99d;
+}
+
+/* Lime (default) */
+[data-accent="lime"] {
+    --primary:       #a3e635;
+    --primary-dark:  #65a30d;
+    --primary-light: #d9f99d;
+}
+
+/* Coral / Red */
+[data-accent="coral"] {
+    --primary:       #f87171;
+    --primary-dark:  #dc2626;
+    --primary-light: #fee2e2;
+}
+
+/* Sky Blue */
+[data-accent="sky"] {
+    --primary:       #38bdf8;
+    --primary-dark:  #0284c7;
+    --primary-light: #e0f2fe;
+}
+
+/* Purple */
+[data-accent="purple"] {
+    --primary:       #c084fc;
+    --primary-dark:  #9333ea;
+    --primary-light: #f3e8ff;
+}
+
+/* Amber / Orange */
+[data-accent="amber"] {
+    --primary:       #fbbf24;
+    --primary-dark:  #d97706;
+    --primary-light: #fef3c7;
+}
+
+/* Teal */
+[data-accent="teal"] {
+    --primary:       #2dd4bf;
+    --primary-dark:  #0d9488;
+    --primary-light: #ccfbf1;
 }
 
 .section-padding {
@@ -15,6 +67,61 @@
         padding: 60px 16px;
     }
 }
+
+/* ---- Global smooth colour transition ---- */
+*,
+*::before,
+*::after {
+    transition:
+        background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        color            0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color     0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow       0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        fill             0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================================================================
+   TAILWIND LIME CLASS OVERRIDES
+   All hardcoded bg-lime-*, text-lime-*, etc. are redirected here
+   to var(--primary) so the accent switcher actually works.
+=================================================================== */
+
+/* -- Backgrounds -- */
+.bg-lime-400                              { background-color: var(--primary)       !important; }
+.bg-lime-300                              { background-color: var(--primary-light)  !important; }
+.bg-lime-100                              { background-color: var(--primary-light)  !important; }
+
+/* -- Text -- */
+.text-lime-400                            { color: var(--primary)       !important; }
+.text-lime-500                            { color: var(--primary-dark)   !important; }
+.text-lime-600                            { color: var(--primary-dark)   !important; }
+
+/* -- Borders -- */
+.border-lime-600                          { border-color: var(--primary-dark)  !important; }
+.border-lime-400                          { border-color: var(--primary)       !important; }
+
+/* -- Hover: backgrounds -- */
+.hover\:bg-lime-400:hover                 { background-color: var(--primary)  !important; }
+.hover\:bg-lime-500:hover                 { background-color: var(--primary-dark) !important; }
+
+/* -- Hover: text -- */
+.hover\:text-lime-500:hover               { color: var(--primary-dark)  !important; }
+.hover\:text-lime-600:hover               { color: var(--primary-dark)  !important; }
+
+/* -- Hover: borders -- */
+.hover\:border-lime-400:hover             { border-color: var(--primary)  !important; }
+
+/* -- Group hover -- */
+.group:hover .group-hover\:bg-lime-400   { background-color: var(--primary)      !important; }
+.group:hover .group-hover\:bg-lime-500   { background-color: var(--primary)      !important; }
+.group:hover .group-hover\:text-lime-600 { color: var(--primary-dark)            !important; }
+
+/* -- Nav "Let's Talk" shadow (arbitrary Tailwind JIT value) -- */
+#nav-cta { box-shadow: 4px 4px 0 0 var(--primary) !important; }
+
+/* -- Skills section background (full section is bg-lime-400) --
+   Tailwind applies it as inline scoped style; override via section id -- */
+#skills { background-color: var(--primary) !important; }
 
 body {
     font-family: 'Inter', sans-serif;
@@ -62,7 +169,127 @@ body {
 /* Custom Selection */
 ::selection {
     background: var(--primary);
-    color: black;
+    color: var(--text);
+}
+
+/* ========== ACCENT COLOUR SWITCHER WIDGET ========== */
+#palette-switcher {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+#palette-toggle-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 4px solid #000;
+    background: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0 0 #000;
+    font-size: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+                background-color 0.5s cubic-bezier(0.4,0,0.2,1) !important;
+}
+#palette-toggle-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 #000;
+}
+#palette-toggle-btn.open {
+    transform: rotate(180deg);
+}
+
+#palette-panel {
+    background: #fff;
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0 0 #000;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+#palette-panel.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+#palette-panel h4 {
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #000;
+    margin-bottom: 4px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 6px;
+}
+
+.palette-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 7px 10px;
+    border: 2px solid transparent;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #000;
+    background: transparent;
+    transition: border-color 0.15s ease, background 0.15s ease !important;
+}
+.palette-option:hover {
+    border-color: #000;
+    background: #f5f5f5;
+}
+.palette-option.active {
+    border-color: #000;
+    box-shadow: 3px 3px 0 0 #000;
+}
+
+/* The single colour swatch per option */
+.accent-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    flex-shrink: 0;
+    transition: none !important;
+}
+
+/* ---- Hero palette hint label ---- */
+#hero-palette-hint {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.35;
+    pointer-events: none;
+    color: #000;
+    animation: hintPulse 3s ease-in-out infinite;
+}
+@keyframes hintPulse {
+    0%,100% { opacity: 0.35; }
+    50% { opacity: 0.7; }
 }
 
 /* Scroll Margin for Fixed Nav */
@@ -97,7 +324,7 @@ section {
     left: 0;
     width: 100%;
     height: 10px;
-    background: rgba(74, 222, 128, 0.1);
+    background: rgba(var(--primary-rgb, 74, 222, 128), 0.1);
     animation: scanline 8s linear infinite;
     pointer-events: none;
 }

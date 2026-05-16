@@ -39,7 +39,7 @@
                 <a href="#tech-projects" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Projects</a>
                 <a href="#projects" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Posters</a>
                 <a href="#experience" class="px-4 py-2 hover:bg-lime-400 border-2 border-transparent hover:border-black transition-all">Experience</a>
-                <a href="#contact" class="bg-black text-white px-6 py-2 border-2 border-black hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#4ade80]">Let's Talk</a>
+                <a id="nav-cta" href="#contact" class="bg-black text-white px-6 py-2 border-2 border-black hover:bg-white hover:text-black transition-all shadow-[4px_4px_0_0_#4ade80]">Let's Talk</a>
             </div>
 
             <!-- Mobile Menu Toggle -->
@@ -102,6 +102,8 @@
                 </div>
             </div>
 
+            <!-- Hero Palette Hint -->
+            <div id="hero-palette-hint">🎨 Change theme ↘</div>
         </section>
 
         <!-- About Section -->
@@ -292,6 +294,50 @@
             </div>
         </div>
     </footer>
+
+    <!-- ===== ACCENT COLOUR SWITCHER ===== -->
+    <div id="palette-switcher" role="region" aria-label="Accent colour switcher">
+
+        <!-- Floating Panel -->
+        <div id="palette-panel" role="listbox" aria-label="Select accent colour">
+            <h4>Accent Colour</h4>
+
+            <div class="palette-option active" role="option" aria-selected="true" data-accent="lime" tabindex="0">
+                <span class="accent-swatch" style="background:#a3e635"></span>
+                Lime
+            </div>
+
+            <div class="palette-option" role="option" aria-selected="false" data-accent="coral" tabindex="0">
+                <span class="accent-swatch" style="background:#f87171"></span>
+                Coral
+            </div>
+
+            <div class="palette-option" role="option" aria-selected="false" data-accent="sky" tabindex="0">
+                <span class="accent-swatch" style="background:#38bdf8"></span>
+                Sky Blue
+            </div>
+
+            <div class="palette-option" role="option" aria-selected="false" data-accent="purple" tabindex="0">
+                <span class="accent-swatch" style="background:#c084fc"></span>
+                Purple
+            </div>
+
+            <div class="palette-option" role="option" aria-selected="false" data-accent="amber" tabindex="0">
+                <span class="accent-swatch" style="background:#fbbf24"></span>
+                Amber
+            </div>
+
+            <div class="palette-option" role="option" aria-selected="false" data-accent="teal" tabindex="0">
+                <span class="accent-swatch" style="background:#2dd4bf"></span>
+                Teal
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button id="palette-toggle-btn" aria-label="Toggle accent colour panel" title="Change accent colour">
+            🎨
+        </button>
+    </div>
 
     <!-- Modular Script -->
     <script src="app.js"></script>
