@@ -664,3 +664,36 @@ function scrambleText(element, originalText) {
         iteration += 1 / 3;
     }, 30);
 }
+
+// ==========================================
+// CUSTOM TAB ANIMATION
+// ==========================================
+(function initTabAnimation() {
+    let marqueeInterval;
+    let marqueeText = " Pranav S • AI • Data Science • UI/UX Designer • ";
+    const originalTitle = document.title;
+
+    function startMarquee() {
+        marqueeInterval = setInterval(() => {
+            marqueeText = marqueeText.substring(1) + marqueeText[0];
+            document.title = marqueeText;
+        }, 400);
+    }
+
+    function stopMarquee() {
+        clearInterval(marqueeInterval);
+    }
+
+    // Start immediately
+    startMarquee();
+
+    // Add 'Come back!' effect when user leaves the tab
+    window.addEventListener("blur", () => {
+        stopMarquee();
+        document.title = "Come back! 🥺 | Pranav S";
+    });
+
+    window.addEventListener("focus", () => {
+        startMarquee();
+    });
+})();
