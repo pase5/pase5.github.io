@@ -1,7 +1,7 @@
 // Data Provider - Refined with Professional Copywriting
 const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
-    profileImage: "profile.webp", 
+    profileImage: "Pranav-S.webp", 
     about: [
         "I am a UI/UX Designer and Full-Stack Developer currently pursuing a B.Tech in Computer Science Engineering at the College of Engineering, Attingal.",
         "I specialize in bridging the gap between design and engineering—crafting elegant, user-centric interfaces and building robust, scalable backend systems. My expertise spans prototyping in Figma to deploying modern web applications using React, Python, and robust frameworks.",
