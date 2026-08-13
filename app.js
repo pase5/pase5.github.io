@@ -613,9 +613,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (audioCtx && audioCtx.state === 'suspended') {
                     audioCtx.resume();
                 }
-                bgMusic.play().then(() => {
-                    drawVisualizer();
-                }).catch(e => console.log("Audio autoplay blocked:", e));
+                
+                // Attempt to play, catch if user hasn't interacted yet
+                let playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        drawVisualizer();
+                    }).catch(e => {
+                        console.log("Audio autoplay blocked pending interaction.");
+                        // Add a one-time click listener to start music if autoplay was blocked
+                        document.body.addEventListener('click', () => {
+                            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+                            bgMusic.play().then(() => drawVisualizer()).catch(err => console.log(err));
+                        }, { once: true });
+                    });
+                }
             },
             onLeaveBack: () => {
                 bgMusic.pause();
