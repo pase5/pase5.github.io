@@ -1,4 +1,4 @@
-/* ========== ACCENT COLOUR SYSTEM ========== */
+﻿/* ========== ACCENT COLOUR SYSTEM ========== */
 :root {
     --bg:            #000000;
     --text:          #ffffff;
@@ -216,39 +216,4 @@ html.lenis, html.lenis body {
 #about-content:hover .about-p:not(:hover) {
     opacity: 0.3;
     transform: scale(0.98);
-}
-
-/* Spider-Verse Easter Egg Animations */
-.spidey-squint {
-    transform-origin: 50% 100%;
-    animation: spidey-squint 4s cubic-bezier(0.87, 0, 0.13, 1) infinite;
-}
-@keyframes spidey-squint {
-    0%, 80%, 100% { transform: scaleY(1); }
-    85% { transform: scaleY(0.2); }
-    90% { transform: scaleY(1); }
-}
-.spider-eyes-glitch {
-    animation: spider-float 3s ease-in-out infinite;
-    filter: drop-shadow(4px 0px 0px rgba(255, 0, 0, 0.7)) drop-shadow(-4px 0px 0px rgba(0, 255, 255, 0.7));
-}
-@keyframes spider-float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-}
-.sense-line {
-    opacity: 0;
-    transform-origin: bottom center;
-}
-.group:hover .sense-line {
-    animation: sense-pop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
-}
-.group:hover .line-1 { animation-delay: 0.0s; }
-.group:hover .line-2 { animation-delay: 0.15s; }
-.group:hover .line-3 { animation-delay: 0.3s; }
-
-@keyframes sense-pop {
-    0% { opacity: 0; transform: scaleY(0.5) translateY(10px); }
-    50% { opacity: 1; transform: scaleY(1.2) translateY(-5px); }
-    100% { opacity: 0; transform: scaleY(1) translateY(-10px); }
 }
