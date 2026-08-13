@@ -3,10 +3,10 @@ const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
     profileImage: "Pranav-S.webp", 
     about: [
-        "I am a UI/UX Designer and Full-Stack Developer currently pursuing a B.Tech in Computer Science Engineering at the College of Engineering, Attingal.",
-        "I specialize in bridging the gap between design and engineering—crafting elegant, user-centric interfaces and building robust, scalable backend systems. My expertise spans prototyping in Figma to deploying modern web applications using React, Python, and robust frameworks.",
-        "Beyond my technical work, I hold leadership roles driving community impact. I serve as the Student Representative for the IEEE Signal Processing Society Kerala Chapter, Graphic Designer at the IEEE Smart Cities Community, and Communication Lead at IEEE CS SYP HIZE.",
-        "I thrive at the intersection of aesthetics and functionality, consistently striving to elevate digital experiences for global audiences."
+        "I move pixels for a living and then write code to make them behave.",
+        "Currently surviving a B.Tech in Computer Science Engineering at the College of Engineering, Attingal, while convincing developers that 8px spacing actually matters and reminding designers that it still has to work in production.",
+        "I design clean, user-friendly experiences in Figma, build them with React and Python, and occasionally spend three hours adjusting a button by 2 pixels because yes, users will definitely notice.",
+        "When I'm not arguing with alignment, I'm leading communities through IEEE as a Student Representative, Graphic Designer, and Communication Lead—making technology look as good as it functions."
     ],
     skills: [
         { title: "Languages", items: ["JavaScript / TypeScript", "Python", "HTML5 & CSS3", "C++ / Java"], icon: "code" },
@@ -89,7 +89,7 @@ function renderDynamicContent() {
     // About Bio
     const aboutContainer = document.getElementById('about-content');
     if (aboutContainer) {
-        aboutContainer.innerHTML = DATA.about.map(p => `<p>${p}</p>`).join('');
+        aboutContainer.innerHTML = DATA.about.map(p => `<p class="about-p transition-all duration-300 hover:text-white hover:translate-x-2">${p}</p>`).join('');
     }
 
     // Projects Grid (Vertical Stacked Cards)

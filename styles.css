@@ -211,3 +211,9 @@ html.lenis, html.lenis body {
     0% { height: 10%; }
     100% { height: 100%; }
 }
+
+/* About Paragraph Hover Dimming */
+#about-content:hover .about-p:not(:hover) {
+    opacity: 0.3;
+    transform: scale(0.98);
+}
