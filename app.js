@@ -97,8 +97,8 @@ function renderDynamicContent() {
     if (projectsGrid) {
         DATA.projects.forEach((project, index) => {
             projectsGrid.innerHTML += `
-                <div class="project-card premium-card sticky top-32 w-full min-h-[50vh] md:min-h-[60vh] rounded-[2rem] group flex flex-col justify-end p-8 md:p-12 mb-8" 
-                     style="background: linear-gradient(135deg, ${project.color} 0%, #0a0a0a 100%); z-index: ${index}; top: ${100 + (index * 30)}px;">
+                <div class="project-card premium-card tilt-effect sticky w-full min-h-[55vh] md:min-h-[60vh] rounded-[2rem] group flex flex-col justify-end p-6 md:p-12 mb-6 md:mb-8" 
+                     style="background: linear-gradient(135deg, ${project.color} 0%, #0a0a0a 100%); z-index: ${index}; top: calc(6rem + ${index * 1.5}rem);">
                     
                     ${project.image ? `<img src="${project.image}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover opacity-20 md:opacity-40 group-hover:opacity-60 transition-opacity duration-700">` : ''}
                     
@@ -108,7 +108,7 @@ function renderDynamicContent() {
                         <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-xl">${project.desc}</p>
                         
                         <div class="flex flex-wrap gap-2 mb-8 hidden sm:flex">
-                            ${project.tech.map(t => `<span class="border border-white/20 text-white/80 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">${t}</span>`).join('')}
+                            ${project.tech.map(t => `<span class="tech-badge border border-white/20 text-white/80 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider cursor-pointer" data-text="${t}">${t}</span>`).join('')}
                         </div>
 
                         <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-lime-400 transition-colors w-fit">
@@ -123,9 +123,9 @@ function renderDynamicContent() {
     // Skills Grid
     const skillsGrid = document.getElementById('skills-grid');
     if (skillsGrid) {
-        DATA.skills.forEach(skill => {
+        DATA.skills.forEach((skill, index) => {
             skillsGrid.innerHTML += `
-                <div class="p-6 md:p-8 rounded-[2rem] premium-card hover:border-lime-400/50 transition-colors gs_reveal group">
+                <div class="premium-card tilt-effect p-6 md:p-8 rounded-[2rem] gs_reveal h-full group" style="z-index: ${index};">
                     <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-black flex items-center justify-center mb-6 border border-white/10 group-hover:bg-lime-400 group-hover:text-black transition-colors">
                         <i data-lucide="${skill.icon}"></i>
                     </div>
@@ -161,7 +161,7 @@ function renderDynamicContent() {
     if (postersContainer) {
         for (let i = 1; i <= DATA.posterCount; i++) {
             postersContainer.innerHTML += `
-                <div class="swiper-slide w-[280px] md:w-[400px] aspect-square rounded-[2rem] overflow-hidden relative group bg-gray-100 shadow-2xl">
+                <div class="swiper-slide w-[260px] md:w-[400px] aspect-square rounded-[2rem] overflow-hidden relative group bg-gray-100 shadow-2xl">
                     <img src="poster/${i}.webp" alt="Poster ${i}" 
                          class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0"
                          onerror="this.src='https://placehold.co/800x1000/eee/999?text=POSTER+${i}'">
@@ -293,6 +293,53 @@ function initGSAP() {
             });
         }
     });
+    // --- Parallax Background Elements ---
+    document.querySelectorAll('[data-parallax]').forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-parallax'));
+        gsap.to(el, {
+            y: () => window.innerHeight * speed,
+            ease: "none",
+            scrollTrigger: {
+                trigger: el.parentElement,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+    });
+
+    // --- 3D Tilt Project Cards ---
+    const tiltElements = gsap.utils.toArray(".tilt-effect");
+    tiltElements.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.matchMedia("(pointer: fine)").matches) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                const multiplier = 5; // max rotation degrees
+                
+                const xRot = multiplier * ((y - rect.height / 2) / (rect.height / 2));
+                const yRot = -multiplier * ((x - rect.width / 2) / (rect.width / 2));
+                
+                gsap.to(card, {
+                    rotateX: -xRot, // Invert for natural feel
+                    rotateY: yRot,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    transformPerspective: 1000,
+                    transformOrigin: "center"
+                });
+            }
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 1,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    });
 }
 
 // Typewriter
@@ -332,14 +379,16 @@ function initTypewriter() {
 // Live Status Clock
 function updateLiveStatus() {
     const timeEl = document.getElementById('live-time');
-    if (!timeEl) return;
-    const now = new Date();
-    timeEl.textContent = now.toLocaleTimeString('en-US', { 
-        hour12: false, 
-        hour: '2-digit', 
-        minute: '2-digit',
-        second: '2-digit'
-    }) + ' UTC';
+    if (timeEl) {
+        setInterval(() => {
+            timeEl.textContent = new Date().toLocaleTimeString('en-US', {
+                hour12: true,
+                hour: 'numeric',
+                minute: '2-digit',
+                timeZoneName: 'short'
+            });
+        }, 1000);
+    }
 }
 
 // Initialize
@@ -347,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDynamicContent();
     lucide.createIcons();
     initTypewriter();
+    updateLiveStatus();
     
     // Slight delay for GSAP to ensure DOM is ready and images are mapped
     setTimeout(() => {
@@ -401,4 +451,204 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(e => console.log('Color extraction failed:', e));
     }
+    
+    // ==========================================
+    // CREATIVE ENHANCEMENTS
+    // ==========================================
+    
+    // 1. Custom Interactive Cursor
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    
+    if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) {
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            gsap.to(cursorOutline, {
+                x: posX,
+                y: posY,
+                duration: 0.15,
+                ease: "power2.out"
+            });
+        });
+        
+        const interactables = document.querySelectorAll('a, button, .project-card, .premium-card');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+    }
+    
+    // 2. Magnetic Buttons
+    const magneticEls = document.querySelectorAll('.magnetic');
+    magneticEls.forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const h = rect.width / 2;
+            const v = rect.height / 2;
+            const x = e.clientX - rect.left - h;
+            const y = e.clientY - rect.top - v;
+            
+            gsap.to(el, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+            document.body.classList.add('cursor-magnetic');
+        });
+
+        el.addEventListener('mouseleave', () => {
+            gsap.to(el, {
+                x: 0,
+                y: 0,
+                duration: 0.7,
+                ease: "elastic.out(1, 0.3)"
+            });
+            document.body.classList.remove('cursor-magnetic');
+        });
+    });
+    
+    // 3 & 4. Text Scramble for Tech Badges
+    const techBadges = document.querySelectorAll('.tech-badge');
+    techBadges.forEach(badge => {
+        const originalText = badge.getAttribute('data-text');
+        badge.addEventListener('mouseenter', () => {
+            scrambleText(badge, originalText);
+        });
+    });
+
+    // 5. Music Player (Auto-play & Canvas Visualizer)
+    const bgMusic = document.getElementById('bg-music');
+    const canvas = document.getElementById('bg-visualizer');
+
+    if (bgMusic && canvas) {
+        bgMusic.volume = 0.5;
+        const ctx = canvas.getContext('2d');
+        let audioCtx, analyser, source, dataArray;
+        let isInitialized = false;
+        let animationId;
+
+        function initAudio() {
+            if (isInitialized) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            source = audioCtx.createMediaElementSource(bgMusic);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            
+            analyser.fftSize = 128; // gives 64 frequency bins
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+            isInitialized = true;
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight * 0.4;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawVisualizer() {
+            if (!bgMusic.paused && isInitialized) {
+                animationId = requestAnimationFrame(drawVisualizer);
+                analyser.getByteFrequencyData(dataArray);
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                
+                const sliceWidth = canvas.width / dataArray.length;
+                let x = 0;
+                
+                for(let i = 0; i < dataArray.length; i++) {
+                    const v = dataArray[i] / 255.0;
+                    // amplify height and smooth it
+                    const y = canvas.height - (v * canvas.height * 0.9);
+                    
+                    if (i === 0) {
+                        ctx.lineTo(x, y);
+                    } else {
+                        const prevV = dataArray[i-1] / 255.0;
+                        const prevY = canvas.height - (prevV * canvas.height * 0.9);
+                        const xc = (x - sliceWidth + x) / 2;
+                        const yc = (prevY + y) / 2;
+                        ctx.quadraticCurveTo(x - sliceWidth, prevY, xc, yc);
+                    }
+                    x += sliceWidth;
+                }
+                
+                // Complete the shape
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.lineTo(0, canvas.height);
+                ctx.closePath();
+                
+                // Liquid glass gradient
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
+                gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Add a bright border line to the wave top
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.stroke();
+            }
+        }
+
+        ScrollTrigger.create({
+            trigger: "#contact",
+            start: "top center",
+            onEnter: () => {
+                initAudio();
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                bgMusic.play().then(() => {
+                    drawVisualizer();
+                }).catch(e => console.log("Audio autoplay blocked:", e));
+            },
+            onLeaveBack: () => {
+                bgMusic.pause();
+                cancelAnimationFrame(animationId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+    }
 });
+
+// Scramble Text Effect function
+function scrambleText(element, originalText) {
+    const chars = '!<>-_\\\\/[]{}—=+*^?#________';
+    let iteration = 0;
+    
+    clearInterval(element.scrambleInterval);
+    
+    element.scrambleInterval = setInterval(() => {
+        element.innerText = originalText
+            .split('')
+            .map((letter, index) => {
+                if(index < iteration) {
+                    return originalText[index];
+                }
+                return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join('');
+        
+        if(iteration >= originalText.length){ 
+            clearInterval(element.scrambleInterval);
+            element.innerText = originalText;
+        }
+        
+        iteration += 1 / 3;
+    }, 30);
+}
