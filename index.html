@@ -214,16 +214,18 @@
                 <div class="lg:w-1/2 w-full flex justify-center lg:justify-end gs_reveal_img">
                     <!-- Custom LinkedIn Profile Badge UI -->
                     <div class="w-full sm:max-w-[340px] h-[400px] rounded-[2rem] p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] mx-auto lg:mx-0 lg:ml-auto tilt-effect bg-white relative z-20 gs_reveal">
-                        <div class="relative w-full h-full rounded-[1.5rem] overflow-hidden group bg-[#fdfdfd]">
-                            <!-- Full Background Image -->
-                            <img src="profile.webp" alt="Pranav S" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="relative w-full h-full rounded-[1.5rem] overflow-hidden group bg-white [transform:translateZ(0)]">
+                            <!-- Background Image (Stops before bottom corners to prevent WebKit bleed) -->
+                            <div class="absolute top-0 left-0 w-full h-[85%] overflow-hidden">
+                                <img src="profile.webp" alt="Pranav S" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-top">
+                            </div>
                             
                             <!-- Proper Seamless Frosted Glass Fade -->
                             <div class="absolute bottom-0 left-0 w-full h-[60%] pointer-events-none z-0">
                                 <!-- Blur layer with mask for smooth top edge -->
                                 <div class="absolute inset-0 backdrop-blur-xl [mask-image:linear-gradient(to_bottom,transparent_0%,black_40%)]"></div>
                                 <!-- Color layer with matching gradient fade -->
-                                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white/95"></div>
+                                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/90 to-white"></div>
                             </div>
                             
                             <!-- Bottom Content Content -->
