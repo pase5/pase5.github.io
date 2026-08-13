@@ -177,10 +177,22 @@
                         <!-- Bio injected via script -->
                     </div>
                 </div>
-                <div class="relative gs_reveal_img tilt-effect">
-                    <div class="w-full h-[40vh] md:h-[60vh] rounded-[2rem] md:rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                        <img id="profile-img" src="Pranav-S.webp" alt="Pranav S" class="w-full h-full object-cover scale-110 origin-center">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="relative gs_reveal_img tilt-effect group">
+                    <div class="w-full h-[40vh] md:h-[60vh] rounded-[2rem] md:rounded-[3rem] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 relative">
+                        <img id="profile-img" src="Pranav-S.webp" alt="Pranav S" class="w-full h-full object-cover scale-110 origin-center transition-transform duration-700 group-hover:scale-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                        
+                        <!-- SPIDERMAN MASK EASTER EGG -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 z-10 bg-black/50 backdrop-blur-md pointer-events-none">
+                            <svg viewBox="0 0 200 100" class="w-3/4 max-w-[280px] drop-shadow-[0_0_20px_rgba(163,230,53,0.9)] transition-all duration-700 scale-50 group-hover:scale-100" style="transform-origin: center;">
+                                <!-- Left Eye -->
+                                <path d="M20,30 C50,10 80,40 90,80 C60,90 30,70 20,30 Z" fill="#000" stroke="#a3e635" stroke-width="3"/>
+                                <path d="M28,38 C52,25 75,45 82,75 C60,82 35,65 28,38 Z" fill="#fff"/>
+                                <!-- Right Eye -->
+                                <path d="M180,30 C150,10 120,40 110,80 C140,90 170,70 180,30 Z" fill="#000" stroke="#a3e635" stroke-width="3"/>
+                                <path d="M172,38 C148,25 125,45 118,75 C140,82 165,65 172,38 Z" fill="#fff"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
