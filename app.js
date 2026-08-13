@@ -670,7 +670,7 @@ function scrambleText(element, originalText) {
 // ==========================================
 (function initTabAnimation() {
     let marqueeInterval;
-    let marqueeText = " Pranav S • AI • Data Science • UI/UX Designer • ";
+    let marqueeText = " Pranav S • Graphics Designer • UI/UX Designer • ";
     const originalTitle = document.title;
 
     function startMarquee() {
@@ -695,5 +695,80 @@ function scrambleText(element, originalText) {
 
     window.addEventListener("focus", () => {
         startMarquee();
+    });
+})();
+
+// ==========================================
+// DYNAMIC GLOWING FAVICON ANIMATION
+// ==========================================
+(function initFaviconAnimation() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+    
+    const logoImg = new Image();
+    // Use an absolute or relative path that reliably loads the SVG
+    logoImg.src = 'logo.svg';
+    
+    let angle = 0;
+    let isAnimating = true;
+    
+    function drawFavicon() {
+        if (!isAnimating) return;
+        
+        ctx.clearRect(0, 0, 64, 64);
+        
+        // 1. Draw spinning gradient background
+        ctx.save();
+        ctx.translate(32, 32);
+        ctx.rotate(angle);
+        
+        const gradient = ctx.createLinearGradient(-32, -32, 32, 32);
+        gradient.addColorStop(0, '#a3e635'); // Lime green
+        gradient.addColorStop(0.33, '#000000'); // Black
+        gradient.addColorStop(0.66, '#a3e635'); // Lime green
+        gradient.addColorStop(1, '#000000'); // Black
+        
+        ctx.beginPath();
+        ctx.arc(0, 0, 32, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.restore();
+        
+        // 2. Draw the logo on top
+        if (logoImg.complete && logoImg.naturalHeight !== 0) {
+            ctx.drawImage(logoImg, 10, 10, 44, 44);
+        }
+        
+        angle += 0.2;
+        
+        // 3. Update favicon
+        link.type = 'image/png';
+        link.href = canvas.toDataURL('image/png');
+        
+        setTimeout(() => requestAnimationFrame(drawFavicon), 100); // ~10fps
+    }
+    
+    logoImg.onload = () => {
+        if (isAnimating) drawFavicon();
+    };
+    
+    window.addEventListener("blur", () => {
+        isAnimating = false;
+    });
+    
+    window.addEventListener("focus", () => {
+        if (!isAnimating) {
+            isAnimating = true;
+            drawFavicon();
+        }
     });
 })();
