@@ -1,4 +1,4 @@
-﻿/* ========== ACCENT COLOUR SYSTEM ========== */
+/* ========== ACCENT COLOUR SYSTEM ========== */
 :root {
     --bg:            #000000;
     --text:          #ffffff;
@@ -216,4 +216,226 @@ html.lenis, html.lenis body {
 #about-content:hover .about-p:not(:hover) {
     opacity: 0.3;
     transform: scale(0.98);
+}
+
+/* UI/UX Showcase Elements */
+.ui-toggle:hover .ui-toggle-knob {
+    transform: translateX(1.5rem) translateY(0); /* Adjusted for w-20 and knob size */
+    background-color: #ffffff;
+}
+
+}
+
+/* Custom Selection */
+::selection {
+    background: var(--primary);
+    color: #000;
+}
+
+/* Scroll Margin for Fixed Nav */
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Utilities */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* GSAP Initial States */
+.hero-title, .hero-desc, .hero-buttons, .gs_reveal, .gs_reveal_img {
+    visibility: hidden;
+}
+
+/* Animations */
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+.animate-pulse-slow {
+    animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* Lenis Smooth Scroll Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Swiper Fixes & Active State */
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+/* Make active swiper slide colored and cast a dynamic drop shadow */
+.swiper-slide-active img {
+    filter: grayscale(0) !important;
+}
+.swiper-slide {
+    transition: box-shadow 0.8s ease-in-out, filter 0.8s ease;
+}
+.swiper-slide-active {
+    box-shadow: 0 20px 80px -15px var(--active-poster-color, rgba(0,0,0,0.2)) !important;
+}
+
+/* Premium Gradient Cards */
+.premium-card {
+    background: linear-gradient(135deg, #1f1f1f 0%, #0d0d0d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+.premium-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+    opacity: 0.5;
+}
+
+/* Custom Cursor */
+@media (pointer: fine) {
+    body, a, button, .swiper-wrapper {
+        cursor: none !important;
+    }
+    
+    .cursor-dot, .cursor-outline {
+        position: fixed;
+        top: 0; left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+    }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary);
+    }
+    
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(163, 230, 53, 0.5); /* lime-400 */
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+
+    .cursor-hover .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(163, 230, 53, 0.1);
+        border-color: rgba(163, 230, 53, 0.8);
+    }
+    
+    .cursor-magnetic .cursor-dot {
+        opacity: 0;
+    }
+}
+
+/* Music Visualizer Bars */
+.bar {
+    transition: height 0.2s ease;
+    will-change: height;
+}
+.visualizer-playing .bar {
+    animation: visualize 0.5s ease-in-out infinite alternate;
+}
+.visualizer-playing .bar:nth-child(1) { animation-delay: 0.1s; }
+.visualizer-playing .bar:nth-child(2) { animation-delay: 0.3s; }
+.visualizer-playing .bar:nth-child(3) { animation-delay: 0.0s; }
+.visualizer-playing .bar:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes visualize {
+    0% { height: 4px; }
+    100% { height: 24px; }
+}
+
+/* Background Visualizer */
+.bg-bar {
+    transition: height 0.2s ease;
+    will-change: height;
+}
+.visualizer-playing .bg-bar {
+    animation: bg-visualize 0.5s ease-in-out infinite alternate;
+}
+.visualizer-playing .bg-bar:nth-child(2n) { animation-duration: 0.6s; animation-delay: 0.1s; }
+.visualizer-playing .bg-bar:nth-child(3n) { animation-duration: 0.8s; animation-delay: 0.2s; }
+.visualizer-playing .bg-bar:nth-child(4n) { animation-duration: 0.5s; animation-delay: 0.3s; }
+.visualizer-playing .bg-bar:nth-child(5n) { animation-duration: 0.7s; animation-delay: 0.4s; }
+
+@keyframes bg-visualize {
+    0% { height: 10%; }
+    100% { height: 100%; }
+}
+
+/* About Paragraph Hover Dimming */
+#about-content:hover .about-p:not(:hover) {
+    opacity: 0.3;
+    transform: scale(0.98);
+}
+
+/* UI/UX Showcase Elements */
+.ui-toggle:hover .ui-toggle-knob {
+    transform: translateX(1.5rem) translateY(0); /* Adjusted for w-20 and knob size */
+    background-color: #ffffff;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Swiper Pagination Styling */
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+}
+.swiper-pagination-bullet-active {
+    background-color: var(--primary);
+}
+.mockup-pagination {
+    bottom: 0px !important;
 }
