@@ -50,6 +50,12 @@ const DATA = {
     ],
     experience: [
         {
+            title: "UI/UX and graphic designer intern @ Multi graphics group",
+            date: "2024 - Present",
+            desc: "Designing user-centric digital experiences and crafting engaging graphic materials to enhance brand identity and user interaction.",
+            icon: "radio"
+        },
+        {
             title: "Student Representative @ IEEE SPS Kerala Chapter",
             date: "2024 - Present",
             desc: "Spearheading student engagement and coordinating large-scale technical activities for the Signal Processing Society across the Kerala Chapter.",
