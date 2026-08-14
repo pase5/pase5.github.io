@@ -778,3 +778,80 @@ function scrambleText(element, originalText) {
         }
     });
 })();
+
+// ==========================================
+// HORROR THEME LOGIC
+// ==========================================
+(function initHorrorTheme() {
+    const horrorBtn = document.getElementById('horror-btn');
+    const bgMusic = document.getElementById('bg-music');
+    const horrorMusic = document.getElementById('horror-music');
+    let isHorror = false;
+    let audioCtx = null;
+    let analyser = null;
+    let dataArray = null;
+    let animationId = null;
+
+    if (!horrorBtn || !horrorMusic) return;
+
+    function initAudio() {
+        if (audioCtx) return;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        const source = audioCtx.createMediaElementSource(horrorMusic);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+    }
+
+    function checkBeat() {
+        if (!isHorror) return;
+        analyser.getByteFrequencyData(dataArray);
+        
+        // Calculate average bass (low frequencies)
+        let bassSum = 0;
+        for (let i = 0; i < 10; i++) {
+            bassSum += dataArray[i];
+        }
+        const bassAvg = bassSum / 10;
+
+        // If bass hits a threshold, trigger shake
+        if (bassAvg > 210) {
+            document.body.classList.add('beat-shake');
+        } else {
+            document.body.classList.remove('beat-shake');
+        }
+
+        animationId = requestAnimationFrame(checkBeat);
+    }
+
+    horrorBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isHorror = !isHorror;
+        
+        if (isHorror) {
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            document.body.classList.add('horror-theme');
+            if (bgMusic) bgMusic.pause();
+            horrorMusic.play().catch(err => console.log('Audio play failed', err));
+            horrorBtn.classList.add('bg-black', 'text-red-500', 'border-red-600');
+            horrorBtn.classList.remove('bg-transparent', 'text-black', 'border-black');
+            horrorBtn.style.boxShadow = '0 0 20px rgba(255,0,0,0.6)';
+            checkBeat();
+        } else {
+            document.body.classList.remove('horror-theme', 'beat-shake');
+            horrorMusic.pause();
+            horrorMusic.currentTime = 0;
+            cancelAnimationFrame(animationId);
+            
+            horrorBtn.classList.remove('bg-black', 'text-red-500', 'border-red-600');
+            horrorBtn.classList.add('bg-transparent', 'text-black', 'border-black');
+            horrorBtn.style.boxShadow = 'none';
+        }
+    });
+})();

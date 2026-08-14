@@ -60,6 +60,19 @@
 
     <!-- External Assets -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              lime: {
+                400: 'var(--primary)',
+              }
+            }
+          }
+        }
+      }
+    </script>
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
@@ -421,6 +434,9 @@
                         <a href="https://drive.google.com/file/d/1uy5cZS1ig52GOcy8R26v8Kcydxxr1soR/view?usp=sharing" target="_blank" class="magnetic border-2 border-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2 text-xs md:text-sm">
                             View Resume
                         </a>
+                        <button id="horror-btn" class="magnetic border-2 border-black bg-transparent text-black px-4 py-4 rounded-full font-bold transition-all flex items-center justify-center group opacity-50 hover:opacity-100 hover:bg-black hover:text-red-500" title="Do not click">
+                            <i data-lucide="skull" class="w-5 h-5 pointer-events-none"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -474,9 +490,12 @@
                         </div>
                     </div>
 
-                    <!-- Hidden Audio Element -->
+                    <!-- Hidden Audio Elements -->
                     <audio id="bg-music" loop preload="auto">
                         <source src="sunflower.mp3" type="audio/mpeg">
+                    </audio>
+                    <audio id="horror-music" loop preload="auto" crossorigin="anonymous">
+                        <source src="2nd song.mp3" type="audio/mpeg">
                     </audio>
                 </div>
             </div>
