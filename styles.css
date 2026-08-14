@@ -51,6 +51,39 @@ body.horror-theme.beat-shake {
     filter: contrast(125%) saturate(150%) blur(0.5px);
 }
 
+body.horror-theme #horror-effects-layer {
+    opacity: 1 !important;
+}
+
+body.horror-theme::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: black;
+    z-index: 9998;
+    pointer-events: none;
+    animation: horrorFlicker 10s infinite;
+}
+
+@keyframes horrorFlicker {
+    0%, 9%, 11%, 19%, 21%, 69%, 71%, 100% { opacity: 0; }
+    10%, 20%, 70% { opacity: 0.95; }
+}
+
+@keyframes blink {
+    0%, 90%, 100% { opacity: 0; transform: scaleY(0.1); }
+    92%, 98% { opacity: 0.8; transform: scaleY(1); }
+    94%, 96% { opacity: 0.1; transform: scaleY(0.2); }
+}
+.animate-blink {
+    animation: blink 8s infinite;
+}
+
+/* Custom Red Cursor for Horror Theme */
+body.horror-theme, body.horror-theme a, body.horror-theme button {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="%23cc0000" /><circle cx="16" cy="16" r="14" fill="none" stroke="%23cc0000" stroke-width="2" opacity="0.5"/></svg>') 16 16, auto !important;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
