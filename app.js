@@ -786,6 +786,8 @@ function scrambleText(element, originalText) {
     const horrorBtn = document.getElementById('horror-btn');
     const bgMusic = document.getElementById('bg-music');
     const horrorMusic = document.getElementById('horror-music');
+    const canvas = document.getElementById('bg-visualizer');
+    const ctx = canvas ? canvas.getContext('2d') : null;
     let isHorror = false;
     let audioCtx = null;
     let analyser = null;
@@ -810,18 +812,21 @@ function scrambleText(element, originalText) {
         if (!isHorror) return;
         analyser.getByteFrequencyData(dataArray);
         
-        // Calculate average bass (low frequencies)
-        let bassSum = 0;
-        for (let i = 0; i < 10; i++) {
-            bassSum += dataArray[i];
-        }
-        const bassAvg = bassSum / 10;
-
-        // If bass hits a threshold, trigger shake
-        if (bassAvg > 210) {
-            document.body.classList.add('beat-shake');
-        } else {
-            document.body.classList.remove('beat-shake');
+        if (ctx && canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const barWidth = (canvas.width / dataArray.length) * 2.5;
+            let barHeight;
+            let x = 0;
+            
+            for(let i = 0; i < dataArray.length; i++) {
+                barHeight = dataArray[i] * 1.5;
+                
+                // Standard visual bars - red for horror theme
+                ctx.fillStyle = `rgb(${barHeight + 50}, 0, 0)`;
+                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                
+                x += barWidth + 1;
+            }
         }
 
         animationId = requestAnimationFrame(checkBeat);
@@ -844,14 +849,174 @@ function scrambleText(element, originalText) {
             horrorBtn.style.boxShadow = '0 0 20px rgba(255,0,0,0.6)';
             checkBeat();
         } else {
-            document.body.classList.remove('horror-theme', 'beat-shake');
+            document.body.classList.remove('horror-theme');
             horrorMusic.pause();
             horrorMusic.currentTime = 0;
             cancelAnimationFrame(animationId);
-            
+            if (ctx && canvas) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
             horrorBtn.classList.remove('bg-black', 'text-red-500', 'border-red-600');
             horrorBtn.classList.add('bg-transparent', 'text-black', 'border-black');
             horrorBtn.style.boxShadow = 'none';
         }
     });
 })();
+
+// ==========================================
+// 3D STORY SECTION LOGIC (INTERACTIVE BOOK)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const storySection = document.getElementById('story');
+    const storyMusic = document.getElementById('story-music');
+    const bgMusic = document.getElementById('bg-music');
+    const canvas = document.getElementById('story-canvas');
+
+    if (storySection) {
+        
+        // --- 1. 3D Particle Canvas Background ---
+        let ctx = null;
+        let particles = [];
+        let animationFrame = null;
+        
+        if (canvas) {
+            ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initParticles();
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.z = Math.random() * 1000;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedZ = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.z -= this.speedZ;
+                    if (this.z <= 0) {
+                        this.z = 1000;
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                    }
+                }
+                draw() {
+                    const fov = 300;
+                    const scale = fov / (fov + this.z);
+                    const x2d = (this.x - canvas.width/2) * scale + canvas.width/2;
+                    const y2d = (this.y - canvas.height/2) * scale + canvas.height/2;
+                    const r = this.size * scale;
+                    const opacity = Math.max(0, 1 - (this.z / 1000));
+                    
+                    ctx.beginPath();
+                    ctx.arc(x2d, y2d, Math.max(0.1, r), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(163, 230, 53, ${opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for(let i=0; i<150; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                animationFrame = requestAnimationFrame(animateParticles);
+            }
+            
+            initParticles();
+        }
+
+        // --- 2. 3D Book Logic via ScrollTrigger ---
+        const pages = document.querySelectorAll('.book-page');
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function flipNext() {
+            if (currentPage < totalPages) {
+                const page = pages[currentPage];
+                if(page) {
+                    page.classList.add('flipped');
+                    page.style.zIndex = currentPage; 
+                }
+                currentPage++;
+            }
+        }
+
+        function flipPrev() {
+            if (currentPage > 0) {
+                currentPage--;
+                const page = pages[currentPage];
+                if(page) {
+                    page.classList.remove('flipped');
+                    page.style.zIndex = 60 - currentPage * 10;
+                }
+            }
+        }
+
+        // --- 3. Handle Audio & Canvas Lifecycle on Scroll ---
+        ScrollTrigger.create({
+            trigger: storySection,
+            start: "top top",
+            end: "+=4000",
+            pin: true,
+            onEnter: () => {
+                if (bgMusic) bgMusic.pause();
+                if (storyMusic) {
+                    storyMusic.volume = 0;
+                    let p = storyMusic.play();
+                    if(p !== undefined) {
+                        p.then(() => gsap.to(storyMusic, { volume: 0.6, duration: 2 })).catch(e => console.log(e));
+                    }
+                }
+                if(canvas && !animationFrame) animateParticles();
+            },
+            onLeave: () => {
+                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
+                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
+                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+            },
+            onEnterBack: () => {
+                if (bgMusic) bgMusic.pause();
+                if (storyMusic) {
+                    storyMusic.volume = 0;
+                    storyMusic.play().catch(e=>console.log(e));
+                    gsap.to(storyMusic, { volume: 0.6, duration: 1 });
+                }
+                if(canvas && !animationFrame) animateParticles();
+            },
+            onLeaveBack: () => {
+                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
+                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
+                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+            },
+            onUpdate: (self) => {
+                let targetPage = Math.floor(self.progress * (totalPages + 1));
+                if (targetPage > totalPages) targetPage = totalPages;
+                if (targetPage < 0) targetPage = 0;
+
+                while (currentPage < targetPage) {
+                    flipNext();
+                }
+                while (currentPage > targetPage) {
+                    flipPrev();
+                }
+            }
+        });
+    }
+});

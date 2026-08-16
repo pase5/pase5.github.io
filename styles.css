@@ -518,3 +518,27 @@ html.lenis, html.lenis body {
 .mockup-pagination {
     bottom: 0px !important;
 }
+
+/* =========================================
+   3D BOOK UI
+   ========================================= */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.origin-left {
+    transform-origin: left center;
+}
+
+.book-page.flipped {
+    transform: rotateY(-180deg);
+}
