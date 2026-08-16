@@ -74,6 +74,29 @@ const DATA = {
             icon: "message-square"
         }
     ],
+    sessions: [
+        {
+            title: "Basics of IoT",
+            topic: "Internet of Things",
+            date: "Recent Session",
+            desc: "An introductory session on IoT architecture, sensors, and practical applications in smart environments.",
+            image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" 
+        },
+        {
+            title: "UI/UX Masterclass",
+            topic: "Design Systems",
+            date: "Recent Session",
+            desc: "Deep dive into creating scalable design systems, typography hierarchy, and accessibility in modern web design.",
+            image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop"
+        },
+        {
+            title: "Graphic Design Fundamentals",
+            topic: "Visual Identity",
+            date: "Recent Session",
+            desc: "Exploring color theory, composition, and branding strategies for compelling visual communication.",
+            image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop"
+        }
+    ],
     posterCount: 24
 };
 
@@ -162,6 +185,27 @@ function renderDynamicContent() {
         });
     }
 
+    // Sessions Grid
+    const sessionsGrid = document.getElementById('sessions-grid');
+    if (sessionsGrid) {
+        DATA.sessions.forEach(session => {
+            sessionsGrid.innerHTML += `
+                <div class="premium-card bg-[#111] rounded-[2rem] overflow-hidden gs_reveal group border border-white/5 tilt-effect">
+                    <div class="h-48 md:h-56 w-full overflow-hidden relative">
+                        <img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent opacity-80"></div>
+                        <span class="absolute bottom-4 left-6 px-3 py-1 bg-lime-400 text-black text-[10px] font-bold uppercase tracking-widest rounded-full">${session.topic}</span>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <span class="text-gray-500 font-mono text-xs uppercase tracking-widest block mb-2">${session.date}</span>
+                        <h3 class="text-xl md:text-2xl font-bold mb-3">${session.title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">${session.desc}</p>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
     // Posters
     const postersContainer = document.getElementById('posters-container');
     if (postersContainer) {
@@ -182,11 +226,15 @@ function initGSAP() {
     gsap.registerPlugin(ScrollTrigger);
 
     // Initial Navbar state
-    gsap.set("#navbar", { yPercent: -100 });
+    gsap.set("#navbar", { y: -150, opacity: 0 });
 
     // --- Hero Animations ---
     const tlHero = gsap.timeline();
     
+    // Add initial blur for smoother hero intro
+    gsap.set(".hero-title", { filter: "blur(10px)" });
+    gsap.set(".hero-desc", { filter: "blur(5px)" });
+
     tlHero.to(".hero-text", {
         opacity: 1,
         y: 0,
@@ -196,28 +244,31 @@ function initGSAP() {
     })
     .to(".hero-title", {
         y: 0,
-        duration: 1.2,
+        filter: "blur(0px)",
+        duration: 1.5,
         stagger: 0.15,
         ease: "expo.out",
         autoAlpha: 1
     }, "-=0.8")
     .to(".hero-desc", {
         y: 0,
-        duration: 1,
+        filter: "blur(0px)",
+        duration: 1.2,
         ease: "power3.out",
         autoAlpha: 1
-    }, "-=0.8")
+    }, "-=1")
     .to(".hero-buttons", {
         opacity: 1,
         duration: 1,
-        ease: "power2.out",
+        ease: "expo.out",
         autoAlpha: 1
-    }, "-=0.6")
+    }, "-=0.8")
     .to("#navbar", {
-        yPercent: 0,
-        duration: 1,
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
         ease: "expo.out"
-    }, "-=1");
+    }, "-=1.2");
 
     // Parallax video in hero (Only active on Desktop via MatchMedia if needed, but simple enough to run everywhere)
     gsap.to(".hero-video", {
@@ -258,17 +309,19 @@ function initGSAP() {
         }, i * 0.4); // Overlapping stagger
     });
 
-    // --- Reveal Elements (Fade Up) ---
+    // --- Reveal Elements (Fade Up with Blur) ---
     const revealElements = gsap.utils.toArray(".gs_reveal");
     revealElements.forEach(el => {
         gsap.fromTo(el, {
             autoAlpha: 0,
-            y: 40
+            y: 60,
+            filter: "blur(10px)"
         }, {
-            duration: 1,
+            duration: 1.5,
             autoAlpha: 1,
             y: 0,
-            ease: "power3.out",
+            filter: "blur(0px)",
+            ease: "expo.out",
             scrollTrigger: {
                 trigger: el,
                 start: "top 90%",
@@ -277,32 +330,36 @@ function initGSAP() {
         });
     });
 
-    // --- Image Reveals (Scale Down) ---
+    // --- Image Reveals (Scale Up with Blur) ---
     const revealImages = gsap.utils.toArray(".gs_reveal_img");
     revealImages.forEach(el => {
         gsap.fromTo(el, {
             autoAlpha: 0,
-            scale: 0.95
+            scale: 0.85,
+            filter: "blur(15px)"
         }, {
-            duration: 1.5,
+            duration: 2,
             autoAlpha: 1,
             scale: 1,
-            ease: "power3.out",
+            filter: "blur(0px)",
+            ease: "expo.out",
             scrollTrigger: {
                 trigger: el,
                 start: "top 85%",
+                toggleActions: "play none none reverse"
             }
         });
     });
 
     // --- Stacked Cards Animation (Projects) ---
-    // CSS handles the sticky positioning, GSAP will just add a subtle scale-down effect as cards get stacked over.
     const cards = gsap.utils.toArray(".project-card");
     cards.forEach((card, i) => {
-        if (i !== cards.length - 1) { // Skip the last card
+        if (i !== cards.length - 1) { 
             gsap.to(card, {
-                scale: 0.9,
-                opacity: 0.5,
+                scale: 0.85,
+                opacity: 0.3,
+                rotateX: 5,
+                transformOrigin: "top center",
                 ease: "none",
                 scrollTrigger: {
                     trigger: card,
@@ -361,6 +418,7 @@ function initGSAP() {
             });
         });
     });
+
 }
 
 // Typewriter
