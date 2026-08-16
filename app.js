@@ -109,7 +109,7 @@ function renderDynamicContent() {
                     ${project.image ? `<img src="${project.image}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover opacity-20 md:opacity-40 group-hover:opacity-60 transition-opacity duration-700">` : ''}
                     
                     <div class="relative z-10 w-full max-w-3xl">
-                        <p class="text-lime-400 font-mono text-xs md:text-sm uppercase tracking-widest mb-2">${project.subtitle}</p>
+                        <p class="text-cyan-400 font-mono text-xs md:text-sm uppercase tracking-widest mb-2">${project.subtitle}</p>
                         <h3 class="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4">${project.title}</h3>
                         <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-xl">${project.desc}</p>
                         
@@ -117,7 +117,7 @@ function renderDynamicContent() {
                             ${project.tech.map(t => `<span class="tech-badge border border-white/20 text-white/80 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider cursor-pointer" data-text="${t}">${t}</span>`).join('')}
                         </div>
 
-                        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-lime-400 transition-colors w-fit">
+                        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-cyan-400 transition-colors w-fit">
                             View Case Study <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                         </a>
                     </div>
@@ -132,12 +132,12 @@ function renderDynamicContent() {
         DATA.skills.forEach((skill, index) => {
             skillsGrid.innerHTML += `
                 <div class="premium-card tilt-effect p-6 md:p-8 rounded-[2rem] gs_reveal h-full group" style="z-index: ${index};">
-                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-black flex items-center justify-center mb-6 border border-white/10 group-hover:bg-lime-400 group-hover:text-black transition-colors">
+                    <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-black flex items-center justify-center mb-6 border border-white/10 group-hover:bg-cyan-400 group-hover:text-black transition-colors">
                         <i data-lucide="${skill.icon}"></i>
                     </div>
                     <h3 class="text-xl md:text-2xl font-black uppercase mb-4 md:mb-6">${skill.title}</h3>
                     <ul class="space-y-3 md:space-y-4 font-light text-sm md:text-base text-gray-400">
-                        ${skill.items.map(i => `<li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-lime-400 shrink-0"></div> ${i}</li>`).join('')}
+                        ${skill.items.map(i => `<li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></div> ${i}</li>`).join('')}
                     </ul>
                 </div>
             `;
@@ -151,7 +151,7 @@ function renderDynamicContent() {
             expGrid.innerHTML += `
                 <div class="flex flex-col md:flex-row gap-4 md:gap-12 p-6 md:p-10 rounded-[2rem] premium-card hover:bg-[#1a1a1a] transition-colors gs_reveal group">
                     <div class="md:w-1/4 shrink-0">
-                        <span class="text-lime-400 font-mono text-xs md:text-sm tracking-widest uppercase block mb-2 md:mb-0">${exp.date}</span>
+                        <span class="text-cyan-400 font-mono text-xs md:text-sm tracking-widest uppercase block mb-2 md:mb-0">${exp.date}</span>
                     </div>
                     <div>
                         <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-white">${exp.title}</h3>
@@ -231,16 +231,31 @@ function initGSAP() {
         }
     });
 
-    // --- Marquee Text ---
-    gsap.to(".marquee-text", {
-        xPercent: -50,
-        ease: "none",
+    // --- Staggered Text Reveal ---
+    const staggeredWords = gsap.utils.toArray(".staggered-word");
+    
+    // Set initial state: words start blurred and slightly offset
+    gsap.set(staggeredWords, { opacity: 0, x: "20vw", filter: "blur(20px)" });
+
+    const tlStagger = gsap.timeline({
         scrollTrigger: {
-            trigger: ".marquee-container",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
+            trigger: "#staggered-text-section",
+            start: "top top",
+            end: "+=200%", // Extended scroll duration for ultra-smooth transition
+            pin: true,
+            scrub: 1.5 // Smooth scrubbing
         }
+    });
+
+    // Reveal one by one with a cinematic blur-in effect
+    staggeredWords.forEach((word, i) => {
+        tlStagger.to(word, {
+            opacity: 1,
+            x: 0,
+            filter: "blur(0px)",
+            duration: 1.5,
+            ease: "power3.out"
+        }, i * 0.4); // Overlapping stagger
     });
 
     // --- Reveal Elements (Fade Up) ---
