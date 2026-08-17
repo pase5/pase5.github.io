@@ -441,6 +441,53 @@ function initGSAP() {
         });
     }
 
+    // --- Cinematic Parallax & Scene Transitions ---
+    const parallaxSections = gsap.utils.toArray(".parallax-section");
+    parallaxSections.forEach((section, i) => {
+        const bgLayer = section.querySelector(".layer-bg");
+        const midLayer = section.querySelector(".layer-mid");
+        const videos = section.querySelectorAll("video");
+
+        // Depth Scroll Effects
+        if (bgLayer) {
+            gsap.to(bgLayer, {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        }
+        if (midLayer) {
+            gsap.to(midLayer, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        }
+
+        // Video Optimization (Play/Pause on intersection)
+        if (videos.length > 0) {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top bottom",
+                end: "bottom top",
+                onEnter: () => videos.forEach(v => v.play()),
+                onLeave: () => videos.forEach(v => v.pause()),
+                onEnterBack: () => videos.forEach(v => v.play()),
+                onLeaveBack: () => videos.forEach(v => v.pause())
+            });
+        }
+    });
+
     // --- 3D Tilt Project Cards ---
     const tiltElements = gsap.utils.toArray(".tilt-effect");
     tiltElements.forEach(card => {
