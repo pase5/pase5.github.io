@@ -27,7 +27,7 @@ const DATA = {
             subtitle: "Intelligent Hospital Assistant",
             desc: "Designed and developed an AI-powered hospital calling assistant using Flask and Twilio. Streamlined administrative workflows with conversational AI (OpenAI).",
             tech: ["Flask", "Twilio", "OpenAI"],
-            link: "#",
+            link: "https://github.com/pase5/Zia-Assistant",
             color: "#141726" // Dark blue tint for Zia AI
         },
         {
@@ -44,7 +44,7 @@ const DATA = {
             subtitle: "Touchless Gesture Interface",
             desc: "Built a computer-vision powered interface for touchless interactions. Designed intuitive visual feedback systems using Python and MediaPipe.",
             tech: ["Python", "OpenCV", "MediaPipe"],
-            link: "#",
+            link: "https://github.com/pase5/iku2_binary",
             color: "#1f1f1f" // Standard dark grey for Iku2
         }
     ],
