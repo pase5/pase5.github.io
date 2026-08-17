@@ -99,6 +99,11 @@
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
     
+    <!-- Global Parallax Background -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div id="global-parallax-bg" class="absolute inset-[-20%] w-[140%] h-[140%] bg-[url('story-bg.jpg')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
+    </div>
+
     <div id="noise-overlay"></div>
 
     <!-- Horror Effects Layer -->
@@ -531,15 +536,15 @@
 
                 <div class="lg:w-1/2 w-full flex justify-center lg:justify-end gs_reveal_img">
                     <!-- Custom LinkedIn Profile Badge UI -->
-                    <div class="w-full sm:max-w-[425px] h-[500px] rounded-xl p-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] mx-auto lg:mx-0 lg:ml-auto tilt-effect bg-white relative z-20 gs_reveal">
-                        <div class="relative w-full h-full rounded-lg overflow-hidden group bg-white [transform:translateZ(0)]">
-                            <!-- Background Image (Stops before bottom corners to prevent WebKit bleed) -->
-                            <div class="absolute top-0 left-0 w-full h-[85%] overflow-hidden">
-                                <img src="Pranav-S.webp" alt="Pranav S" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-top">
+                    <div class="w-full sm:max-w-[425px] h-[500px] rounded-xl p-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] mx-auto lg:mx-0 lg:ml-auto tilt-effect bg-white relative z-20 gs_reveal" style="transform-style: preserve-3d;">
+                        <div class="relative w-full h-full rounded-lg overflow-hidden group bg-white" style="transform-style: preserve-3d; transform: translateZ(0);">
+                            <!-- Background Image -->
+                            <div class="absolute top-0 left-0 w-full h-[85%] overflow-hidden" style="transform: translateZ(20px); transform-style: preserve-3d;">
+                                <img src="Pranav-S.webp" alt="Pranav S" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-top shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
                             </div>
                             
                             <!-- Proper Seamless Frosted Glass Fade -->
-                            <div class="absolute bottom-0 left-0 w-full h-[60%] pointer-events-none z-0">
+                            <div class="absolute bottom-0 left-0 w-full h-[60%] pointer-events-none z-0" style="transform: translateZ(30px); transform-style: preserve-3d;">
                                 <!-- Blur layer with mask for smooth top edge -->
                                 <div class="absolute inset-0 backdrop-blur-xl [mask-image:linear-gradient(to_bottom,transparent_0%,black_40%)]"></div>
                                 <!-- Color layer with matching gradient fade -->
@@ -547,7 +552,7 @@
                             </div>
                             
                             <!-- Bottom Content Content -->
-                            <div class="absolute bottom-0 left-0 w-full px-6 pb-6 pt-10 flex flex-col justify-end z-10">
+                            <div class="absolute bottom-0 left-0 w-full px-6 pb-6 pt-10 flex flex-col justify-end z-10" style="transform: translateZ(50px); transform-style: preserve-3d;">
                                 <!-- Name & Verified -->
                                 <div class="flex items-center gap-2 mb-1.5">
                                     <h3 class="text-[#1a1a1a] font-bold text-[26px] leading-tight">Pranav S</h3>
