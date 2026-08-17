@@ -80,21 +80,36 @@ const DATA = {
             topic: "Internet of Things",
             date: "Recent Session",
             desc: "An introductory session on IoT architecture, sensors, and practical applications in smart environments.",
-            image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" 
+            images: [
+                "iot_session_images/1758084814931.jpg",
+                "iot_session_images/1758084821647.jpg",
+                "iot_session_images/1758084832621.jpg",
+                "iot_session_images/1758084849211.jpg",
+                "iot_session_images/1758084853430.jpg",
+                "iot_session_images/1770523508576.jpg"
+            ] 
         },
         {
             title: "UI/UX Masterclass",
             topic: "Design Systems",
             date: "Recent Session",
             desc: "Deep dive into creating scalable design systems, typography hierarchy, and accessibility in modern web design.",
-            image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop"
+            images: [
+                "ux_session_images/1771907420391.jpg",
+                "ux_session_images/1771907435955.jpg",
+                "ux_session_images/1771907444279.jpg"
+            ]
         },
         {
-            title: "Graphic Design Fundamentals",
-            topic: "Visual Identity",
+            title: "IEEE Membership Development",
+            topic: "Community Building",
             date: "Recent Session",
-            desc: "Exploring color theory, composition, and branding strategies for compelling visual communication.",
-            image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop"
+            desc: "Strategies for driving IEEE membership growth and fostering active student engagement within the community.",
+            images: [
+                "ieee_mdsession/1750095272862.jpg",
+                "ieee_mdsession/1771257915493.jpg",
+                "ieee_mdsession/1774789881666.jpg"
+            ]
         }
     ],
     posterCount: 24
@@ -188,13 +203,22 @@ function renderDynamicContent() {
     // Sessions Grid
     const sessionsGrid = document.getElementById('sessions-grid');
     if (sessionsGrid) {
-        DATA.sessions.forEach(session => {
+        DATA.sessions.forEach((session, sIdx) => {
+            let imagesHtml = '';
+            if (session.images && session.images.length > 0) {
+                imagesHtml = session.images.map((img, i) => `
+                    <img src="${img}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
+                `).join('');
+            } else {
+                imagesHtml = `<img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-110 transition-transform duration-700">`;
+            }
+
             sessionsGrid.innerHTML += `
                 <div class="premium-card bg-[#111] rounded-[2rem] overflow-hidden gs_reveal group border border-white/5 tilt-effect">
                     <div class="h-48 md:h-56 w-full overflow-hidden relative">
-                        <img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent opacity-80"></div>
-                        <span class="absolute bottom-4 left-6 px-3 py-1 bg-lime-400 text-black text-[10px] font-bold uppercase tracking-widest rounded-full">${session.topic}</span>
+                        ${imagesHtml}
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent opacity-80 z-20 pointer-events-none"></div>
+                        <span class="absolute bottom-4 left-6 px-3 py-1 bg-lime-400 text-black text-[10px] font-bold uppercase tracking-widest rounded-full z-30">${session.topic}</span>
                     </div>
                     <div class="p-6 md:p-8">
                         <span class="text-gray-500 font-mono text-xs uppercase tracking-widest block mb-2">${session.date}</span>
@@ -203,6 +227,22 @@ function renderDynamicContent() {
                     </div>
                 </div>
             `;
+        });
+
+        // Setup image rotation
+        DATA.sessions.forEach((session, sIdx) => {
+            if (session.images && session.images.length > 1) {
+                let currentIdx = 0;
+                const images = document.querySelectorAll(`.session-img-${sIdx}`);
+                setInterval(() => {
+                    if (images.length === 0) return;
+                    images[currentIdx].classList.remove('opacity-100', 'z-10');
+                    images[currentIdx].classList.add('opacity-0', 'z-0');
+                    currentIdx = (currentIdx + 1) % session.images.length;
+                    images[currentIdx].classList.remove('opacity-0', 'z-0');
+                    images[currentIdx].classList.add('opacity-100', 'z-10');
+                }, 3000); // Change image every 3 seconds
+            }
         });
     }
 
@@ -385,6 +425,21 @@ function initGSAP() {
             }
         });
     });
+
+    // --- Global Parallax Background ---
+    const globalBg = document.getElementById('global-parallax-bg');
+    if (globalBg) {
+        gsap.to(globalBg, {
+            yPercent: 30, // move down as you scroll down
+            ease: "none",
+            scrollTrigger: {
+                trigger: document.body,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1
+            }
+        });
+    }
 
     // --- 3D Tilt Project Cards ---
     const tiltElements = gsap.utils.toArray(".tilt-effect");
