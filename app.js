@@ -144,7 +144,7 @@ function renderDynamicContent() {
                 <div class="project-card premium-card tilt-effect sticky w-full min-h-[55vh] md:min-h-[60vh] rounded-[2rem] group flex flex-col justify-end p-6 md:p-12 mb-6 md:mb-8" 
                      style="background: linear-gradient(135deg, ${project.color} 0%, #0a0a0a 100%); z-index: ${index}; top: calc(6rem + ${index * 1.5}rem);">
                     
-                    ${project.image ? `<img src="${project.image}" alt="${project.title}" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-20 md:opacity-40 group-hover:opacity-60 transition-opacity duration-700">` : ''}
+                    ${project.image ? `<img src="${project.image}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover opacity-20 md:opacity-40 group-hover:opacity-60 transition-opacity duration-700">` : ''}
                     
                     <div class="relative z-10 w-full max-w-3xl">
                         <p class="text-cyan-400 font-mono text-xs md:text-sm uppercase tracking-widest mb-2">${project.subtitle}</p>
@@ -155,7 +155,7 @@ function renderDynamicContent() {
                             ${project.tech.map(t => `<span class="tech-badge border border-white/20 text-white/80 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider cursor-pointer" data-text="${t}">${t}</span>`).join('')}
                         </div>
 
-                        <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-cyan-400 transition-colors w-fit">
+                        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold uppercase text-[10px] md:text-xs tracking-wider hover:bg-cyan-400 transition-colors w-fit">
                             View Case Study <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                         </a>
                     </div>
@@ -207,10 +207,10 @@ function renderDynamicContent() {
             let imagesHtml = '';
             if (session.images && session.images.length > 0) {
                 imagesHtml = session.images.map((img, i) => `
-                    <img src="${img}" alt="${session.title}" loading="lazy" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
+                    <img src="${img}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
                 `).join('');
             } else {
-                imagesHtml = `<img src="${session.image}" alt="${session.title}" loading="lazy" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-110 transition-transform duration-700">`;
+                imagesHtml = `<img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-110 transition-transform duration-700">`;
             }
 
             sessionsGrid.innerHTML += `
@@ -252,7 +252,7 @@ function renderDynamicContent() {
         for (let i = 1; i <= DATA.posterCount; i++) {
             postersContainer.innerHTML += `
                 <div class="swiper-slide w-[260px] md:w-[400px] aspect-square rounded-[2rem] overflow-hidden relative group bg-gray-100 shadow-2xl">
-                    <img src="poster/${i}.webp" alt="Poster ${i}" loading="lazy" width="400" height="400"
+                    <img src="poster/${i}.webp" alt="Poster ${i}" 
                          class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0"
                          onerror="this.src='https://placehold.co/800x1000/eee/999?text=POSTER+${i}'">
                 </div>
