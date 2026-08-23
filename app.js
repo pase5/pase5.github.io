@@ -1,7 +1,7 @@
 // Data Provider - Refined with Professional Copywriting
 const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
-    profileImage: "Pranav-S.webp", 
+    profileImage: "IMG_3449.png", 
     about: [
         "I move pixels for a living and then write code to make them behave.",
         "Currently surviving a B.Tech in Computer Science Engineering at the College of Engineering, Attingal, while convincing developers that 8px spacing actually matters and reminding designers that it still has to work in production.",
