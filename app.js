@@ -582,6 +582,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // Slight delay for GSAP to ensure DOM is ready and images are mapped
     setTimeout(() => {
         initGSAP();
+        
+    // --- Logo Design Horizontal Scroll ---
+    const logoSection = document.getElementById("logo-design");
+    const scrollContainer = document.getElementById("horizontal-scroll-container");
+    const logoSlides = gsap.utils.toArray(".logo-slide");
+
+    if (logoSection && scrollContainer && logoSlides.length > 0) {
+        let horizontalScrollTween = gsap.to(logoSlides, {
+            xPercent: -100 * (logoSlides.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: logoSection,
+                pin: true,
+                scrub: 1,
+                end: () => "+=" + scrollContainer.offsetWidth
+            }
+        });
+
+        // Optional: Parallax effects within each slide
+        logoSlides.forEach((slide) => {
+            const logo = slide.querySelector('.parallax-logo');
+            const details = slide.querySelector('.parallax-details');
+            const bg = slide.querySelector('.parallax-bg');
+
+            if(logo && details) {
+                gsap.from(logo, {
+                    x: 100,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: slide,
+                        containerAnimation: horizontalScrollTween,
+                        start: "left center",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+                
+                gsap.from(details.children, {
+                    x: 50,
+                    opacity: 0,
+                    stagger: 0.2,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: slide,
+                        containerAnimation: horizontalScrollTween,
+                        start: "left center",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            }
+        });
+    }
+
         ScrollTrigger.refresh();
     }, 100);
 
