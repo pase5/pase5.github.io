@@ -411,70 +411,77 @@ function initGSAP() {
             });
         }
     });
-    // --- Parallax Background Elements ---
-    document.querySelectorAll('[data-parallax]').forEach(el => {
-        const speed = parseFloat(el.getAttribute('data-parallax'));
-        gsap.to(el, {
-            y: () => window.innerHeight * speed,
-            ease: "none",
-            scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
+    // --- Parallax & Cinematic Effects (Desktop Only) ---
+    let mmParallax = gsap.matchMedia();
+    mmParallax.add("(min-width: 768px)", () => {
+        // --- Parallax Background Elements ---
+        document.querySelectorAll('[data-parallax]').forEach(el => {
+            const speed = parseFloat(el.getAttribute('data-parallax'));
+            gsap.to(el, {
+                y: () => window.innerHeight * speed,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: el.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+        });
+
+        // --- Global Parallax Background ---
+        const globalBg = document.getElementById('global-parallax-bg');
+        if (globalBg) {
+            gsap.to(globalBg, {
+                yPercent: 30, // move down as you scroll down
+                ease: "none",
+                scrollTrigger: {
+                    trigger: document.body,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                }
+            });
+        }
+
+        // --- Cinematic Parallax & Scene Transitions ---
+        const parallaxSections = gsap.utils.toArray(".parallax-section");
+        parallaxSections.forEach((section, i) => {
+            const bgLayer = section.querySelector(".layer-bg");
+            const midLayer = section.querySelector(".layer-mid");
+
+            // Depth Scroll Effects
+            if (bgLayer) {
+                gsap.to(bgLayer, {
+                    yPercent: 30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            }
+            if (midLayer) {
+                gsap.to(midLayer, {
+                    yPercent: 15,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
             }
         });
     });
 
-    // --- Global Parallax Background ---
-    const globalBg = document.getElementById('global-parallax-bg');
-    if (globalBg) {
-        gsap.to(globalBg, {
-            yPercent: 30, // move down as you scroll down
-            ease: "none",
-            scrollTrigger: {
-                trigger: document.body,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1
-            }
-        });
-    }
-
-    // --- Cinematic Parallax & Scene Transitions ---
-    const parallaxSections = gsap.utils.toArray(".parallax-section");
-    parallaxSections.forEach((section, i) => {
-        const bgLayer = section.querySelector(".layer-bg");
-        const midLayer = section.querySelector(".layer-mid");
+    // Video Optimization (Play/Pause on intersection - works on all devices)
+    const parallaxSectionsForVideos = gsap.utils.toArray(".parallax-section");
+    parallaxSectionsForVideos.forEach((section, i) => {
         const videos = section.querySelectorAll("video");
-
-        // Depth Scroll Effects
-        if (bgLayer) {
-            gsap.to(bgLayer, {
-                yPercent: 30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        }
-        if (midLayer) {
-            gsap.to(midLayer, {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        }
-
-        // Video Optimization (Play/Pause on intersection)
         if (videos.length > 0) {
             ScrollTrigger.create({
                 trigger: section,
@@ -487,6 +494,8 @@ function initGSAP() {
             });
         }
     });
+
+
 
     // --- 3D Tilt Project Cards ---
     const tiltElements = gsap.utils.toArray(".tilt-effect");
@@ -589,49 +598,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoSlides = gsap.utils.toArray(".logo-slide");
 
     if (logoSection && scrollContainer && logoSlides.length > 0) {
-        let horizontalScrollTween = gsap.to(logoSlides, {
-            xPercent: -100 * (logoSlides.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: logoSection,
-                pin: true,
-                scrub: 1,
-                end: () => "+=" + scrollContainer.offsetWidth
-            }
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 768px)", () => {
+            let horizontalScrollTween = gsap.to(logoSlides, {
+                xPercent: -100 * (logoSlides.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: logoSection,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + scrollContainer.offsetWidth
+                }
+            });
+
+            // Optional: Parallax effects within each slide
+            logoSlides.forEach((slide) => {
+                const logo = slide.querySelector('.parallax-logo');
+                const details = slide.querySelector('.parallax-details');
+
+                if(logo && details) {
+                    gsap.from(logo, {
+                        x: 100,
+                        opacity: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            containerAnimation: horizontalScrollTween,
+                            start: "left center",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                    
+                    gsap.from(details.children, {
+                        x: 50,
+                        opacity: 0,
+                        stagger: 0.2,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            containerAnimation: horizontalScrollTween,
+                            start: "left center",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                }
+            });
         });
 
-        // Optional: Parallax effects within each slide
-        logoSlides.forEach((slide) => {
-            const logo = slide.querySelector('.parallax-logo');
-            const details = slide.querySelector('.parallax-details');
-            const bg = slide.querySelector('.parallax-bg');
-
-            if(logo && details) {
-                gsap.from(logo, {
-                    x: 100,
-                    opacity: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: slide,
-                        containerAnimation: horizontalScrollTween,
-                        start: "left center",
-                        toggleActions: "play none none reverse"
-                    }
-                });
+        mm.add("(max-width: 767px)", () => {
+            logoSlides.forEach((slide) => {
+                const logo = slide.querySelector('.parallax-logo');
+                const details = slide.querySelector('.parallax-details');
                 
-                gsap.from(details.children, {
-                    x: 50,
-                    opacity: 0,
-                    stagger: 0.2,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: slide,
-                        containerAnimation: horizontalScrollTween,
-                        start: "left center",
-                        toggleActions: "play none none reverse"
-                    }
-                });
-            }
+                if (logo && details) {
+                    gsap.from(logo, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                    gsap.from(details.children, {
+                        y: 30,
+                        opacity: 0,
+                        stagger: 0.2,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            start: "top 70%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                }
+            });
         });
     }
 
