@@ -131,19 +131,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Recalculate on resize
     window.addEventListener('resize', layout);
     
-    // Logo Hover Spin
+    // Logo Infinite Path Animation
     if (logoLink && logoImg) {
-        let logoTween = null;
-        logoLink.addEventListener('mouseenter', () => {
-            if (logoTween) logoTween.kill();
-            gsap.set(logoImg, { rotate: 0 });
-            logoTween = gsap.to(logoImg, {
-                rotate: 360,
-                duration: 0.4,
-                ease,
-                overwrite: 'auto'
+        const navPaths = logoImg.querySelectorAll('.nav-draw-path');
+        const navPathLengths = [];
+        
+        if (navPaths.length > 0) {
+            navPaths.forEach((path) => {
+                const len = path.getTotalLength() || 1000;
+                navPathLengths.push(len);
+                gsap.set(path, { strokeDasharray: len + " 0", strokeDashoffset: 0 });
             });
-        });
+            
+            const logoLoopTl = gsap.timeline({ repeat: -1, repeatDelay: 4 });
+            
+            logoLoopTl.set(navPaths, { 
+                fill: 'transparent',
+                stroke: (i, el) => el.getAttribute('data-fill') || el.getAttribute('stroke'),
+                strokeDasharray: (i) => (navPathLengths[i] * 0.4) + " " + (navPathLengths[i] * 1.5),
+                strokeDashoffset: (i) => navPathLengths[i]
+            })
+            .to(navPaths, {
+                strokeDashoffset: (i) => -navPathLengths[i] * 2,
+                duration: 1.0,
+                ease: "power2.inOut",
+                stagger: 0.1
+            })
+            .to(navPaths, {
+                strokeDasharray: (i) => navPathLengths[i] + " 0",
+                strokeDashoffset: 0,
+                duration: 0.5,
+                ease: "power3.out"
+            }, "-=0.3")
+            .to(navPaths, {
+                fill: (i, el) => el.getAttribute('data-fill') || 'white',
+                stroke: "transparent",
+                duration: 0.3,
+                ease: "power2.out",
+                stagger: 0.05
+            }, "-=0.1");
+        }
     }
     
     // Mobile Menu Logic
