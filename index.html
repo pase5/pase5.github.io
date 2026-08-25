@@ -21,6 +21,8 @@
     
     <!-- Canonical Link -->
     <link rel="canonical" href="https://pranavs.online/">
+    <link rel="stylesheet" href="CardSwap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 
 
@@ -506,214 +508,441 @@
         <!-- Logo Design Works Section (Premium Bento Layout) -->
         
         
-        <section id="logo-design" class="bg-[#050505] overflow-hidden relative border-t border-white/5 backdrop-blur-md">
-            <!-- Header stays sticky during horizontal scroll -->
-            <div class="absolute top-12 md:top-24 left-6 md:left-12 z-30 pointer-events-none mix-blend-difference">
-                <h2 class="text-4xl md:text-[8vw] font-black uppercase tracking-tighter leading-none mb-2 md:mb-4 text-white">Logo Design</h2>
+        <section id="logo-design" class="bg-[#050505] relative border-t border-white/5 backdrop-blur-md py-24 md:py-32">
+            <!-- Header -->
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 mb-16 md:mb-24 z-30 relative">
+                <h2 class="text-4xl md:text-[6vw] font-black uppercase tracking-tighter leading-none mb-2 md:mb-4 text-white">Logo Design</h2>
                 <p class="text-cyan-400 font-mono tracking-widest uppercase text-xs md:text-sm">02 // Brand Identity</p>
             </div>
             
-            <!-- Horizontal Scroll Container -->
-            <div id="horizontal-scroll-container" class="flex flex-col md:flex-row w-full md:w-[300vw] h-auto md:h-screen items-center relative z-10">
+            <!-- Bento Grids Container -->
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col gap-24 md:gap-40 relative z-10">
                 
-                <!-- Slide 1: IRIS -->
-                <div class="w-full md:w-screen h-screen md:h-full flex-shrink-0 flex flex-col md:flex-row items-center justify-center p-6 md:p-24 relative overflow-hidden group logo-slide">
-                    <!-- Oscilloscope bg -->
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20 parallax-bg"></div>
-                    <div class="absolute inset-0 bg-radial-gradient from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+                <!-- Concept 1: IRIS -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-cyan-500/5 blur-[100px] pointer-events-none rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                     
-                    <!-- Massive Watermark -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                        <span class="text-[40vw] font-black text-white/[0.015] leading-none select-none tracking-tighter">01</span>
-                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+                        <!-- Cell: Logo Hero -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-12 flex flex-col items-center justify-center relative overflow-hidden group/logo min-h-[400px]">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20"></div>
+                            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] md:text-[20vw] font-black text-white/[0.02] leading-none select-none tracking-tighter pointer-events-none">01</span>
+                            
+                            <img src="logos_wrk/iris.svg" class="w-3/4 max-w-[400px] drop-shadow-[0_0_80px_rgba(34,211,238,0.15)] group-hover/logo:scale-105 transition-transform duration-700 relative z-10" alt="IRIS Logo">
+                            
+                            <!-- Small-scale version -->
+                            <div class="absolute bottom-6 right-6 w-12 h-12 bg-white/5 border border-white/10 rounded-xl p-2.5 shadow-xl backdrop-blur-md" title="Small-scale legibility">
+                                <img src="logos_wrk/iris.svg" alt="IRIS Favicon" class="w-full h-full object-contain">
+                            </div>
+                        </div>
 
-                    <!-- Logo huge in center -->
-                    <div class="w-full md:w-[55%] flex justify-center z-10 parallax-logo mt-32 md:mt-[20vh]">
-                        <img src="logos_wrk/iris.svg" class="w-[85%] max-w-[600px] drop-shadow-[0_0_80px_rgba(34,211,238,0.15)] group-hover:scale-105 transition-transform duration-1000 ease-out" alt="IRIS Logo">
-                    </div>
-                    
-                    <!-- Details floating on side (Glassmorphism Cards) -->
-                    <div class="w-full md:w-[45%] flex flex-col justify-center space-y-6 z-10 px-4 md:px-12 parallax-details mt-12 md:mt-[20vh]">
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
-                            <p class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-4">Concept // 01</p>
-                            <h4 class="text-3xl md:text-4xl font-light text-cyan-50 mb-4">Vision & Clarity</h4>
-                            <p class="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                        <!-- Cell: Details -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center min-h-[300px]">
+                            <div class="flex justify-between items-center mb-6">
+                                <p class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">Concept // 01</p>
+                                <span class="text-[10px] font-mono border border-cyan-400/30 text-cyan-400 px-3 py-1 rounded-full bg-cyan-400/10">Signal Processing</span>
+                            </div>
+                            <h4 class="text-3xl font-light text-white mb-4">Vision & Clarity</h4>
+                            <p class="text-sm font-medium text-cyan-300 mb-3">A signal processing technology firm needing precise and clear visual identity. [TODO: Pranav to confirm]</p>
+                            <p class="text-sm text-gray-400 font-light leading-relaxed">
                                 The central motif integrates an eye and a waveform, representing insight and technical precision in signal processing.
                             </p>
                         </div>
-                        
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
+
+                        <!-- Cell: Mockup -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[250px] flex items-center justify-center">
+                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[TODO: Pranav to upload mockup - e.g. App Icon]</p>
+                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        </div>
+
+                        <!-- Cell: Color System -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center">
                             <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-6">Color System</p>
-                            <div class="flex gap-3 items-end h-20">
-                                <div class="w-16 h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
-                                <div class="w-16 h-[70%] bg-[#204172] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#204172</span></div>
-                                <div class="w-16 h-[40%] bg-[#22D3EE] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#22D3EE</span></div>
+                            <div class="flex gap-3 items-end h-16 mb-6">
+                                <div class="w-full h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
+                                <div class="w-full h-[70%] bg-[#204172] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#204172</span></div>
+                                <div class="w-full h-[40%] bg-[#22D3EE] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#22D3EE</span></div>
                             </div>
+                            <p class="text-xs text-gray-400 font-light leading-relaxed pt-4 border-t border-white/5">
+                                #22D3EE — a signal-cyan referencing the waveform, keeping IRIS technical rather than corporate. [TODO: Pranav to confirm]
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 2: PCM -->
-                <div class="w-full md:w-screen h-screen md:h-full flex-shrink-0 flex flex-col md:flex-row items-center justify-center p-6 md:p-24 relative overflow-hidden group logo-slide border-t md:border-t-0 md:border-l border-white/5">
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20 parallax-bg"></div>
-                    <div class="absolute inset-0 bg-radial-gradient from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+                <!-- Concept 2: PCM (Alternate Layout) -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-purple-500/5 blur-[100px] pointer-events-none rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                     
-                    <!-- Massive Watermark -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                        <span class="text-[40vw] font-black text-white/[0.015] leading-none select-none tracking-tighter">02</span>
-                    </div>
-
-                    <div class="w-full md:w-[55%] flex justify-center z-10 parallax-logo mt-32 md:mt-[20vh]">
-                        <img src="logos_wrk/pcm.svg" class="w-[85%] max-w-[600px] drop-shadow-[0_0_80px_rgba(168,85,247,0.15)] group-hover:scale-105 transition-transform duration-1000 ease-out" alt="PCM Logo">
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] flex flex-col justify-center space-y-6 z-10 px-4 md:px-12 parallax-details mt-12 md:mt-[20vh]">
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
-                            <p class="text-[10px] font-mono text-purple-400 uppercase tracking-widest mb-4">Concept // 02</p>
-                            <h4 class="text-3xl md:text-4xl font-light text-purple-50 mb-4">Connectivity</h4>
-                            <p class="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+                        
+                        <!-- Cell: Details -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center min-h-[300px] order-2 lg:order-1">
+                            <div class="flex justify-between items-center mb-6">
+                                <p class="text-[10px] font-mono text-purple-400 uppercase tracking-widest">Concept // 02</p>
+                                <span class="text-[10px] font-mono border border-purple-400/30 text-purple-400 px-3 py-1 rounded-full bg-purple-400/10">Communication</span>
+                            </div>
+                            <h4 class="text-3xl font-light text-white mb-4">Connectivity</h4>
+                            <p class="text-sm font-medium text-purple-300 mb-3">A tech networking startup needing to emphasize continuous connectivity and data flow. [TODO: Pranav to confirm]</p>
+                            <p class="text-sm text-gray-400 font-light leading-relaxed">
                                 A continuous line forming an interconnected loop symbolizing seamless communication, circuitry, and data flow.
                             </p>
                         </div>
-                        
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
-                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-6">Color System</p>
-                            <div class="flex gap-3 items-end h-20">
-                                <div class="w-16 h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
-                                <div class="w-16 h-[70%] bg-[#111111] border border-white/10 rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#111111</span></div>
-                                <div class="w-16 h-[40%] bg-[#A855F7] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#A855F7</span></div>
+
+                        <!-- Cell: Logo Hero -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-12 flex flex-col items-center justify-center relative overflow-hidden group/logo min-h-[400px] order-1 lg:order-2">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20"></div>
+                            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] md:text-[20vw] font-black text-white/[0.02] leading-none select-none tracking-tighter pointer-events-none">02</span>
+                            
+                            <img src="logos_wrk/pcm.svg" class="w-3/4 max-w-[400px] drop-shadow-[0_0_80px_rgba(168,85,247,0.15)] group-hover/logo:scale-105 transition-transform duration-700 relative z-10" alt="PCM Logo">
+                            
+                            <!-- Small-scale version -->
+                            <div class="absolute bottom-6 right-6 w-12 h-12 bg-white/5 border border-white/10 rounded-xl p-2.5 shadow-xl backdrop-blur-md" title="Small-scale legibility">
+                                <img src="logos_wrk/pcm.svg" alt="PCM Favicon" class="w-full h-full object-contain">
                             </div>
                         </div>
+
+                        <!-- Cell: Color System -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center order-4 lg:order-3">
+                            <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-6">Color System</p>
+                            <div class="flex gap-3 items-end h-16 mb-6">
+                                <div class="w-full h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
+                                <div class="w-full h-[70%] bg-[#111111] border border-white/10 rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#111111</span></div>
+                                <div class="w-full h-[40%] bg-[#A855F7] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#A855F7</span></div>
+                            </div>
+                            <p class="text-xs text-gray-400 font-light leading-relaxed pt-4 border-t border-white/5">
+                                #A855F7 — a vibrant violet conveying innovation and modern connectivity, standing out in the tech space. [TODO: Pranav to confirm]
+                            </p>
+                        </div>
+
+                        <!-- Cell: Mockup -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[250px] flex items-center justify-center order-3 lg:order-4">
+                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[TODO: Pranav to upload mockup - e.g. Business Card]</p>
+                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        </div>
+                        
                     </div>
                 </div>
 
-                <!-- Slide 3: WELTECH -->
-                <div class="w-full md:w-screen h-screen md:h-full flex-shrink-0 flex flex-col md:flex-row items-center justify-center p-6 md:p-24 relative overflow-hidden group logo-slide border-t md:border-t-0 md:border-l border-white/5">
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20 parallax-bg"></div>
-                    <div class="absolute inset-0 bg-radial-gradient from-lime-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+                <!-- Concept 3: WELTECH -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-lime-500/5 blur-[100px] pointer-events-none rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                     
-                    <!-- Massive Watermark -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                        <span class="text-[40vw] font-black text-white/[0.015] leading-none select-none tracking-tighter">03</span>
-                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+                        <!-- Cell: Logo Hero -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-12 flex flex-col items-center justify-center relative overflow-hidden group/logo min-h-[400px]">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wLDI1IEM1MCwwIDUwLDUwIDEwMCwyNSBDMTUwLDAgMTUwLDUwIDIwMCwyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')] mix-blend-overlay opacity-20"></div>
+                            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] md:text-[20vw] font-black text-white/[0.02] leading-none select-none tracking-tighter pointer-events-none">03</span>
+                            
+                            <img src="logos_wrk/weltech.svg" class="w-3/4 max-w-[400px] drop-shadow-[0_0_80px_rgba(163,230,53,0.15)] group-hover/logo:scale-105 transition-transform duration-700 relative z-10" alt="Weltech Logo">
+                            
+                            <!-- Small-scale version -->
+                            <div class="absolute bottom-6 right-6 w-12 h-12 bg-white/5 border border-white/10 rounded-xl p-2.5 shadow-xl backdrop-blur-md" title="Small-scale legibility">
+                                <img src="logos_wrk/weltech.svg" alt="Weltech Favicon" class="w-full h-full object-contain">
+                            </div>
+                        </div>
 
-                    <div class="w-full md:w-[55%] flex justify-center z-10 parallax-logo mt-32 md:mt-[20vh]">
-                        <img src="logos_wrk/weltech.svg" class="w-[85%] max-w-[600px] drop-shadow-[0_0_80px_rgba(163,230,53,0.15)] group-hover:scale-105 transition-transform duration-1000 ease-out" alt="Weltech Logo">
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] flex flex-col justify-center space-y-6 z-10 px-4 md:px-12 parallax-details mt-12 md:mt-[20vh]">
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
-                            <p class="text-[10px] font-mono text-lime-400 uppercase tracking-widest mb-4">Concept // 03</p>
-                            <h4 class="text-3xl md:text-4xl font-light text-lime-50 mb-4">Durability & Precision</h4>
-                            <p class="text-sm md:text-base text-gray-400 font-light leading-relaxed">
+                        <!-- Cell: Details -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center min-h-[300px]">
+                            <div class="flex justify-between items-center mb-6">
+                                <p class="text-[10px] font-mono text-lime-400 uppercase tracking-widest">Concept // 03</p>
+                                <span class="text-[10px] font-mono border border-lime-400/30 text-lime-400 px-3 py-1 rounded-full bg-lime-400/10">Industrial</span>
+                            </div>
+                            <h4 class="text-3xl font-light text-white mb-4">Durability & Precision</h4>
+                            <p class="text-sm font-medium text-lime-300 mb-3">An industrial engineering firm needing a durable, precision-forward identity. [TODO: Pranav to confirm]</p>
+                            <p class="text-sm text-gray-400 font-light leading-relaxed">
                                 An industrial yet modern identity crafted for the engineering sector. The sharp, angular cuts mimic precision tooling and permanence.
                             </p>
                         </div>
-                        
-                        <div class="bg-white/[0.02] border border-white/5 backdrop-blur-xl p-8 rounded-3xl hover:bg-white/[0.04] transition-colors duration-500">
+
+                        <!-- Cell: Mockup -->
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[250px] flex items-center justify-center">
+                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[TODO: Pranav to upload mockup - e.g. Signage]</p>
+                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        </div>
+
+                        <!-- Cell: Color System -->
+                        <div class="lg:col-span-4 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] p-8 hover:bg-white/[0.04] transition-colors flex flex-col justify-center">
                             <p class="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-6">Color System</p>
-                            <div class="flex gap-3 items-end h-20">
-                                <div class="w-16 h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
-                                <div class="w-16 h-[70%] bg-[#21283A] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#21283A</span></div>
-                                <div class="w-16 h-[40%] bg-[#FBD804] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FBD804</span></div>
+                            <div class="flex gap-3 items-end h-16 mb-6">
+                                <div class="w-full h-[100%] bg-[#FFFFFF] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FFFFFF</span></div>
+                                <div class="w-full h-[70%] bg-[#21283A] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#21283A</span></div>
+                                <div class="w-full h-[40%] bg-[#FBD804] rounded-sm relative group/color cursor-crosshair"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover/color:opacity-100 text-gray-400 font-mono transition-opacity">#FBD804</span></div>
                             </div>
+                            <p class="text-xs text-gray-400 font-light leading-relaxed pt-4 border-t border-white/5">
+                                #FBD804 — an industrial yellow highlighting safety and construction, grounded by deep slate gray. [TODO: Pranav to confirm]
+                            </p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
+
 
 
 
         <!-- UI Mockups Gallery Section -->
-        <section id="ui-mockups" class="pb-24 md:pb-32 bg-[#050505] overflow-hidden">
-            <div class="max-w-[1440px] mx-auto text-center mb-12 gs_reveal px-6 md:px-12">
-                <h2 class="text-3xl md:text-[5vw] font-black uppercase tracking-tighter leading-none mb-2 text-white">UI/UX Works</h2>
-                <p class="text-cyan-400 font-mono uppercase tracking-widest text-xs md:text-sm">High-Fidelity Mockups</p>
-            </div>
-            
-            <!-- Horizontal Scroll Container -->
-            <div class="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory gap-8 px-6 md:px-[calc(50vw-400px)] pb-12 w-full no-scrollbar gs_reveal pt-10">
-                
-                <!-- Card 1: IRIS -->
-                <div onclick="window.open('https://ieee.ceal.in/iris/', '_blank')" class="snap-center shrink-0 w-[85vw] md:w-[800px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/10 tilt-effect rounded-[2rem] p-1.5 h-[60vh] md:h-[70vh] flex flex-col relative z-10 shadow-[0_30px_60px_rgba(0,0,0,0.6),_inset_0_1px_1px_rgba(255,255,255,0.1)] group cursor-pointer" style="transform-style: preserve-3d;">
-                    <!-- Outer Glow -->
-                    <div class="absolute inset-0 bg-cyan-400/5 rounded-[2rem] blur-2xl group-hover:bg-cyan-400/10 transition-colors duration-500 pointer-events-none"></div>
+        <section id="ui-mockups" class="pt-24 pb-48 md:pt-32 md:pb-64 bg-[#050505]">
+            <div class="max-w-[1200px] mx-auto px-6 md:px-12 gs_reveal">
+                <div class="flex flex-col xl:flex-row items-center relative bg-[#a3e635] rounded-[24px] p-8 md:p-16 h-[60vh] min-h-[600px] shadow-2xl">
                     
-                    <!-- Browser-like Header -->
-                    <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-[1.75rem] border-b border-white/5 backdrop-blur-md relative z-20" style="transform: translateZ(20px);">
-                        <div class="flex gap-2 w-16">
-                            <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
-                        </div>
-                        <div class="flex-1 flex justify-center">
-                            <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-6 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
-                                <i data-lucide="lock" class="w-3 h-3 opacity-50"></i>
-                                iris-platform.com
+                    <!-- Left Column: Text -->
+                    <div class="text-left flex flex-col justify-center order-1 relative z-30 w-full xl:w-1/2">
+                        <h2 class="text-5xl md:text-[4vw] font-black uppercase tracking-tighter leading-none mb-6">
+                            <span class="text-black">DESIGNING</span><br>
+                            <span class="text-black">IDEAS INTO</span><br>
+                            <span class="text-white drop-shadow-sm">EXPERIENCES</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-black font-medium max-w-md">
+                            I design digital experiences that blend creativity, clarity, and technology from interfaces and identities to meaningful digital products.
+                        </p>
+                    </div>
+
+                    <!-- Right Column: Card Stack Container -->
+                    <div class="absolute inset-0 w-full h-full z-20 pointer-events-none">
+                        <div id="card-swap-container" class="card-swap-container w-full max-w-[600px] h-[500px] pointer-events-auto">
+                        
+                        <!-- Card 1: SIGNAL -->
+                        <div class="card card-swap-item w-full h-full max-h-[500px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/20 rounded-2xl p-1 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.8),_inset_0_1px_1px_rgba(255,255,255,0.1)] group cursor-pointer" data-url="https://signal4.ieeespskc.in/" data-index="0">
+                            <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-xl border-b border-white/5 backdrop-blur-md relative z-20">
+                                <div class="flex gap-2 w-16">
+                                    <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
+                                </div>
+                                <div class="flex-1 flex justify-center">
+                                    <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-4 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
+                                        signal-4-0.com
+                                    </div>
+                                </div>
+                                <div class="w-16"></div>
+                            </div>
+                            <div class="w-full flex-1 flex flex-col bg-[#050505] rounded-b-xl relative z-20 overflow-hidden">
+                                <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent z-30 pointer-events-none">
+                                    <h3 class="text-4xl font-black text-white mb-2">SIGNAL 4.0</h3>
+                                    <p class="text-blue-400 font-mono text-sm tracking-wide">A tech networking & continuous connectivity hub.</p>
+                                </div>
+                                <img src="ui/ux works/signal-4-0-uiux-mockup-01.webp" alt="SIGNAL 4.0 Design" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
-                        <div class="w-16"></div> <!-- Spacer for flex centering -->
-                    </div>
-                    
-                    <!-- Scrollable interior -->
-                    <div class="w-full flex-1 overflow-y-auto overflow-x-hidden bg-[#050505] rounded-b-[1.75rem] custom-scrollbar relative z-20" style="transform: translateZ(20px);">
-                        <img src="ui/ux works/IRIS-26-08-14-2026_06_30_PM.webp" alt="IRIS Website Design" class="w-full h-auto block">
-                    </div>
-                </div>
 
-                <!-- Card 2: SIGNAL -->
-                <div onclick="window.open('https://signal4.ieeespskc.in/', '_blank')" class="snap-center shrink-0 w-[85vw] md:w-[800px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/10 tilt-effect rounded-[2rem] p-1.5 h-[60vh] md:h-[70vh] flex flex-col relative z-10 shadow-[0_30px_60px_rgba(0,0,0,0.6),_inset_0_1px_1px_rgba(255,255,255,0.1)] group cursor-pointer" style="transform-style: preserve-3d;">
-                    <!-- Outer Glow -->
-                    <div class="absolute inset-0 bg-blue-500/5 rounded-[2rem] blur-2xl group-hover:bg-blue-500/10 transition-colors duration-500 pointer-events-none"></div>
-                    
-                    <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-[1.75rem] border-b border-white/5 backdrop-blur-md relative z-20" style="transform: translateZ(20px);">
-                        <div class="flex gap-2 w-16">
-                            <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
-                        </div>
-                        <div class="flex-1 flex justify-center">
-                            <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-6 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
-                                <i data-lucide="lock" class="w-3 h-3 opacity-50"></i>
-                                signal-4-0.com
+                        <!-- Card 2: IRIS -->
+                        <div class="card card-swap-item w-full h-full max-h-[500px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/20 rounded-2xl p-1 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.8),_inset_0_1px_1px_rgba(255,255,255,0.1)] group cursor-pointer" data-url="https://ieee.ceal.in/iris/" data-index="1">
+                            
+                            <!-- Browser-like Header -->
+                            <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-xl border-b border-white/5 backdrop-blur-md relative z-20">
+                                <div class="flex gap-2 w-16">
+                                    <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
+                                </div>
+                                <div class="flex-1 flex justify-center">
+                                    <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-4 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
+                                        iris-platform.com
+                                    </div>
+                                </div>
+                                <div class="w-16"></div>
+                            </div>
+                            <!-- Content -->
+                            <div class="w-full flex-1 flex flex-col bg-[#050505] rounded-b-xl relative z-20 overflow-hidden">
+                                <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent z-30 pointer-events-none">
+                                    <h3 class="text-4xl font-black text-white mb-2">IRIS Platform</h3>
+                                    <p class="text-cyan-400 font-mono text-sm tracking-wide">A signal processing technology firm platform.</p>
+                                </div>
+                                <img src="ui/ux works/iris-uiux-mockup-01.webp" alt="IRIS Website Design" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
-                        <div class="w-16"></div>
-                    </div>
-                    <!-- Scrollable interior -->
-                    <div class="w-full flex-1 overflow-y-auto overflow-x-hidden bg-[#050505] rounded-b-[1.75rem] custom-scrollbar relative z-20" style="transform: translateZ(20px);">
-                        <img src="ui/ux works/SIGNAL-4-0-08-14-2026_06_29_PM.webp" alt="SIGNAL 4.0 Design" class="w-full h-auto block">
-                    </div>
-                </div>
 
-                <!-- Card 3: House Amora / Invitations -->
-                <div class="snap-center shrink-0 w-[85vw] md:w-[800px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/10 tilt-effect rounded-[2rem] p-1.5 h-[60vh] md:h-[70vh] flex flex-col relative z-10 shadow-[0_30px_60px_rgba(0,0,0,0.6),_inset_0_1px_1px_rgba(255,255,255,0.1)] group" style="transform-style: preserve-3d;">
-                    <!-- Outer Glow -->
-                    <div class="absolute inset-0 bg-purple-500/5 rounded-[2rem] blur-2xl group-hover:bg-purple-500/10 transition-colors duration-500 pointer-events-none"></div>
-                    
-                    <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-[1.75rem] border-b border-white/5 backdrop-blur-md relative z-20" style="transform: translateZ(20px);">
-                        <div class="flex gap-2 w-16">
-                            <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
-                            <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
-                        </div>
-                        <div class="flex-1 flex justify-center">
-                            <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-6 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
-                                <i data-lucide="lock" class="w-3 h-3 opacity-50"></i>
-                                house-amora.com
+                        <!-- Card 3: House Amora -->
+                        <div class="card card-swap-item w-full h-full max-h-[500px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-white/20 rounded-2xl p-1 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.8),_inset_0_1px_1px_rgba(255,255,255,0.1)] group cursor-pointer" data-url="#" data-index="2">
+                            <div class="flex items-center px-4 py-3 shrink-0 bg-[#111] rounded-t-xl border-b border-white/5 backdrop-blur-md relative z-20">
+                                <div class="flex gap-2 w-16">
+                                    <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></div>
+                                </div>
+                                <div class="flex-1 flex justify-center">
+                                    <div class="bg-black text-gray-400 text-[10px] md:text-xs uppercase tracking-[0.2em] font-mono px-4 py-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-inner flex items-center gap-2">
+                                        house-amora.com
+                                    </div>
+                                </div>
+                                <div class="w-16"></div>
+                            </div>
+                            <div class="w-full flex-1 flex flex-col bg-[#050505] rounded-b-xl relative z-20 overflow-hidden">
+                                <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent z-30 pointer-events-none">
+                                    <h3 class="text-4xl font-black text-white mb-2">House of Amoraa</h3>
+                                    <p class="text-purple-400 font-mono text-sm tracking-wide">Premium invitations and creative collections.</p>
+                                </div>
+                                <img src="ui/ux works/house-of-amoraa-uiux-mockup-01.webp" alt="Invitations Collections" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
-                        <div class="w-16"></div>
                     </div>
-                    <!-- Scrollable interior -->
-                    <div class="w-full flex-1 overflow-y-auto overflow-x-hidden bg-[#050505] rounded-b-[1.75rem] custom-scrollbar relative z-20" style="transform: translateZ(20px);">
-                        <img src="ui/ux works/Invitations collections.webp" alt="Invitations Collections" class="w-full h-auto block">
+
                     </div>
                 </div>
-
             </div>
         </section>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const cards = Array.from(document.querySelectorAll('.card-swap-item'));
+                if(!cards.length) return;
+                
+                // Remove 3D container styling
+                const container = document.getElementById('card-swap-container');
+                if (container) container.style.transform = `none`;
+
+                const totalCards = cards.length;
+                let order = Array.from({ length: totalCards }, (_, i) => i);
+                let swapInterval;
+                let isAnimating = false;
+                
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                
+                const config = {
+                    ease: 'elastic.out(0.6,0.9)',
+                    durDrop: 2,
+                    durMove: 2,
+                    durReturn: 2,
+                    promoteOverlap: 0.9,
+                    returnDelay: 0.05
+                };
+                
+                const cardDistance = 60;
+                const verticalDistance = 70;
+                const skewAmount = 6;
+
+                const makeSlot = (i) => ({
+                    x: i * cardDistance,
+                    y: i * -verticalDistance,
+                    z: i * -cardDistance * 1.5,
+                    zIndex: totalCards - i
+                });
+
+                // Initial Placement
+                cards.forEach((card, i) => {
+                    const slot = makeSlot(i);
+                    gsap.set(card, {
+                        x: slot.x,
+                        y: slot.y,
+                        z: slot.z,
+                        xPercent: -50,
+                        yPercent: -50,
+                        skewY: skewAmount,
+                        zIndex: slot.zIndex,
+                        transformOrigin: 'center center',
+                        force3D: true
+                    });
+                });
+
+                const swap = () => {
+                    if (order.length < 2 || isAnimating) return;
+                    isAnimating = true;
+
+                    const [front, ...rest] = order;
+                    const elFront = cards[front];
+                    const tl = gsap.timeline({
+                        onComplete: () => { isAnimating = false; }
+                    });
+
+                    if (prefersReducedMotion) {
+                        // Instant swap without animation
+                        rest.forEach((idx, i) => {
+                            const el = cards[idx];
+                            const slot = makeSlot(i);
+                            gsap.set(el, { x: slot.x, y: slot.y, z: slot.z, zIndex: slot.zIndex, skewY: skewAmount });
+                        });
+                        const backSlot = makeSlot(totalCards - 1);
+                        gsap.set(elFront, { x: backSlot.x, y: backSlot.y, z: backSlot.z, zIndex: backSlot.zIndex, skewY: skewAmount });
+                        order = [...rest, front];
+                        isAnimating = false;
+                        return;
+                    }
+
+                    tl.to(elFront, {
+                        y: '+=500',
+                        duration: config.durDrop,
+                        ease: config.ease
+                    });
+
+                    tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+                    rest.forEach((idx, i) => {
+                        const el = cards[idx];
+                        const slot = makeSlot(i);
+                        tl.set(el, { zIndex: slot.zIndex }, 'promote');
+                        tl.to(
+                            el,
+                            {
+                                x: slot.x,
+                                y: slot.y,
+                                z: slot.z,
+                                duration: config.durMove,
+                                ease: config.ease
+                            },
+                            `promote+=${i * 0.15}`
+                        );
+                    });
+
+                    const backSlot = makeSlot(totalCards - 1);
+                    tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+                    tl.call(() => {
+                        gsap.set(elFront, { zIndex: backSlot.zIndex });
+                    }, undefined, 'return');
+                    tl.to(
+                        elFront,
+                        {
+                            x: backSlot.x,
+                            y: backSlot.y,
+                            z: backSlot.z,
+                            duration: config.durReturn,
+                            ease: config.ease
+                        },
+                        'return'
+                    );
+
+                    tl.call(() => {
+                        order = [...rest, front];
+                    });
+                };
+
+                // Start Auto-Swap
+                if (!prefersReducedMotion) {
+                    swapInterval = setInterval(swap, 5000);
+
+                    // Pause on Hover
+                    if (container) {
+                        container.addEventListener('mouseenter', () => {
+                            clearInterval(swapInterval);
+                        });
+                        container.addEventListener('mouseleave', () => {
+                            clearInterval(swapInterval);
+                            swapInterval = setInterval(swap, 5000);
+                        });
+                    }
+                }
+
+                // Click interactions
+                cards.forEach((card, i) => {
+                    card.addEventListener('click', (e) => {
+                        if (order[0] === i) {
+                            // Front card clicked: open URL
+                            const url = card.getAttribute('data-url');
+                            if (url && url !== '#') {
+                                window.open(url, '_blank');
+                            }
+                        } else {
+                            // Back card clicked: manually trigger swap
+                            clearInterval(swapInterval);
+                            swap();
+                            if (!prefersReducedMotion) {
+                                swapInterval = setInterval(swap, 5000);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
 
         <!-- Posters Grid -->
         <section id="projects" class="py-24 md:py-32 bg-white text-black rounded-t-[2rem] md:rounded-t-[3rem] overflow-hidden">
