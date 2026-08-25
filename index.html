@@ -95,8 +95,27 @@
 <body class="bg-black text-white selection:bg-cyan-400 selection:text-black font-sans">
     <h1 class="sr-only">Pranav S - UI/UX Designer & Data Scientist Portfolio</h1>
     
-    <!-- Premium Abstract Shape Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030303] overflow-hidden origin-center">
+    <!-- Mobile Warning Overlay -->
+    <style>
+        @media (max-width: 768px) {
+            body { overflow: hidden !important; touch-action: none; }
+            #preloader { display: none !important; } /* Hide preloader on mobile to save battery */
+        }
+    </style>
+    <div id="mobile-warning" class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black text-white p-8 text-center md:hidden h-[100dvh] w-screen">
+        <div class="max-w-md flex flex-col items-center justify-center gap-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a3e635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            <p class="text-xl md:text-2xl font-light text-gray-200 leading-relaxed font-sans">
+                Congratulations, you found the one feature I haven’t finished.
+            </p>
+            <p class="text-sm text-gray-400 font-mono tracking-wide mt-2">
+                Please open this on desktop for now.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Premium Cinematic Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030303] overflow-hidden origin-center pointer-events-auto">
         
         <!-- Morphing Blob Background -->
         <style>
@@ -200,72 +219,76 @@
                 tl.to("#preloader-main", {
                     opacity: 1,
                     scale: 1,
-                    duration: 1.5,
-                    ease: "sine.out"
+                    duration: 1.2,
+                    ease: "power2.out"
                 })
                 
-                // 1. Tracers zip around the paths rapidly but smoothly
+                // 1. Tracers zip around the paths smoothly
                 .to(paths, {
-                    strokeDashoffset: (i, el) => -pathLengths[i] * 2, // 3 lengths total (L to -2L)
-                    duration: 4.5,
-                    ease: "sine.inOut",
-                    stagger: 0.08
-                }, "-=0.5")
+                    strokeDashoffset: (i, el) => -pathLengths[i] * 2,
+                    duration: 2.5,
+                    ease: "power3.inOut",
+                    stagger: 0.1
+                }, "-=0.6")
                 
-                // 2. Solidify the outlines (dasharray becomes full length)
+                // 2. Solidify the outlines
                 .to(paths, {
                     strokeDasharray: (i, el) => pathLengths[i] + " 0",
                     strokeDashoffset: 0,
-                    duration: 1.5,
+                    duration: 1.0,
                     ease: "power3.out"
-                }, "-=1.5");
+                }, "-=0.5");
                 
                 // 3. Loading Bar Animation (synchronized)
                 let counter = { val: 0 };
                 tl.to(counter, {
                     val: 100,
-                    duration: 4.0, // Matches tracer + solid phase roughly
-                    ease: "power2.inOut",
+                    duration: 2.5,
+                    ease: "power3.inOut",
                     onUpdate: function() {
                         const progress = Math.round(counter.val);
                         document.getElementById("preloader-bar").style.width = progress + "%";
                     }
                 }, 0.5)
                 
-                // 4. Fill paths with a color flash
+                // 4. Fill paths gracefully
                 .to(paths, {
                     fill: (i, el) => el.getAttribute('data-fill'),
                     stroke: "transparent",
                     duration: 0.8,
                     ease: "power2.out",
-                    stagger: 0.02
-                }, "-=0.2")
+                    stagger: 0.05
+                }, "-=0.4")
                 
-                // 5. Epic Exit: Translate to Navbar
+                // 5. Hide UI smoothly
                 .to("#preloader-ui", {
                     opacity: 0,
-                    y: 30,
-                    duration: 0.5,
-                    ease: "power3.in"
+                    y: 20,
+                    duration: 0.6,
+                    ease: "power3.inOut"
                 }, "+=0.2")
                 
-                // Fade out background and move logo simultaneously
+                // Smooth Cinematic Fade Reveal & Logo Move
                 .to("#preloader", {
-                    backgroundColor: "rgba(0,0,0,0)",
-                    duration: 1.2,
+                    backgroundColor: "rgba(3,3,3,0)",
+                    duration: 1.5,
                     ease: "power3.inOut"
+                }, "transition")
+                .to(".morph-blob", {
+                    opacity: 0,
+                    duration: 1.0,
+                    ease: "power2.out"
                 }, "transition")
                 .to(preloaderLogo, {
                     x: moveX,
                     y: moveY,
                     scale: scale,
-                    filter: "drop-shadow(0 0 0px rgba(163,230,53,0))", // remove glow
-                    duration: 1.2,
-                    ease: "power3.inOut",
+                    filter: "drop-shadow(0 0 0px rgba(163,230,53,0))",
+                    duration: 1.5,
+                    ease: "power4.inOut",
                     onComplete: () => {
                         document.body.style.overflow = '';
                         document.getElementById('preloader').remove();
-                        // ensure navbar logo is visible in case we hid it
                         gsap.set("#navbar-logo-img", { opacity: 1 });
                     }
                 }, "transition")
