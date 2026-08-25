@@ -94,42 +94,66 @@
 <body class="bg-black text-white selection:bg-cyan-400 selection:text-black font-sans">
     <h1 class="sr-only">Pranav S - UI/UX Designer & Data Scientist Portfolio</h1>
     
-    <!-- Cinematic Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-transparent pointer-events-none overflow-hidden">
+    <!-- Premium Abstract Shape Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030303] overflow-hidden origin-center">
         
-        <!-- Noise Overlay -->
-        <div class="absolute inset-0 z-30 opacity-20 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
-
-        <!-- Split Backgrounds -->
-        <div id="preloader-bg-top" class="absolute top-0 left-0 w-full h-1/2 bg-[#050505] border-b-[2px] border-transparent"></div>
-        <div id="preloader-bg-bottom" class="absolute bottom-0 left-0 w-full h-1/2 bg-[#050505] border-t-[2px] border-transparent"></div>
-        
-        <!-- Flashing Words Sequence -->
-        <div id="preloader-flashing" class="absolute z-20 flex items-center justify-center inset-0 text-[15vw] md:text-[12vw] font-black uppercase tracking-tighter leading-none text-white pointer-events-none mix-blend-difference">
-            <span class="flash-word absolute opacity-0 scale-50 italic">DESIGN</span>
-            <span class="flash-word absolute opacity-0 scale-50 italic">DEVELOP</span>
-            <span class="flash-word absolute opacity-0 scale-50 italic">CREATE</span>
-        </div>
+        <!-- Morphing Blob Background -->
+        <style>
+            .morph-blob {
+                width: 60vw;
+                height: 60vw;
+                max-width: 600px;
+                max-height: 600px;
+                background: radial-gradient(circle at center, rgba(163, 230, 53, 0.08) 0%, rgba(103, 232, 249, 0.03) 50%, transparent 80%);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: morph 12s ease-in-out infinite alternate, spin 20s linear infinite;
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                filter: blur(40px);
+                z-index: 10;
+                pointer-events: none;
+            }
+            @keyframes morph {
+                0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+                100% { border-radius: 40% 70% 30% 60% / 70% 40% 50% 30%; }
+            }
+            @keyframes spin {
+                from { transform: translate(-50%, -50%) rotate(0deg); }
+                to { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+        </style>
+        <div class="morph-blob"></div>
 
         <!-- Center Content -->
-        <div id="preloader-main" class="relative z-10 flex flex-col items-center justify-center opacity-0 scale-90">
-            <!-- Logo -->
-            <img id="preloader-logo" src="logo.svg" alt="Logo" class="w-20 md:w-28 mb-4 md:mb-6">
+        <div id="preloader-main" class="relative z-20 flex flex-col items-center justify-center scale-90 opacity-0">
             
-            <div class="relative text-[16vw] md:text-[12vw] font-black uppercase tracking-tighter leading-none" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15); color: transparent;">
-                PRANAV S
-                <div id="preloader-fill" class="absolute left-0 bottom-0 text-white overflow-hidden w-full h-0 whitespace-nowrap flex items-end drop-shadow-[0_0_20px_rgba(163,230,53,0)] transition-colors duration-200" style="-webkit-text-stroke: 0px;">
-                    <span class="leading-none pb-1">PRANAV S</span>
-                </div>
-            </div>
+            <!-- Inline SVG Logo for Path Animation -->
+            <svg id="preloader-logo-svg" class="w-48 md:w-64 mb-10" viewBox="70 200 460 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="stroke-grain" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" result="noise" />
+                        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.25 0" in="noise" result="coloredNoise" />
+                        <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="composite1" />
+                        <feBlend mode="multiply" in="composite1" in2="SourceGraphic" />
+                    </filter>
+                </defs>
+                <!-- Outer paths, initially stroke only -->
+                <path class="draw-path" d="M156.384 302.924C148.372 302.924 142.586 304.438 139.025 307.464C135.554 310.491 133.818 315.431 133.818 322.285V344.183H121.801V322.419C121.801 311.559 124.56 303.636 130.079 298.652C135.598 293.667 144.366 291.174 156.384 291.174H172.273C178.415 291.174 183.623 290.907 187.895 290.373C192.168 289.839 195.595 288.993 198.177 287.836C200.847 286.59 202.761 285.032 203.918 283.163C205.165 281.293 205.788 278.979 205.788 276.219C205.788 271.235 202.494 267.718 195.907 265.671C189.409 263.535 178.771 262.466 163.995 262.466H121.801V250.716H163.995C173.964 250.716 182.376 251.206 189.231 252.185C196.085 253.075 201.604 254.544 205.788 256.591C210.06 258.55 213.131 261.176 215.001 264.469C216.87 267.674 217.805 271.591 217.805 276.219C217.805 281.026 216.959 285.121 215.268 288.504C213.666 291.886 210.995 294.646 207.256 296.782C203.607 298.919 198.889 300.476 193.103 301.456C187.317 302.435 180.284 302.924 172.006 302.924H156.384Z" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="#ABCD6F" filter="url(#stroke-grain)"/>
+                <path class="draw-path" d="M279.302 267.273V381.235H267.285V268.208C267.285 266.428 266.795 265.048 265.816 264.069C264.837 263.001 263.635 262.466 262.211 262.466C260.965 262.466 259.852 262.823 258.873 263.535C257.894 264.158 256.469 265.716 254.6 268.208L195.182 346.186H180.494L242.049 264.87C244.363 261.932 246.322 259.573 247.924 257.793C249.615 256.013 251.173 254.678 252.597 253.787C254.022 252.808 255.446 252.185 256.87 251.918C258.294 251.562 259.941 251.384 261.81 251.384C267.151 251.384 271.38 252.853 274.495 255.79C277.7 258.639 279.302 262.466 279.302 267.273Z" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="#ABCD6F" filter="url(#stroke-grain)"/>
+                <path class="draw-path" d="M343.423 305.061C333.72 305.061 325.486 304.66 318.721 303.859C311.956 302.969 306.437 301.545 302.164 299.586C297.98 297.628 294.953 295.091 293.084 291.975C291.215 288.771 290.28 284.854 290.28 280.225C290.28 275.062 291.215 270.745 293.084 267.273C295.043 263.713 298.114 260.864 302.297 258.728C306.481 256.591 311.956 255.078 318.721 254.188C325.486 253.209 333.72 252.719 343.423 252.719H387.619V264.469H343.423C335.856 264.469 329.447 264.736 324.195 265.27C318.943 265.805 314.671 266.695 311.377 267.941C308.172 269.098 305.858 270.656 304.434 272.614C303.01 274.573 302.297 277.021 302.297 279.958C302.297 282.362 303.01 284.409 304.434 286.1C305.947 287.703 308.306 289.038 311.511 290.106C314.804 291.174 319.032 291.931 324.195 292.376C329.447 292.821 335.856 293.044 343.423 293.044C352.413 293.044 359.98 293.533 366.122 294.512C372.264 295.402 377.204 296.916 380.943 299.052C384.771 301.189 387.486 303.993 389.088 307.464C390.779 310.847 391.625 315.031 391.625 320.015C391.625 324.911 390.824 329.051 389.222 332.433C387.619 335.727 384.949 338.397 381.21 340.445C377.472 342.492 372.531 343.961 366.389 344.851C360.247 345.741 352.592 346.186 343.423 346.186H279.302V334.436H343.423C350.099 334.436 355.707 334.214 360.247 333.768C364.876 333.234 368.614 332.433 371.463 331.365C374.311 330.208 376.359 328.739 377.605 326.959C378.94 325.178 379.608 322.997 379.608 320.416C379.608 317.567 378.985 315.164 377.739 313.206C376.581 311.247 374.578 309.69 371.73 308.532C368.97 307.286 365.276 306.396 360.647 305.862C356.019 305.328 350.277 305.061 343.423 305.061Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="white" filter="url(#stroke-grain)"/>
+                <path class="draw-path" d="M519 346.186H441.957C437.15 346.186 432.743 345.519 428.738 344.183C424.732 342.759 421.305 340.845 418.456 338.442C415.697 336.038 413.516 333.19 411.914 329.896C410.4 326.514 409.644 322.819 409.644 318.814C409.644 314.897 410.4 311.381 411.914 308.265C413.516 305.061 415.697 302.39 418.456 300.254C421.305 298.028 424.732 296.337 428.738 295.18C432.743 294.023 437.15 293.444 441.957 293.444H516.196V305.194H441.957C435.814 305.194 430.874 306.396 427.135 308.799C423.486 311.114 421.661 314.452 421.661 318.814C421.661 323.265 423.486 327.003 427.135 330.03C430.874 332.967 435.814 334.436 441.957 334.436H519V346.186ZM519 264.469V252.719H387.619V264.469H519Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="white" filter="url(#stroke-grain)"/>
+                <!-- T H E parts -->
+                <path class="draw-path" d="M111.568 222.576H103.056V239.367H95.5122V222.576H87V216H111.568V222.576Z" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="#ABCD6F" filter="url(#stroke-grain)"/>
+                <path class="draw-path" d="M139.092 216V239.367H131.548V230.654H121.801V239.367H114.257V216H121.801V224.779H131.548V216H139.092Z" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="#ABCD6F" filter="url(#stroke-grain)"/>
+                <path class="draw-path" d="M150.944 222.743V224.779H161.059V230.654H150.944V232.657H165.498V239.367H143.4V216H165.498V222.743H150.944Z" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-fill="#ABCD6F" filter="url(#stroke-grain)"/>
+            </svg>
             
-            <div id="preloader-ui" class="mt-8 flex flex-col items-center gap-4 font-mono text-xs tracking-[0.3em] uppercase w-full">
-                <div class="flex items-center justify-between w-48 md:w-64">
-                    <span id="preloader-status" class="text-white/40 tracking-[0.2em] transition-all duration-150">INITIATING</span>
-                    <span id="preloader-percent" class="text-cyan-400 font-bold">0%</span>
-                </div>
-                <div class="w-48 md:w-64 h-[2px] bg-white/10 relative overflow-hidden rounded-full">
-                    <div id="preloader-bar" class="absolute left-0 top-0 h-full bg-cyan-400 w-0 shadow-[0_0_10px_#22d3ee]"></div>
+            <div id="preloader-ui" class="flex flex-col items-center gap-3 w-48 mt-4">
+                <div class="w-full h-[1px] bg-white/20 relative overflow-hidden">
+                    <div id="preloader-bar" class="absolute inset-0 bg-gradient-to-r from-lime-400 to-cyan-400 w-0 shadow-[0_0_10px_#a3e635]"></div>
                 </div>
             </div>
         </div>
@@ -142,149 +166,138 @@
                 window.scrollTo(0,0);
                 
                 const tl = gsap.timeline();
-                const flashWords = document.querySelectorAll('.flash-word');
+                const paths = document.querySelectorAll('.draw-path');
+                const pathLengths = [];
                 
-                // 1. Flash Sequence (Readable & Smooth)
-                flashWords.forEach((word) => {
-                    tl.to(word, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.25,
-                        ease: "power4.out",
-                        force3D: true
-                    })
-                    .to(word, {
-                        opacity: 0,
-                        scale: 1.1,
-                        duration: 0.2,
-                        ease: "power2.in",
-                        force3D: true
-                    }, "+=0.15"); 
+                // Set initial scale of main container
+                gsap.set("#preloader-main", { scale: 0.9, opacity: 0 });
+                
+                // Initialize SVG Paths for drawing (Tracer Effect)
+                paths.forEach((path, i) => {
+                    const length = path.getTotalLength();
+                    pathLengths.push(length);
+                    // Smoother tracer gap
+                    path.style.strokeDasharray = (length * 0.4) + " " + (length * 1.5);
+                    path.style.strokeDashoffset = length;
+                    path.style.fill = 'transparent';
                 });
                 
-                // 2. Reveal PRANAV S outline and UI
+                // Calculate flip coordinates BEFORE any animations move the navbar
+                const navLogo = document.getElementById("navbar-logo-img");
+                const targetRect = navLogo.getBoundingClientRect();
+                const preloaderLogo = document.getElementById("preloader-logo-svg");
+                // Reset scale to get accurate base rect
+                gsap.set("#preloader-main", { scale: 1 });
+                const startRect = preloaderLogo.getBoundingClientRect();
+                gsap.set("#preloader-main", { scale: 0.9 }); // set it back
+                
+                const scale = targetRect.width / startRect.width;
+                const moveX = (targetRect.left + targetRect.width/2) - (startRect.left + startRect.width/2);
+                const moveY = (targetRect.top + targetRect.height/2) - (startRect.top + startRect.height/2);
+
+                // 0. Fade in loader
                 tl.to("#preloader-main", {
                     opacity: 1,
                     scale: 1,
-                    duration: 0.8,
-                    ease: "expo.out"
-                }, "-=0.1");
+                    duration: 1.5,
+                    ease: "sine.out"
+                })
                 
-                // 3. Count up and fill text
+                // 1. Tracers zip around the paths rapidly but smoothly
+                .to(paths, {
+                    strokeDashoffset: (i, el) => -pathLengths[i] * 2, // 3 lengths total (L to -2L)
+                    duration: 4.5,
+                    ease: "sine.inOut",
+                    stagger: 0.08
+                }, "-=0.5")
+                
+                // 2. Solidify the outlines (dasharray becomes full length)
+                .to(paths, {
+                    strokeDasharray: (i, el) => pathLengths[i] + " 0",
+                    strokeDashoffset: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, "-=1.5");
+                
+                // 3. Loading Bar Animation (synchronized)
                 let counter = { val: 0 };
                 tl.to(counter, {
                     val: 100,
-                    duration: 2.0,
-                    ease: "expo.inOut",
+                    duration: 4.0, // Matches tracer + solid phase roughly
+                    ease: "power2.inOut",
                     onUpdate: function() {
                         const progress = Math.round(counter.val);
-                        document.getElementById("preloader-percent").innerText = progress + "%";
                         document.getElementById("preloader-bar").style.width = progress + "%";
-                        document.getElementById("preloader-fill").style.height = progress + "%";
-                        
-                        // Dynamic status text
-                        const statusEl = document.getElementById("preloader-status");
-                        if (progress < 25) statusEl.innerText = "INITIATING";
-                        else if (progress < 60) statusEl.innerText = "LOADING";
-                        else if (progress < 95) statusEl.innerText = "DECRYPTING";
-                        else statusEl.innerText = "READY";
-                        
-                        // Jitter
-                        if (progress > 10 && progress < 90 && Math.random() > 0.8) {
-                            document.getElementById("preloader-bar").style.opacity = Math.random();
-                        } else {
-                            document.getElementById("preloader-bar").style.opacity = 1;
-                        }
                     }
+                }, 0.5)
+                
+                // 4. Fill paths with a color flash
+                .to(paths, {
+                    fill: (i, el) => el.getAttribute('data-fill'),
+                    stroke: "transparent",
+                    duration: 0.8,
+                    ease: "power2.out",
+                    stagger: 0.02
                 }, "-=0.2")
                 
-                // 4. Glitch & Fade out UI and Logo
-                .to(["#preloader-ui", "#preloader-logo"], {
+                // 5. Epic Exit: Translate to Navbar
+                .to("#preloader-ui", {
                     opacity: 0,
-                    y: 20,
-                    duration: 0.3,
-                    ease: "power2.in"
-                }, "+=0.1")
+                    y: 30,
+                    duration: 0.5,
+                    ease: "power3.in"
+                }, "+=0.2")
                 
-                // 5. Zoom out / fly-through effect
-                .to("#preloader-fill", {
-                    color: "#a3e635", 
-                    textShadow: "0px 0px 30px rgba(163,230,53,0.8)",
-                    duration: 0.1
-                }, "-=0.2")
-                .to("#preloader-main .relative.text-\\[16vw\\]", {
-                    scale: 0.85, 
-                    rotation: -2, 
-                    duration: 0.3,
-                    ease: "back.out(2)",
-                    force3D: true
-                }, "+=0.05")
-                .to("#preloader-main .relative.text-\\[16vw\\]", {
-                    scale: 15,
-                    opacity: 0,
-                    rotation: 2,
-                    duration: 0.6,
-                    ease: "expo.in",
-                    force3D: true
-                })
-                
-                // 6. Flash White and Glow Split doors
+                // Fade out background and move logo simultaneously
                 .to("#preloader", {
-                    backgroundColor: "white",
-                    duration: 0.1
-                }, "-=0.2")
-                // Glowing door edges before splitting
-                .to(["#preloader-bg-top", "#preloader-bg-bottom"], {
-                    borderColor: "#a3e635",
-                    boxShadow: "0 0 40px rgba(163,230,53,0.6)",
-                    duration: 0.1
-                }, "-=0.1")
-                .to("#preloader-bg-top", {
-                    yPercent: -100,
-                    duration: 1.0,
-                    ease: "expo.inOut",
-                    force3D: true
-                }, "+=0.1")
-                .to("#preloader-bg-bottom", {
-                    yPercent: 100,
-                    duration: 1.0,
-                    ease: "expo.inOut",
-                    force3D: true,
+                    backgroundColor: "rgba(0,0,0,0)",
+                    duration: 1.2,
+                    ease: "power3.inOut"
+                }, "transition")
+                .to(preloaderLogo, {
+                    x: moveX,
+                    y: moveY,
+                    scale: scale,
+                    filter: "drop-shadow(0 0 0px rgba(163,230,53,0))", // remove glow
+                    duration: 1.2,
+                    ease: "power3.inOut",
                     onComplete: () => {
                         document.body.style.overflow = '';
                         document.getElementById('preloader').remove();
+                        // ensure navbar logo is visible in case we hid it
+                        gsap.set("#navbar-logo-img", { opacity: 1 });
                     }
-                }, "<") // animate simultaneously with top door
+                }, "transition")
                 
-                // 7. Hero Section Reveal Animation
+                // 6. Hero Section Reveal Animation
                 .from("#navbar", {
-                    yPercent: -150,
-                    duration: 1.0,
+                    opacity: 0, // fade in instead of sliding to preserve bounding rects
+                    duration: 1.2,
                     ease: "expo.out"
-                }, "-=0.8")
+                }, "transition+=0.4")
                 .from(".hero-text", {
                     y: 20,
                     opacity: 0,
-                    duration: 0.8,
+                    duration: 1.0,
                     ease: "power3.out"
-                }, "-=0.6")
+                }, "transition+=0.6")
                 .from(".hero-title", {
                     yPercent: 100,
-                    duration: 1.2,
+                    duration: 1.5,
                     stagger: 0.1,
                     ease: "expo.out"
-                }, "-=0.8")
+                }, "transition+=0.8")
                 .from(".hero-desc", {
                     yPercent: 100,
-                    duration: 1.2,
+                    duration: 1.5,
                     ease: "expo.out"
-                }, "-=1.0")
+                }, "transition+=1.0")
                 .from(".hero-buttons", {
                     y: 20,
                     opacity: 0,
-                    duration: 0.8,
+                    duration: 1.0,
                     ease: "power3.out"
-                }, "-=0.8");
+                }, "transition+=0.8");
                 
             } else {
                 document.getElementById('preloader').style.display = 'none';
@@ -367,7 +380,7 @@
         <div id="navbar-inner" class="px-5 h-16 flex justify-between items-center flex-nowrap whitespace-nowrap">
             <!-- Logo -->
             <a href="#hero" class="flex items-center group shrink-0">
-                <img src="logo.svg" alt="Pranav S Logo" class="h-8 w-auto group-hover:scale-110 transition-transform rounded-lg"
+                <img id="navbar-logo-img" src="logo.svg" alt="Pranav S Logo" class="h-8 w-auto group-hover:scale-110 transition-transform rounded-lg opacity-0"
                     onerror="this.src='https://placehold.co/100x100/a3e635/000?text=PS'">
             </a>
             
