@@ -1,7 +1,7 @@
 // Data Provider - Refined with Professional Copywriting
 const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
-    profileImage: "IMG_3449.png", 
+    profileImage: "pranav-s-uiux-designer-portrait.png", 
     about: [
         "I move pixels for a living and then write code to make them behave.",
         "Currently surviving a B.Tech in Computer Science Engineering at the College of Engineering, Attingal, while convincing developers that 8px spacing actually matters and reminding designers that it still has to work in production.",
@@ -310,9 +310,11 @@ function initGSAP() {
         ease: "expo.out"
     }, "-=1.2");
 
-    // Parallax video in hero (Only active on Desktop via MatchMedia if needed, but simple enough to run everywhere)
-    gsap.to(".hero-video", {
-        yPercent: 30,
+    // --- Hero Parallax & Fade-out Transition ---
+    gsap.to("#hero", {
+        yPercent: 40,
+        opacity: 0,
+        filter: "blur(10px)",
         ease: "none",
         scrollTrigger: {
             trigger: "#hero",
