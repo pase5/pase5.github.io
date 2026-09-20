@@ -50,6 +50,12 @@ const DATA = {
     ],
     experience: [
         {
+            title: "UI/UX Designer Intern @ hevault",
+            date: "2024 - Present",
+            desc: "Crafting intuitive and engaging user experiences.",
+            icon: "pen-tool"
+        },
+        {
             title: "UI/UX and graphic designer intern @ Multi graphics group",
             date: "2024 - Present",
             desc: "Designing user-centric digital experiences and crafting engaging graphic materials to enhance brand identity and user interaction.",

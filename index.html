@@ -608,6 +608,20 @@
                                 }
                             });
                         });
+
+                        // Parallax effect for DESIGN text on scroll
+                        if (typeof ScrollTrigger !== 'undefined') {
+                            gsap.to(designText, {
+                                y: 200,
+                                ease: "none",
+                                scrollTrigger: {
+                                    trigger: "#hero",
+                                    start: "top top",
+                                    end: "bottom top",
+                                    scrub: true
+                                }
+                            });
+                        }
                     }
                 });
             </script>
@@ -1176,7 +1190,7 @@
 
             <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-16 md:gap-20 items-center justify-between gs_reveal relative z-10">
                 <div class="lg:w-1/2 text-center lg:text-left">
-                    <h2 class="text-5xl md:text-[8vw] font-black uppercase tracking-tighter leading-none mb-6 md:mb-8">Let's <br> Create <br> <span class="text-white">Together</span></h2>
+                    <h2 class="text-5xl md:text-[8vw] font-black uppercase tracking-tighter leading-none mb-6 md:mb-8" data-parallax="-0.1">Let's <br> Create <br> <span class="text-white">Together</span></h2>
                     <p class="text-lg md:text-2xl font-medium mb-8 md:mb-12 max-w-md mx-auto lg:mx-0">Ready to start your next project? Let's build something exceptional.</p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
