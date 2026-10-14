@@ -1000,8 +1000,7 @@ function scrambleText(element, originalText) {
     }
     
     const logoImg = new Image();
-    // Use an absolute or relative path that reliably loads the SVG
-    logoImg.src = 'logo.svg';
+    logoImg.src = 'pase.png';
     
     let angle = 0;
     let isAnimating = true;
@@ -1028,9 +1027,16 @@ function scrambleText(element, originalText) {
         ctx.fill();
         ctx.restore();
         
-        // 2. Draw the logo on top
+        // 2. Draw the logo on top (preserving aspect ratio)
         if (logoImg.complete && logoImg.naturalHeight !== 0) {
-            ctx.drawImage(logoImg, 10, 10, 44, 44);
+            const aspect = logoImg.naturalWidth / logoImg.naturalHeight;
+            let dw = 42;
+            let dh = 42 / aspect;
+            if (dh > 42) {
+                dh = 42;
+                dw = 42 * aspect;
+            }
+            ctx.drawImage(logoImg, 32 - dw / 2, 32 - dh / 2, dw, dh);
         }
         
         angle += 0.2;

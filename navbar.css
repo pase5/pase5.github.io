@@ -61,21 +61,21 @@
 }
 
 .pill-logo {
-  width: 76px;
+  width: 82px;
   height: 44px;
   border-radius: 9999px;
   background: rgba(255,255,255,0.05);
-  padding: 6px 14px;
+  padding: 7px 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-right: 8px;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .pill-logo:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
 }
 
 .pill-logo img {
@@ -83,6 +83,11 @@
   height: 100%;
   object-fit: contain;
   display: block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pill-logo:hover img {
+  transform: scale(1.08);
 }
 
 .pill-list {
