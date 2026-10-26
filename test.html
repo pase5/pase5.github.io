@@ -46,9 +46,22 @@
             <a href="index.html" class="text-xs text-lime-400 hover:underline font-mono">View Full Site &rarr;</a>
         </div>
         <div class="relative rounded-xl overflow-hidden bg-black border border-white/10 aspect-video flex items-center justify-center shadow-2xl">
-            <video src="VN20261014_223223.mp4" autoplay loop muted playsinline controls class="w-full h-full object-contain"></video>
+            <video id="preview-video" src="VN20261014_223223.mp4" autoplay loop playsinline controls class="w-full h-full object-contain"></video>
         </div>
     </div>
+
+    <script>
+        const v = document.getElementById("preview-video");
+        if (v) {
+            v.volume = 0.5;
+            v.muted = false;
+            v.play().catch(() => {
+                // If browser restricts unmuted autoplay, play muted and let user unmute via controls
+                v.muted = true;
+                v.play();
+            });
+        }
+    </script>
 
 </body>
 </html>

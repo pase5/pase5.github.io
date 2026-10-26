@@ -21,9 +21,12 @@
     
     <!-- Canonical Link -->
     <link rel="canonical" href="https://pranavs.online/">
+    
+    <!-- High-Priority Preload for Cinematic Preloader Video -->
+    <link rel="preload" href="VN20261014_223223.mp4" as="video" type="video/mp4" fetchpriority="high">
+    
     <link rel="stylesheet" href="CardSwap.css">
     <link rel="stylesheet" href="navbar.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 
 
@@ -109,21 +112,46 @@
 
     
     <!-- Premium Cinematic Video Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center bg-black overflow-hidden pointer-events-auto">
+    <div id="preloader" class="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center bg-black overflow-hidden pointer-events-auto select-none cursor-pointer">
+        <!-- Video Stream (starts opacity 0 for smooth fade-in once decoded) -->
         <video id="preloader-video" 
                src="VN20261014_223223.mp4" 
                autoplay 
-               muted 
                playsinline 
+               webkit-playsinline
+               disablePictureInPicture
                preload="auto" 
-               class="w-full h-full object-cover pointer-events-none select-none">
+               class="w-full h-full object-cover pointer-events-none select-none opacity-0 transition-opacity duration-700 ease-out">
         </video>
+
+        <!-- Ambient Vignette Layer to softly blend edges into deep blacks -->
+        <div class="absolute inset-0 pointer-events-none bg-radial-[circle_at_center,transparent_20%,rgba(0,0,0,0.5)_100%]"></div>
+
+        <!-- Sleek Brand Buffer / Loading Indicator -->
+        <div id="preloader-spinner" class="absolute z-10 flex flex-col items-center justify-center gap-4 transition-opacity duration-500 ease-out pointer-events-none">
+            <div class="relative w-16 h-16 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-cyan-400/20 blur-xl animate-pulse"></div>
+                <div class="w-14 h-14 rounded-full border-2 border-white/10 border-t-cyan-400 border-r-lime-400 animate-spin"></div>
+                <img src="pase.png" alt="Pase" class="w-8 h-8 object-contain absolute opacity-85">
+            </div>
+            <div class="flex items-center gap-2 text-[11px] font-mono tracking-[0.25em] text-white/50 uppercase">
+                <span>Loading Experience</span>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+            </div>
+        </div>
+
+        <!-- Minimalist Bottom Progress Line -->
+        <div id="preloader-progress" class="absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-30 pointer-events-none">
+            <div id="preloader-progress-bar" class="h-full w-0 bg-gradient-to-r from-cyan-400 via-lime-400 to-cyan-400 transition-all duration-100 ease-out shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+        </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const preloader = document.getElementById("preloader");
             const video = document.getElementById("preloader-video");
+            const spinner = document.getElementById("preloader-spinner");
+            const progressBar = document.getElementById("preloader-progress-bar");
 
             if (!preloader) return;
 
@@ -131,10 +159,35 @@
             window.scrollTo(0, 0);
 
             let transitionStarted = false;
+            let videoPlaying = false;
+
+            function revealVideo() {
+                if (videoPlaying) return;
+                videoPlaying = true;
+                if (video) {
+                    video.classList.remove("opacity-0");
+                    video.classList.add("opacity-100");
+                }
+                if (spinner) {
+                    spinner.style.opacity = "0";
+                    setTimeout(() => {
+                        if (spinner) spinner.style.display = "none";
+                    }, 500);
+                }
+            }
 
             function finishPreloader() {
                 if (transitionStarted) return;
                 transitionStarted = true;
+
+                // Smoothly fade video audio down to avoid abrupt cutoff
+                if (video && !video.muted && video.volume > 0) {
+                    if (typeof gsap !== "undefined") {
+                        gsap.to(video, { volume: 0, duration: 0.8, ease: "power2.out" });
+                    } else {
+                        video.volume = 0;
+                    }
+                }
 
                 if (typeof gsap !== "undefined") {
                     const tl = gsap.timeline({
@@ -143,19 +196,22 @@
                             preloader.remove();
                             const navLogo = document.getElementById("navbar-logo-img");
                             if (navLogo) gsap.set(navLogo, { opacity: 1, scale: 1 });
+                            if (typeof ScrollTrigger !== "undefined") {
+                                ScrollTrigger.refresh();
+                            }
                         }
                     });
 
                     tl.to(preloader, {
                         opacity: 0,
-                        duration: 0.9,
+                        duration: 0.85,
                         ease: "power2.inOut"
                     })
                     .from("#navbar", {
                         opacity: 0,
-                        duration: 1.1,
+                        duration: 1.0,
                         ease: "expo.out"
-                    }, "-=0.5")
+                    }, "-=0.45")
                     .from(".hero-text", {
                         y: 20,
                         opacity: 0,
@@ -190,37 +246,76 @@
             }
 
             if (video) {
-                video.play().catch(() => {});
+                // Set volume to 50%
+                video.volume = 0.5;
+                video.muted = false;
 
-                // Smooth transition near the conclusion of the animation (video is ~8.9s)
+                // When frame rendering starts, reveal smoothly without pop-in
+                video.addEventListener("playing", revealVideo);
                 video.addEventListener("timeupdate", () => {
-                    if (video.currentTime >= 8.2) {
+                    if (video.currentTime > 0.05 && !videoPlaying) {
+                        revealVideo();
+                    }
+
+                    // Progress Line
+                    if (progressBar && video.duration) {
+                        const pct = Math.min(100, (video.currentTime / video.duration) * 100);
+                        progressBar.style.width = pct + "%";
+                    }
+
+                    // Seamless transition slightly before concluding (video total is ~8.9s)
+                    if (video.currentTime >= 7.8) {
                         finishPreloader();
                     }
                 });
 
                 video.addEventListener("ended", finishPreloader);
                 video.addEventListener("error", finishPreloader);
+
+                // Attempt unmuted playback at 50% volume
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // If browser autoplay policy blocks unmuted audio on cold load,
+                        // start playing muted and auto-unmute on first user gesture
+                        video.muted = true;
+                        video.play().catch(() => {
+                            setTimeout(finishPreloader, 1500);
+                        });
+
+                        const unmuteOnInteract = () => {
+                            if (video) {
+                                video.muted = false;
+                                video.volume = 0.5;
+                            }
+                            window.removeEventListener("pointerdown", unmuteOnInteract);
+                            window.removeEventListener("keydown", unmuteOnInteract);
+                        };
+                        window.addEventListener("pointerdown", unmuteOnInteract, { once: true });
+                        window.addEventListener("keydown", unmuteOnInteract, { once: true });
+                    });
+                }
             }
 
-            // Clicking preloader background also skips
+            // Skip functionality kept enabled at all times:
+            // Clicking anywhere on the preloader screen skips immediately
             preloader.addEventListener("click", finishPreloader);
 
-            // Pressing Escape or Space skips
+            // Keyboard navigation: Escape, Space, or Enter skips immediately
             window.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" || e.code === "Space") {
+                if (e.key === "Escape" || e.code === "Space" || e.key === "Enter") {
                     if (!transitionStarted) {
                         finishPreloader();
                     }
                 }
             });
 
-            // Fallback timeout in case video loading stalls
+            // Resilient fallback in case video loading stalls or network fails
             setTimeout(() => {
-                if (!transitionStarted) {
+                if (!videoPlaying && !transitionStarted) {
                     finishPreloader();
                 }
-            }, 9500);
+            }, 3500);
         });
     </script>
     <!-- Custom Cursor -->
