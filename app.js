@@ -87,12 +87,12 @@ const DATA = {
             date: "Recent Session",
             desc: "An introductory session on IoT architecture, sensors, and practical applications in smart environments.",
             images: [
-                "iot_session_images/1758084814931.webp",
-                "iot_session_images/1758084821647.webp",
-                "iot_session_images/1758084832621.webp",
-                "iot_session_images/1758084849211.webp",
-                "iot_session_images/1758084853430.webp",
-                "iot_session_images/1770523508576.webp"
+                "iot_session_images/1758084814931.jpg",
+                "iot_session_images/1758084821647.jpg",
+                "iot_session_images/1758084832621.jpg",
+                "iot_session_images/1758084849211.jpg",
+                "iot_session_images/1758084853430.jpg",
+                "iot_session_images/1770523508576.jpg"
             ] 
         },
         {
@@ -101,9 +101,9 @@ const DATA = {
             date: "Recent Session",
             desc: "Deep dive into creating scalable design systems, typography hierarchy, and accessibility in modern web design.",
             images: [
-                "ux_session_images/1771907420391.webp",
-                "ux_session_images/1771907435955.webp",
-                "ux_session_images/1771907444279.webp"
+                "ux_session_images/1771907420391.jpg",
+                "ux_session_images/1771907435955.jpg",
+                "ux_session_images/1771907444279.jpg"
             ]
         },
         {
@@ -112,29 +112,27 @@ const DATA = {
             date: "Recent Session",
             desc: "Strategies for driving IEEE membership growth and fostering active student engagement within the community.",
             images: [
-                "ieee_mdsession/1750095272862.webp",
-                "ieee_mdsession/1771257915493.webp",
-                "ieee_mdsession/1774789881666.webp"
+                "ieee_mdsession/1750095272862.jpg",
+                "ieee_mdsession/1771257915493.jpg",
+                "ieee_mdsession/1774789881666.jpg"
             ]
         }
     ],
     posterCount: 24
 };
 
-// Initialize Lenis Smooth Scroll with GSAP Ticker Synchronization
+// Initialize Lenis Smooth Scroll
 const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    touchMultiplier: 1.5,
+    smooth: true,
 });
 
-lenis.on('scroll', ScrollTrigger.update);
-
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
-gsap.ticker.lagSmoothing(0);
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
 
 // Render Dynamic Content
 function renderDynamicContent() {
@@ -215,7 +213,7 @@ function renderDynamicContent() {
             let imagesHtml = '';
             if (session.images && session.images.length > 0) {
                 imagesHtml = session.images.map((img, i) => `
-                    <img src="${img}" alt="${session.title}" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
+                    <img src="${img}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
                 `).join('');
             } else {
                 imagesHtml = `<img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-110 transition-transform duration-700">`;
@@ -237,39 +235,21 @@ function renderDynamicContent() {
             `;
         });
 
-        // Setup viewport-aware image rotation (zero CPU burn when offscreen)
-        const sessionsSection = document.getElementById('sessions');
-        let sessionTimer = null;
-        let sessionIndices = DATA.sessions.map(() => 0);
-
-        function rotateSessionImages() {
-            DATA.sessions.forEach((session, sIdx) => {
-                if (session.images && session.images.length > 1) {
-                    const images = document.querySelectorAll(`.session-img-${sIdx}`);
-                    if (!images.length) return;
-                    images[sessionIndices[sIdx]].classList.remove('opacity-100', 'z-10');
-                    images[sessionIndices[sIdx]].classList.add('opacity-0', 'z-0');
-                    sessionIndices[sIdx] = (sessionIndices[sIdx] + 1) % session.images.length;
-                    images[sessionIndices[sIdx]].classList.remove('opacity-0', 'z-0');
-                    images[sessionIndices[sIdx]].classList.add('opacity-100', 'z-10');
-                }
-            });
-        }
-
-        if ('IntersectionObserver' in window && sessionsSection) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!sessionTimer) sessionTimer = setInterval(rotateSessionImages, 3500);
-                    } else {
-                        if (sessionTimer) { clearInterval(sessionTimer); sessionTimer = null; }
-                    }
-                });
-            }, { threshold: 0.1 });
-            observer.observe(sessionsSection);
-        } else {
-            sessionTimer = setInterval(rotateSessionImages, 3500);
-        }
+        // Setup image rotation
+        DATA.sessions.forEach((session, sIdx) => {
+            if (session.images && session.images.length > 1) {
+                let currentIdx = 0;
+                const images = document.querySelectorAll(`.session-img-${sIdx}`);
+                setInterval(() => {
+                    if (images.length === 0) return;
+                    images[currentIdx].classList.remove('opacity-100', 'z-10');
+                    images[currentIdx].classList.add('opacity-0', 'z-0');
+                    currentIdx = (currentIdx + 1) % session.images.length;
+                    images[currentIdx].classList.remove('opacity-0', 'z-0');
+                    images[currentIdx].classList.add('opacity-100', 'z-10');
+                }, 3000); // Change image every 3 seconds
+            }
+        });
     }
 
     // Posters
@@ -278,7 +258,9 @@ function renderDynamicContent() {
         for (let i = 1; i <= DATA.posterCount; i++) {
             postersContainer.innerHTML += `
                 <div class="swiper-slide w-[260px] md:w-[400px] aspect-square rounded-[2rem] overflow-hidden relative group bg-gray-100 shadow-2xl">
-                    <img src="poster/${i}.webp" alt="Poster ${i}" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0">
+                    <img src="poster/${i}.webp" alt="Poster ${i}" 
+                         class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0"
+                         onerror="this.src='https://placehold.co/800x1000/eee/999?text=POSTER+${i}'">
                 </div>
             `;
         }
@@ -592,20 +574,19 @@ function initTypewriter() {
     type();
 }
 
-// Live Status Clock (Single efficient interval)
+// Live Status Clock
 function updateLiveStatus() {
     const timeEl = document.getElementById('live-time');
-    if (!timeEl) return;
-    const update = () => {
-        timeEl.textContent = new Date().toLocaleTimeString('en-US', {
-            hour12: true,
-            hour: 'numeric',
-            minute: '2-digit',
-            timeZoneName: 'short'
-        });
-    };
-    update();
-    setInterval(update, 1000);
+    if (timeEl) {
+        setInterval(() => {
+            timeEl.textContent = new Date().toLocaleTimeString('en-US', {
+                hour12: true,
+                hour: 'numeric',
+                minute: '2-digit',
+                timeZoneName: 'short'
+            });
+        }, 1000);
+    }
 }
 
 // Initialize
@@ -619,12 +600,98 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         initGSAP();
         
-    // Logo Design uses responsive Bento grid
+    // --- Logo Design Horizontal Scroll ---
+    const logoSection = document.getElementById("logo-design");
+    const scrollContainer = document.getElementById("horizontal-scroll-container");
+    const logoSlides = gsap.utils.toArray(".logo-slide");
+
+    if (logoSection && scrollContainer && logoSlides.length > 0) {
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 768px)", () => {
+            let horizontalScrollTween = gsap.to(logoSlides, {
+                xPercent: -100 * (logoSlides.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: logoSection,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + scrollContainer.offsetWidth
+                }
+            });
+
+            // Optional: Parallax effects within each slide
+            logoSlides.forEach((slide) => {
+                const logo = slide.querySelector('.parallax-logo');
+                const details = slide.querySelector('.parallax-details');
+
+                if(logo && details) {
+                    gsap.from(logo, {
+                        x: 100,
+                        opacity: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            containerAnimation: horizontalScrollTween,
+                            start: "left center",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                    
+                    gsap.from(details.children, {
+                        x: 50,
+                        opacity: 0,
+                        stagger: 0.2,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            containerAnimation: horizontalScrollTween,
+                            start: "left center",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                }
+            });
+        });
+
+        mm.add("(max-width: 767px)", () => {
+            logoSlides.forEach((slide) => {
+                const logo = slide.querySelector('.parallax-logo');
+                const details = slide.querySelector('.parallax-details');
+                
+                if (logo && details) {
+                    gsap.from(logo, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                    gsap.from(details.children, {
+                        y: 30,
+                        opacity: 0,
+                        stagger: 0.2,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: slide,
+                            start: "top 70%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                }
+            });
+        });
+    }
 
         ScrollTrigger.refresh();
     }, 100);
 
-    // Live clock already started in DOMContentLoaded
+    // Start Live Clock
+    updateLiveStatus();
+    setInterval(updateLiveStatus, 1000);
 
     // Initialize Fast Average Color
     const fac = new FastAverageColor();
@@ -933,7 +1000,7 @@ function scrambleText(element, originalText) {
     }
     
     const logoImg = new Image();
-    logoImg.src = 'pase-icon.png';
+    logoImg.src = 'pase.png';
     
     let angle = 0;
     let isAnimating = true;
@@ -978,7 +1045,7 @@ function scrambleText(element, originalText) {
         link.type = 'image/png';
         link.href = canvas.toDataURL('image/png');
         
-        setTimeout(() => requestAnimationFrame(drawFavicon), 1000); // Throttled to 1s for ultra-low CPU overhead
+        setTimeout(() => requestAnimationFrame(drawFavicon), 100); // ~10fps
     }
     
     logoImg.onload = () => {
@@ -1080,3 +1147,161 @@ function scrambleText(element, originalText) {
         }
     });
 })();
+
+// ==========================================
+// 3D STORY SECTION LOGIC (INTERACTIVE BOOK)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const storySection = document.getElementById('story');
+    const storyMusic = document.getElementById('story-music');
+    const bgMusic = document.getElementById('bg-music');
+    const canvas = document.getElementById('story-canvas');
+
+    if (storySection) {
+        
+        // --- 1. 3D Particle Canvas Background ---
+        let ctx = null;
+        let particles = [];
+        let animationFrame = null;
+        
+        if (canvas) {
+            ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initParticles();
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.z = Math.random() * 1000;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedZ = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.z -= this.speedZ;
+                    if (this.z <= 0) {
+                        this.z = 1000;
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                    }
+                }
+                draw() {
+                    const fov = 300;
+                    const scale = fov / (fov + this.z);
+                    const x2d = (this.x - canvas.width/2) * scale + canvas.width/2;
+                    const y2d = (this.y - canvas.height/2) * scale + canvas.height/2;
+                    const r = this.size * scale;
+                    const opacity = Math.max(0, 1 - (this.z / 1000));
+                    
+                    ctx.beginPath();
+                    ctx.arc(x2d, y2d, Math.max(0.1, r), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(163, 230, 53, ${opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for(let i=0; i<150; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                animationFrame = requestAnimationFrame(animateParticles);
+            }
+            
+            initParticles();
+        }
+
+        // --- 2. 3D Book Logic via ScrollTrigger ---
+        const pages = document.querySelectorAll('.book-page');
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function flipNext() {
+            if (currentPage < totalPages) {
+                const page = pages[currentPage];
+                if(page) {
+                    page.classList.add('flipped');
+                    page.style.zIndex = currentPage; 
+                }
+                currentPage++;
+            }
+        }
+
+        function flipPrev() {
+            if (currentPage > 0) {
+                currentPage--;
+                const page = pages[currentPage];
+                if(page) {
+                    page.classList.remove('flipped');
+                    page.style.zIndex = 60 - currentPage * 10;
+                }
+            }
+        }
+
+        // --- 3. Handle Audio & Canvas Lifecycle on Scroll ---
+        ScrollTrigger.create({
+            trigger: storySection,
+            start: "top top",
+            end: "+=4000",
+            pin: true,
+            onEnter: () => {
+                if (bgMusic) bgMusic.pause();
+                if (storyMusic) {
+                    storyMusic.volume = 0;
+                    let p = storyMusic.play();
+                    if(p !== undefined) {
+                        p.then(() => gsap.to(storyMusic, { volume: 0.6, duration: 2 })).catch(e => console.log(e));
+                    }
+                }
+                if(canvas && !animationFrame) animateParticles();
+            },
+            onLeave: () => {
+                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
+                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
+                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+            },
+            onEnterBack: () => {
+                if (bgMusic) bgMusic.pause();
+                if (storyMusic) {
+                    storyMusic.volume = 0;
+                    storyMusic.play().catch(e=>console.log(e));
+                    gsap.to(storyMusic, { volume: 0.6, duration: 1 });
+                }
+                if(canvas && !animationFrame) animateParticles();
+            },
+            onLeaveBack: () => {
+                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
+                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
+                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+            },
+            onUpdate: (self) => {
+                let targetPage = Math.floor(self.progress * (totalPages + 1));
+                if (targetPage > totalPages) targetPage = totalPages;
+                if (targetPage < 0) targetPage = 0;
+
+                while (currentPage < targetPage) {
+                    flipNext();
+                }
+                while (currentPage > targetPage) {
+                    flipPrev();
+                }
+            }
+        });
+    }
+});
