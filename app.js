@@ -1,7 +1,7 @@
 // Data Provider - Refined with Professional Copywriting
 const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
-    profileImage: "pranav-s-uiux-designer-portrait.png",
+    profileImage: "pranav-s-uiux-designer-portrait.png", 
     about: [
         "I move pixels for a living and then write code to make them behave.",
         "Currently surviving a B.Tech in Computer Science Engineering at the College of Engineering, Attingal, while convincing developers that 8px spacing actually matters and reminding designers that it still has to work in production.",
@@ -93,7 +93,7 @@ const DATA = {
                 "iot_session_images/1758084849211.webp",
                 "iot_session_images/1758084853430.webp",
                 "iot_session_images/1770523508576.webp"
-            ]
+            ] 
         },
         {
             title: "UI/UX Masterclass",
@@ -294,7 +294,7 @@ function initGSAP() {
 
     // --- Hero Animations ---
     const tlHero = gsap.timeline();
-
+    
     // Add initial blur for smoother hero intro
     gsap.set(".hero-title", { filter: "blur(10px)" });
     gsap.set(".hero-desc", { filter: "blur(5px)" });
@@ -306,33 +306,33 @@ function initGSAP() {
         ease: "power3.out",
         delay: 0.2
     })
-        .to(".hero-title", {
-            y: 0,
-            filter: "blur(0px)",
-            duration: 1.5,
-            stagger: 0.15,
-            ease: "expo.out",
-            autoAlpha: 1
-        }, "-=0.8")
-        .to(".hero-desc", {
-            y: 0,
-            filter: "blur(0px)",
-            duration: 1.2,
-            ease: "power3.out",
-            autoAlpha: 1
-        }, "-=1")
-        .to(".hero-buttons", {
-            opacity: 1,
-            duration: 1,
-            ease: "expo.out",
-            autoAlpha: 1
-        }, "-=0.8")
-        .to("#navbar", {
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: "expo.out"
-        }, "-=1.2");
+    .to(".hero-title", {
+        y: 0,
+        filter: "blur(0px)",
+        duration: 1.5,
+        stagger: 0.15,
+        ease: "expo.out",
+        autoAlpha: 1
+    }, "-=0.8")
+    .to(".hero-desc", {
+        y: 0,
+        filter: "blur(0px)",
+        duration: 1.2,
+        ease: "power3.out",
+        autoAlpha: 1
+    }, "-=1")
+    .to(".hero-buttons", {
+        opacity: 1,
+        duration: 1,
+        ease: "expo.out",
+        autoAlpha: 1
+    }, "-=0.8")
+    .to("#navbar", {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "expo.out"
+    }, "-=1.2");
 
     // --- Hero Parallax & Fade-out Transition ---
     gsap.to("#hero", {
@@ -350,7 +350,7 @@ function initGSAP() {
 
     // --- Staggered Text Reveal ---
     const staggeredWords = gsap.utils.toArray(".staggered-word");
-
+    
     // Set initial state: words start blurred and slightly offset
     gsap.set(staggeredWords, { opacity: 0, x: "20vw", filter: "blur(20px)" });
 
@@ -420,7 +420,7 @@ function initGSAP() {
     // --- Stacked Cards Animation (Projects) ---
     const cards = gsap.utils.toArray(".project-card");
     cards.forEach((card, i) => {
-        if (i !== cards.length - 1) {
+        if (i !== cards.length - 1) { 
             gsap.to(card, {
                 scale: 0.85,
                 opacity: 0.3,
@@ -529,13 +529,13 @@ function initGSAP() {
         card.addEventListener('mousemove', (e) => {
             if (window.matchMedia("(pointer: fine)").matches) {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
+                const x = e.clientX - rect.left; 
                 const y = e.clientY - rect.top;
                 const multiplier = 5; // max rotation degrees
-
+                
                 const xRot = multiplier * ((y - rect.height / 2) / (rect.height / 2));
                 const yRot = -multiplier * ((x - rect.width / 2) / (rect.width / 2));
-
+                
                 gsap.to(card, {
                     rotateX: -xRot, // Invert for natural feel
                     rotateY: yRot,
@@ -580,7 +580,7 @@ function initTypewriter() {
 
         if (!isDeleting && charIdx === currentRole.length) {
             isDeleting = true;
-            typeSpeed = 2000;
+            typeSpeed = 2000; 
         } else if (isDeleting && charIdx === 0) {
             isDeleting = false;
             roleIdx = (roleIdx + 1) % DATA.roles.length;
@@ -614,12 +614,12 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
     initTypewriter();
     updateLiveStatus();
-
+    
     // Slight delay for GSAP to ensure DOM is ready and images are mapped
     setTimeout(() => {
         initGSAP();
-
-        // Logo Design uses responsive Bento grid
+        
+    // Logo Design uses responsive Bento grid
 
         ScrollTrigger.refresh();
     }, 100);
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = activeSlide.querySelector('img');
                 if (img) {
                     // Make sure image is loaded before getting color
-                    if (img.complete) {
+                    if(img.complete) {
                         applyDynamicBackground(img);
                     } else {
                         img.addEventListener('load', () => applyDynamicBackground(img), { once: true });
@@ -669,23 +669,23 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(e => console.log('Color extraction failed:', e));
     }
-
+    
     // ==========================================
     // CREATIVE ENHANCEMENTS
     // ==========================================
-
+    
     // 1. Custom Interactive Cursor
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
-
+    
     if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) {
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
             const posY = e.clientY;
-
+            
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-
+            
             gsap.to(cursorOutline, {
                 x: posX,
                 y: posY,
@@ -693,14 +693,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: "power2.out"
             });
         });
-
+        
         const interactables = document.querySelectorAll('a, button, .project-card, .premium-card');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
     }
-
+    
     // 2. Magnetic Buttons
     const magneticEls = document.querySelectorAll('.magnetic');
     magneticEls.forEach((el) => {
@@ -710,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const v = rect.height / 2;
             const x = e.clientX - rect.left - h;
             const y = e.clientY - rect.top - v;
-
+            
             gsap.to(el, {
                 x: x * 0.4,
                 y: y * 0.4,
@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('cursor-magnetic');
         });
     });
-
+    
     // 3 & 4. Text Scramble for Tech Badges
     const techBadges = document.querySelectorAll('.tech-badge');
     techBadges.forEach(badge => {
@@ -758,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
             source = audioCtx.createMediaElementSource(bgMusic);
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
-
+            
             analyser.fftSize = 128; // gives 64 frequency bins
             const bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
@@ -776,24 +776,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!bgMusic.paused && isInitialized) {
                 animationId = requestAnimationFrame(drawVisualizer);
                 analyser.getByteFrequencyData(dataArray);
-
+                
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+                
                 ctx.beginPath();
                 ctx.moveTo(0, canvas.height);
-
+                
                 const sliceWidth = canvas.width / dataArray.length;
                 let x = 0;
-
-                for (let i = 0; i < dataArray.length; i++) {
+                
+                for(let i = 0; i < dataArray.length; i++) {
                     const v = dataArray[i] / 255.0;
                     // amplify height and smooth it
                     const y = canvas.height - (v * canvas.height * 0.9);
-
+                    
                     if (i === 0) {
                         ctx.lineTo(x, y);
                     } else {
-                        const prevV = dataArray[i - 1] / 255.0;
+                        const prevV = dataArray[i-1] / 255.0;
                         const prevY = canvas.height - (prevV * canvas.height * 0.9);
                         const xc = (x - sliceWidth + x) / 2;
                         const yc = (prevY + y) / 2;
@@ -801,21 +801,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     x += sliceWidth;
                 }
-
+                
                 // Complete the shape
                 ctx.lineTo(canvas.width, canvas.height);
                 ctx.lineTo(0, canvas.height);
                 ctx.closePath();
-
+                
                 // Liquid glass gradient
                 const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
                 gradient.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
                 gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
-
+                
                 ctx.fillStyle = gradient;
                 ctx.fill();
-
+                
                 // Add a bright border line to the wave top
                 ctx.lineWidth = 2;
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
@@ -831,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (audioCtx && audioCtx.state === 'suspended') {
                     audioCtx.resume();
                 }
-
+                
                 // Attempt to play, catch if user hasn't interacted yet
                 let playPromise = bgMusic.play();
                 if (playPromise !== undefined) {
@@ -860,25 +860,25 @@ document.addEventListener('DOMContentLoaded', () => {
 function scrambleText(element, originalText) {
     const chars = '!<>-_\\\\/[]{}—=+*^?#________';
     let iteration = 0;
-
+    
     clearInterval(element.scrambleInterval);
-
+    
     element.scrambleInterval = setInterval(() => {
         element.innerText = originalText
             .split('')
             .map((letter, index) => {
-                if (index < iteration) {
+                if(index < iteration) {
                     return originalText[index];
                 }
                 return chars[Math.floor(Math.random() * chars.length)];
             })
             .join('');
-
-        if (iteration >= originalText.length) {
+        
+        if(iteration >= originalText.length){ 
             clearInterval(element.scrambleInterval);
             element.innerText = originalText;
         }
-
+        
         iteration += 1 / 3;
     }, 30);
 }
@@ -924,42 +924,42 @@ function scrambleText(element, originalText) {
     canvas.width = 64;
     canvas.height = 64;
     const ctx = canvas.getContext('2d');
-
+    
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
         link = document.createElement('link');
         link.rel = 'icon';
         document.head.appendChild(link);
     }
-
+    
     const logoImg = new Image();
     logoImg.src = 'pase-icon.png';
-
+    
     let angle = 0;
     let isAnimating = true;
-
+    
     function drawFavicon() {
         if (!isAnimating) return;
-
+        
         ctx.clearRect(0, 0, 64, 64);
-
+        
         // 1. Draw spinning gradient background
         ctx.save();
         ctx.translate(32, 32);
         ctx.rotate(angle);
-
+        
         const gradient = ctx.createLinearGradient(-32, -32, 32, 32);
         gradient.addColorStop(0, '#a3e635'); // Lime green
         gradient.addColorStop(0.33, '#000000'); // Black
         gradient.addColorStop(0.66, '#a3e635'); // Lime green
         gradient.addColorStop(1, '#000000'); // Black
-
+        
         ctx.beginPath();
         ctx.arc(0, 0, 32, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.fill();
         ctx.restore();
-
+        
         // 2. Draw the logo on top (preserving aspect ratio)
         if (logoImg.complete && logoImg.naturalHeight !== 0) {
             const aspect = logoImg.naturalWidth / logoImg.naturalHeight;
@@ -971,24 +971,24 @@ function scrambleText(element, originalText) {
             }
             ctx.drawImage(logoImg, 32 - dw / 2, 32 - dh / 2, dw, dh);
         }
-
+        
         angle += 0.2;
-
+        
         // 3. Update favicon
         link.type = 'image/png';
         link.href = canvas.toDataURL('image/png');
-
+        
         setTimeout(() => requestAnimationFrame(drawFavicon), 1000); // Throttled to 1s for ultra-low CPU overhead
     }
-
+    
     logoImg.onload = () => {
         if (isAnimating) drawFavicon();
     };
-
+    
     window.addEventListener("blur", () => {
         isAnimating = false;
     });
-
+    
     window.addEventListener("focus", () => {
         if (!isAnimating) {
             isAnimating = true;
@@ -1029,20 +1029,20 @@ function scrambleText(element, originalText) {
     function checkBeat() {
         if (!isHorror) return;
         analyser.getByteFrequencyData(dataArray);
-
+        
         if (ctx && canvas) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const barWidth = (canvas.width / dataArray.length) * 2.5;
             let barHeight;
             let x = 0;
-
-            for (let i = 0; i < dataArray.length; i++) {
+            
+            for(let i = 0; i < dataArray.length; i++) {
                 barHeight = dataArray[i] * 1.5;
-
+                
                 // Standard visual bars - red for horror theme
                 ctx.fillStyle = `rgb(${barHeight + 50}, 0, 0)`;
                 ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-
+                
                 x += barWidth + 1;
             }
         }
@@ -1053,7 +1053,7 @@ function scrambleText(element, originalText) {
     horrorBtn.addEventListener('click', (e) => {
         e.preventDefault();
         isHorror = !isHorror;
-
+        
         if (isHorror) {
             initAudio();
             if (audioCtx.state === 'suspended') {
