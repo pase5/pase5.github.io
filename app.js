@@ -1,7 +1,7 @@
 // Data Provider - Refined with Professional Copywriting
 const DATA = {
     roles: ["UI/UX Designer", "Full-Stack Developer", "Creative Technologist"],
-    profileImage: "pranav-s-uiux-designer-portrait.png", 
+    profileImage: "pranav-s-uiux-designer-portrait.png",
     about: [
         "I move pixels for a living and then write code to make them behave.",
         "Currently surviving a B.Tech in Computer Science Engineering at the College of Engineering, Attingal, while convincing developers that 8px spacing actually matters and reminding designers that it still has to work in production.",
@@ -87,13 +87,13 @@ const DATA = {
             date: "Recent Session",
             desc: "An introductory session on IoT architecture, sensors, and practical applications in smart environments.",
             images: [
-                "iot_session_images/1758084814931.jpg",
-                "iot_session_images/1758084821647.jpg",
-                "iot_session_images/1758084832621.jpg",
-                "iot_session_images/1758084849211.jpg",
-                "iot_session_images/1758084853430.jpg",
-                "iot_session_images/1770523508576.jpg"
-            ] 
+                "iot_session_images/1758084814931.webp",
+                "iot_session_images/1758084821647.webp",
+                "iot_session_images/1758084832621.webp",
+                "iot_session_images/1758084849211.webp",
+                "iot_session_images/1758084853430.webp",
+                "iot_session_images/1770523508576.webp"
+            ]
         },
         {
             title: "UI/UX Masterclass",
@@ -101,9 +101,9 @@ const DATA = {
             date: "Recent Session",
             desc: "Deep dive into creating scalable design systems, typography hierarchy, and accessibility in modern web design.",
             images: [
-                "ux_session_images/1771907420391.jpg",
-                "ux_session_images/1771907435955.jpg",
-                "ux_session_images/1771907444279.jpg"
+                "ux_session_images/1771907420391.webp",
+                "ux_session_images/1771907435955.webp",
+                "ux_session_images/1771907444279.webp"
             ]
         },
         {
@@ -112,27 +112,29 @@ const DATA = {
             date: "Recent Session",
             desc: "Strategies for driving IEEE membership growth and fostering active student engagement within the community.",
             images: [
-                "ieee_mdsession/1750095272862.jpg",
-                "ieee_mdsession/1771257915493.jpg",
-                "ieee_mdsession/1774789881666.jpg"
+                "ieee_mdsession/1750095272862.webp",
+                "ieee_mdsession/1771257915493.webp",
+                "ieee_mdsession/1774789881666.webp"
             ]
         }
     ],
     posterCount: 24
 };
 
-// Initialize Lenis Smooth Scroll
+// Initialize Lenis Smooth Scroll with GSAP Ticker Synchronization
 const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true,
+    smoothWheel: true,
+    touchMultiplier: 1.5,
 });
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
 
 // Render Dynamic Content
 function renderDynamicContent() {
@@ -213,7 +215,7 @@ function renderDynamicContent() {
             let imagesHtml = '';
             if (session.images && session.images.length > 0) {
                 imagesHtml = session.images.map((img, i) => `
-                    <img src="${img}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
+                    <img src="${img}" alt="${session.title}" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'} session-img-${sIdx} group-hover:scale-110">
                 `).join('');
             } else {
                 imagesHtml = `<img src="${session.image}" alt="${session.title}" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-110 transition-transform duration-700">`;
@@ -235,21 +237,39 @@ function renderDynamicContent() {
             `;
         });
 
-        // Setup image rotation
-        DATA.sessions.forEach((session, sIdx) => {
-            if (session.images && session.images.length > 1) {
-                let currentIdx = 0;
-                const images = document.querySelectorAll(`.session-img-${sIdx}`);
-                setInterval(() => {
-                    if (images.length === 0) return;
-                    images[currentIdx].classList.remove('opacity-100', 'z-10');
-                    images[currentIdx].classList.add('opacity-0', 'z-0');
-                    currentIdx = (currentIdx + 1) % session.images.length;
-                    images[currentIdx].classList.remove('opacity-0', 'z-0');
-                    images[currentIdx].classList.add('opacity-100', 'z-10');
-                }, 3000); // Change image every 3 seconds
-            }
-        });
+        // Setup viewport-aware image rotation (zero CPU burn when offscreen)
+        const sessionsSection = document.getElementById('sessions');
+        let sessionTimer = null;
+        let sessionIndices = DATA.sessions.map(() => 0);
+
+        function rotateSessionImages() {
+            DATA.sessions.forEach((session, sIdx) => {
+                if (session.images && session.images.length > 1) {
+                    const images = document.querySelectorAll(`.session-img-${sIdx}`);
+                    if (!images.length) return;
+                    images[sessionIndices[sIdx]].classList.remove('opacity-100', 'z-10');
+                    images[sessionIndices[sIdx]].classList.add('opacity-0', 'z-0');
+                    sessionIndices[sIdx] = (sessionIndices[sIdx] + 1) % session.images.length;
+                    images[sessionIndices[sIdx]].classList.remove('opacity-0', 'z-0');
+                    images[sessionIndices[sIdx]].classList.add('opacity-100', 'z-10');
+                }
+            });
+        }
+
+        if ('IntersectionObserver' in window && sessionsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!sessionTimer) sessionTimer = setInterval(rotateSessionImages, 3500);
+                    } else {
+                        if (sessionTimer) { clearInterval(sessionTimer); sessionTimer = null; }
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(sessionsSection);
+        } else {
+            sessionTimer = setInterval(rotateSessionImages, 3500);
+        }
     }
 
     // Posters
@@ -258,9 +278,7 @@ function renderDynamicContent() {
         for (let i = 1; i <= DATA.posterCount; i++) {
             postersContainer.innerHTML += `
                 <div class="swiper-slide w-[260px] md:w-[400px] aspect-square rounded-[2rem] overflow-hidden relative group bg-gray-100 shadow-2xl">
-                    <img src="poster/${i}.webp" alt="Poster ${i}" 
-                         class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0"
-                         onerror="this.src='https://placehold.co/800x1000/eee/999?text=POSTER+${i}'">
+                    <img src="poster/${i}.webp" alt="Poster ${i}" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0">
                 </div>
             `;
         }
@@ -276,7 +294,7 @@ function initGSAP() {
 
     // --- Hero Animations ---
     const tlHero = gsap.timeline();
-    
+
     // Add initial blur for smoother hero intro
     gsap.set(".hero-title", { filter: "blur(10px)" });
     gsap.set(".hero-desc", { filter: "blur(5px)" });
@@ -288,33 +306,33 @@ function initGSAP() {
         ease: "power3.out",
         delay: 0.2
     })
-    .to(".hero-title", {
-        y: 0,
-        filter: "blur(0px)",
-        duration: 1.5,
-        stagger: 0.15,
-        ease: "expo.out",
-        autoAlpha: 1
-    }, "-=0.8")
-    .to(".hero-desc", {
-        y: 0,
-        filter: "blur(0px)",
-        duration: 1.2,
-        ease: "power3.out",
-        autoAlpha: 1
-    }, "-=1")
-    .to(".hero-buttons", {
-        opacity: 1,
-        duration: 1,
-        ease: "expo.out",
-        autoAlpha: 1
-    }, "-=0.8")
-    .to("#navbar", {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "expo.out"
-    }, "-=1.2");
+        .to(".hero-title", {
+            y: 0,
+            filter: "blur(0px)",
+            duration: 1.5,
+            stagger: 0.15,
+            ease: "expo.out",
+            autoAlpha: 1
+        }, "-=0.8")
+        .to(".hero-desc", {
+            y: 0,
+            filter: "blur(0px)",
+            duration: 1.2,
+            ease: "power3.out",
+            autoAlpha: 1
+        }, "-=1")
+        .to(".hero-buttons", {
+            opacity: 1,
+            duration: 1,
+            ease: "expo.out",
+            autoAlpha: 1
+        }, "-=0.8")
+        .to("#navbar", {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "expo.out"
+        }, "-=1.2");
 
     // --- Hero Parallax & Fade-out Transition ---
     gsap.to("#hero", {
@@ -332,7 +350,7 @@ function initGSAP() {
 
     // --- Staggered Text Reveal ---
     const staggeredWords = gsap.utils.toArray(".staggered-word");
-    
+
     // Set initial state: words start blurred and slightly offset
     gsap.set(staggeredWords, { opacity: 0, x: "20vw", filter: "blur(20px)" });
 
@@ -402,7 +420,7 @@ function initGSAP() {
     // --- Stacked Cards Animation (Projects) ---
     const cards = gsap.utils.toArray(".project-card");
     cards.forEach((card, i) => {
-        if (i !== cards.length - 1) { 
+        if (i !== cards.length - 1) {
             gsap.to(card, {
                 scale: 0.85,
                 opacity: 0.3,
@@ -511,13 +529,13 @@ function initGSAP() {
         card.addEventListener('mousemove', (e) => {
             if (window.matchMedia("(pointer: fine)").matches) {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
+                const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 const multiplier = 5; // max rotation degrees
-                
+
                 const xRot = multiplier * ((y - rect.height / 2) / (rect.height / 2));
                 const yRot = -multiplier * ((x - rect.width / 2) / (rect.width / 2));
-                
+
                 gsap.to(card, {
                     rotateX: -xRot, // Invert for natural feel
                     rotateY: yRot,
@@ -562,7 +580,7 @@ function initTypewriter() {
 
         if (!isDeleting && charIdx === currentRole.length) {
             isDeleting = true;
-            typeSpeed = 2000; 
+            typeSpeed = 2000;
         } else if (isDeleting && charIdx === 0) {
             isDeleting = false;
             roleIdx = (roleIdx + 1) % DATA.roles.length;
@@ -574,19 +592,20 @@ function initTypewriter() {
     type();
 }
 
-// Live Status Clock
+// Live Status Clock (Single efficient interval)
 function updateLiveStatus() {
     const timeEl = document.getElementById('live-time');
-    if (timeEl) {
-        setInterval(() => {
-            timeEl.textContent = new Date().toLocaleTimeString('en-US', {
-                hour12: true,
-                hour: 'numeric',
-                minute: '2-digit',
-                timeZoneName: 'short'
-            });
-        }, 1000);
-    }
+    if (!timeEl) return;
+    const update = () => {
+        timeEl.textContent = new Date().toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        });
+    };
+    update();
+    setInterval(update, 1000);
 }
 
 // Initialize
@@ -595,103 +614,17 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
     initTypewriter();
     updateLiveStatus();
-    
+
     // Slight delay for GSAP to ensure DOM is ready and images are mapped
     setTimeout(() => {
         initGSAP();
-        
-    // --- Logo Design Horizontal Scroll ---
-    const logoSection = document.getElementById("logo-design");
-    const scrollContainer = document.getElementById("horizontal-scroll-container");
-    const logoSlides = gsap.utils.toArray(".logo-slide");
 
-    if (logoSection && scrollContainer && logoSlides.length > 0) {
-        let mm = gsap.matchMedia();
-
-        mm.add("(min-width: 768px)", () => {
-            let horizontalScrollTween = gsap.to(logoSlides, {
-                xPercent: -100 * (logoSlides.length - 1),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: logoSection,
-                    pin: true,
-                    scrub: 1,
-                    end: () => "+=" + scrollContainer.offsetWidth
-                }
-            });
-
-            // Optional: Parallax effects within each slide
-            logoSlides.forEach((slide) => {
-                const logo = slide.querySelector('.parallax-logo');
-                const details = slide.querySelector('.parallax-details');
-
-                if(logo && details) {
-                    gsap.from(logo, {
-                        x: 100,
-                        opacity: 0,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: slide,
-                            containerAnimation: horizontalScrollTween,
-                            start: "left center",
-                            toggleActions: "play none none reverse"
-                        }
-                    });
-                    
-                    gsap.from(details.children, {
-                        x: 50,
-                        opacity: 0,
-                        stagger: 0.2,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: slide,
-                            containerAnimation: horizontalScrollTween,
-                            start: "left center",
-                            toggleActions: "play none none reverse"
-                        }
-                    });
-                }
-            });
-        });
-
-        mm.add("(max-width: 767px)", () => {
-            logoSlides.forEach((slide) => {
-                const logo = slide.querySelector('.parallax-logo');
-                const details = slide.querySelector('.parallax-details');
-                
-                if (logo && details) {
-                    gsap.from(logo, {
-                        y: 50,
-                        opacity: 0,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: slide,
-                            start: "top 80%",
-                            toggleActions: "play none none reverse"
-                        }
-                    });
-                    gsap.from(details.children, {
-                        y: 30,
-                        opacity: 0,
-                        stagger: 0.2,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: slide,
-                            start: "top 70%",
-                            toggleActions: "play none none reverse"
-                        }
-                    });
-                }
-            });
-        });
-    }
+        // Logo Design uses responsive Bento grid
 
         ScrollTrigger.refresh();
     }, 100);
 
-    // Start Live Clock
-    updateLiveStatus();
-    setInterval(updateLiveStatus, 1000);
+    // Live clock already started in DOMContentLoaded
 
     // Initialize Fast Average Color
     const fac = new FastAverageColor();
@@ -717,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = activeSlide.querySelector('img');
                 if (img) {
                     // Make sure image is loaded before getting color
-                    if(img.complete) {
+                    if (img.complete) {
                         applyDynamicBackground(img);
                     } else {
                         img.addEventListener('load', () => applyDynamicBackground(img), { once: true });
@@ -736,23 +669,23 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(e => console.log('Color extraction failed:', e));
     }
-    
+
     // ==========================================
     // CREATIVE ENHANCEMENTS
     // ==========================================
-    
+
     // 1. Custom Interactive Cursor
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
-    
+
     if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) {
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
             const posY = e.clientY;
-            
+
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-            
+
             gsap.to(cursorOutline, {
                 x: posX,
                 y: posY,
@@ -760,14 +693,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: "power2.out"
             });
         });
-        
+
         const interactables = document.querySelectorAll('a, button, .project-card, .premium-card');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
     }
-    
+
     // 2. Magnetic Buttons
     const magneticEls = document.querySelectorAll('.magnetic');
     magneticEls.forEach((el) => {
@@ -777,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const v = rect.height / 2;
             const x = e.clientX - rect.left - h;
             const y = e.clientY - rect.top - v;
-            
+
             gsap.to(el, {
                 x: x * 0.4,
                 y: y * 0.4,
@@ -797,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('cursor-magnetic');
         });
     });
-    
+
     // 3 & 4. Text Scramble for Tech Badges
     const techBadges = document.querySelectorAll('.tech-badge');
     techBadges.forEach(badge => {
@@ -825,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
             source = audioCtx.createMediaElementSource(bgMusic);
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
-            
+
             analyser.fftSize = 128; // gives 64 frequency bins
             const bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
@@ -843,24 +776,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!bgMusic.paused && isInitialized) {
                 animationId = requestAnimationFrame(drawVisualizer);
                 analyser.getByteFrequencyData(dataArray);
-                
+
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
+
                 ctx.beginPath();
                 ctx.moveTo(0, canvas.height);
-                
+
                 const sliceWidth = canvas.width / dataArray.length;
                 let x = 0;
-                
-                for(let i = 0; i < dataArray.length; i++) {
+
+                for (let i = 0; i < dataArray.length; i++) {
                     const v = dataArray[i] / 255.0;
                     // amplify height and smooth it
                     const y = canvas.height - (v * canvas.height * 0.9);
-                    
+
                     if (i === 0) {
                         ctx.lineTo(x, y);
                     } else {
-                        const prevV = dataArray[i-1] / 255.0;
+                        const prevV = dataArray[i - 1] / 255.0;
                         const prevY = canvas.height - (prevV * canvas.height * 0.9);
                         const xc = (x - sliceWidth + x) / 2;
                         const yc = (prevY + y) / 2;
@@ -868,21 +801,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     x += sliceWidth;
                 }
-                
+
                 // Complete the shape
                 ctx.lineTo(canvas.width, canvas.height);
                 ctx.lineTo(0, canvas.height);
                 ctx.closePath();
-                
+
                 // Liquid glass gradient
                 const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
                 gradient.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
                 gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
-                
+
                 ctx.fillStyle = gradient;
                 ctx.fill();
-                
+
                 // Add a bright border line to the wave top
                 ctx.lineWidth = 2;
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
@@ -898,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (audioCtx && audioCtx.state === 'suspended') {
                     audioCtx.resume();
                 }
-                
+
                 // Attempt to play, catch if user hasn't interacted yet
                 let playPromise = bgMusic.play();
                 if (playPromise !== undefined) {
@@ -927,25 +860,25 @@ document.addEventListener('DOMContentLoaded', () => {
 function scrambleText(element, originalText) {
     const chars = '!<>-_\\\\/[]{}—=+*^?#________';
     let iteration = 0;
-    
+
     clearInterval(element.scrambleInterval);
-    
+
     element.scrambleInterval = setInterval(() => {
         element.innerText = originalText
             .split('')
             .map((letter, index) => {
-                if(index < iteration) {
+                if (index < iteration) {
                     return originalText[index];
                 }
                 return chars[Math.floor(Math.random() * chars.length)];
             })
             .join('');
-        
-        if(iteration >= originalText.length){ 
+
+        if (iteration >= originalText.length) {
             clearInterval(element.scrambleInterval);
             element.innerText = originalText;
         }
-        
+
         iteration += 1 / 3;
     }, 30);
 }
@@ -991,42 +924,42 @@ function scrambleText(element, originalText) {
     canvas.width = 64;
     canvas.height = 64;
     const ctx = canvas.getContext('2d');
-    
+
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
         link = document.createElement('link');
         link.rel = 'icon';
         document.head.appendChild(link);
     }
-    
+
     const logoImg = new Image();
-    logoImg.src = 'pase.png';
-    
+    logoImg.src = 'pase-icon.png';
+
     let angle = 0;
     let isAnimating = true;
-    
+
     function drawFavicon() {
         if (!isAnimating) return;
-        
+
         ctx.clearRect(0, 0, 64, 64);
-        
+
         // 1. Draw spinning gradient background
         ctx.save();
         ctx.translate(32, 32);
         ctx.rotate(angle);
-        
+
         const gradient = ctx.createLinearGradient(-32, -32, 32, 32);
         gradient.addColorStop(0, '#a3e635'); // Lime green
         gradient.addColorStop(0.33, '#000000'); // Black
         gradient.addColorStop(0.66, '#a3e635'); // Lime green
         gradient.addColorStop(1, '#000000'); // Black
-        
+
         ctx.beginPath();
         ctx.arc(0, 0, 32, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.fill();
         ctx.restore();
-        
+
         // 2. Draw the logo on top (preserving aspect ratio)
         if (logoImg.complete && logoImg.naturalHeight !== 0) {
             const aspect = logoImg.naturalWidth / logoImg.naturalHeight;
@@ -1038,24 +971,24 @@ function scrambleText(element, originalText) {
             }
             ctx.drawImage(logoImg, 32 - dw / 2, 32 - dh / 2, dw, dh);
         }
-        
+
         angle += 0.2;
-        
+
         // 3. Update favicon
         link.type = 'image/png';
         link.href = canvas.toDataURL('image/png');
-        
-        setTimeout(() => requestAnimationFrame(drawFavicon), 100); // ~10fps
+
+        setTimeout(() => requestAnimationFrame(drawFavicon), 1000); // Throttled to 1s for ultra-low CPU overhead
     }
-    
+
     logoImg.onload = () => {
         if (isAnimating) drawFavicon();
     };
-    
+
     window.addEventListener("blur", () => {
         isAnimating = false;
     });
-    
+
     window.addEventListener("focus", () => {
         if (!isAnimating) {
             isAnimating = true;
@@ -1096,20 +1029,20 @@ function scrambleText(element, originalText) {
     function checkBeat() {
         if (!isHorror) return;
         analyser.getByteFrequencyData(dataArray);
-        
+
         if (ctx && canvas) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const barWidth = (canvas.width / dataArray.length) * 2.5;
             let barHeight;
             let x = 0;
-            
-            for(let i = 0; i < dataArray.length; i++) {
+
+            for (let i = 0; i < dataArray.length; i++) {
                 barHeight = dataArray[i] * 1.5;
-                
+
                 // Standard visual bars - red for horror theme
                 ctx.fillStyle = `rgb(${barHeight + 50}, 0, 0)`;
                 ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-                
+
                 x += barWidth + 1;
             }
         }
@@ -1120,7 +1053,7 @@ function scrambleText(element, originalText) {
     horrorBtn.addEventListener('click', (e) => {
         e.preventDefault();
         isHorror = !isHorror;
-        
+
         if (isHorror) {
             initAudio();
             if (audioCtx.state === 'suspended') {
@@ -1147,161 +1080,3 @@ function scrambleText(element, originalText) {
         }
     });
 })();
-
-// ==========================================
-// 3D STORY SECTION LOGIC (INTERACTIVE BOOK)
-// ==========================================
-document.addEventListener("DOMContentLoaded", () => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const storySection = document.getElementById('story');
-    const storyMusic = document.getElementById('story-music');
-    const bgMusic = document.getElementById('bg-music');
-    const canvas = document.getElementById('story-canvas');
-
-    if (storySection) {
-        
-        // --- 1. 3D Particle Canvas Background ---
-        let ctx = null;
-        let particles = [];
-        let animationFrame = null;
-        
-        if (canvas) {
-            ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initParticles();
-            });
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.z = Math.random() * 1000;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedZ = Math.random() * 2 + 1;
-                }
-                update() {
-                    this.z -= this.speedZ;
-                    if (this.z <= 0) {
-                        this.z = 1000;
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
-                    }
-                }
-                draw() {
-                    const fov = 300;
-                    const scale = fov / (fov + this.z);
-                    const x2d = (this.x - canvas.width/2) * scale + canvas.width/2;
-                    const y2d = (this.y - canvas.height/2) * scale + canvas.height/2;
-                    const r = this.size * scale;
-                    const opacity = Math.max(0, 1 - (this.z / 1000));
-                    
-                    ctx.beginPath();
-                    ctx.arc(x2d, y2d, Math.max(0.1, r), 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(163, 230, 53, ${opacity})`;
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particles = [];
-                for(let i=0; i<150; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
-                animationFrame = requestAnimationFrame(animateParticles);
-            }
-            
-            initParticles();
-        }
-
-        // --- 2. 3D Book Logic via ScrollTrigger ---
-        const pages = document.querySelectorAll('.book-page');
-        let currentPage = 0;
-        const totalPages = pages.length;
-
-        function flipNext() {
-            if (currentPage < totalPages) {
-                const page = pages[currentPage];
-                if(page) {
-                    page.classList.add('flipped');
-                    page.style.zIndex = currentPage; 
-                }
-                currentPage++;
-            }
-        }
-
-        function flipPrev() {
-            if (currentPage > 0) {
-                currentPage--;
-                const page = pages[currentPage];
-                if(page) {
-                    page.classList.remove('flipped');
-                    page.style.zIndex = 60 - currentPage * 10;
-                }
-            }
-        }
-
-        // --- 3. Handle Audio & Canvas Lifecycle on Scroll ---
-        ScrollTrigger.create({
-            trigger: storySection,
-            start: "top top",
-            end: "+=4000",
-            pin: true,
-            onEnter: () => {
-                if (bgMusic) bgMusic.pause();
-                if (storyMusic) {
-                    storyMusic.volume = 0;
-                    let p = storyMusic.play();
-                    if(p !== undefined) {
-                        p.then(() => gsap.to(storyMusic, { volume: 0.6, duration: 2 })).catch(e => console.log(e));
-                    }
-                }
-                if(canvas && !animationFrame) animateParticles();
-            },
-            onLeave: () => {
-                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
-                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
-                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
-            },
-            onEnterBack: () => {
-                if (bgMusic) bgMusic.pause();
-                if (storyMusic) {
-                    storyMusic.volume = 0;
-                    storyMusic.play().catch(e=>console.log(e));
-                    gsap.to(storyMusic, { volume: 0.6, duration: 1 });
-                }
-                if(canvas && !animationFrame) animateParticles();
-            },
-            onLeaveBack: () => {
-                if (storyMusic) gsap.to(storyMusic, { volume: 0, duration: 1, onComplete: () => storyMusic.pause() });
-                if (bgMusic) bgMusic.play().catch(e=>console.log(e));
-                if(animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
-            },
-            onUpdate: (self) => {
-                let targetPage = Math.floor(self.progress * (totalPages + 1));
-                if (targetPage > totalPages) targetPage = totalPages;
-                if (targetPage < 0) targetPage = 0;
-
-                while (currentPage < targetPage) {
-                    flipNext();
-                }
-                while (currentPage > targetPage) {
-                    flipPrev();
-                }
-            }
-        });
-    }
-});

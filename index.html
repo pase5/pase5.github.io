@@ -15,12 +15,24 @@
     <meta name="google-site-verification" content="SRs-iRlufC4K8PlN5JEo2AD5xiie6Ci4iEAJ6isrsIo" />
     <meta name="theme-color" content="#a3e635">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="pase.png">
-    <link rel="apple-touch-icon" href="pase.png">
+    <!-- Google Search & Multi-Device Favicon System -->
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="pase-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="image_src" href="https://pranavs.online/pranav-s-uiux-designer-portrait.png">
     
     <!-- Canonical Link -->
     <link rel="canonical" href="https://pranavs.online/">
+    <!-- Resource Hints & Preconnect for Lightning-Fast Asset Delivery -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
     
     <!-- High-Priority Preload for Cinematic Preloader Video -->
     <link rel="preload" href="VN20261014_223223.mp4" as="video" type="video/mp4" fetchpriority="high">
@@ -30,12 +42,17 @@
 
 
 
-    <!-- Open Graph / Facebook / LinkedIn -->
+    <!-- Open Graph / Facebook / LinkedIn / Google Rich Results -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pranavs.online/">
     <meta property="og:title" content="Pranav S | UI/UX Designer">
     <meta property="og:description" content="Portfolio of Pranav S, a student representative at IEEE SPS, and UI/UX Designer focused on creating premium digital experiences.">
     <meta property="og:image" content="https://pranavs.online/pranav-s-uiux-designer-portrait.png">
+    <meta property="og:image:secure_url" content="https://pranavs.online/pranav-s-uiux-designer-portrait.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1164">
+    <meta property="og:image:height" content="1200">
+    <meta property="og:image:alt" content="Portrait of Pranav S (Pase), UI/UX Designer">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -53,7 +70,12 @@
       "alternateName": "Pase",
       "url": "https://pranavs.online",
       "jobTitle": "UI/UX Designer",
-      "image": "https://pranavs.online/pranav-s-uiux-designer-portrait.png",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://pranavs.online/pranav-s-uiux-designer-portrait.png",
+        "width": 1164,
+        "height": 1200
+      },
       "sameAs": [
         "https://github.com/pase5",
         "https://www.linkedin.com/in/pranavs5/",
@@ -66,7 +88,13 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Pranav S | UI/UX Designer & Developer",
-      "url": "https://pranavs.online/"
+      "url": "https://pranavs.online/",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://pranavs.online/pranav-s-uiux-designer-portrait.png",
+        "width": 1164,
+        "height": 1200
+      }
     }
     </script>
 
@@ -88,19 +116,19 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
     
     <!-- GSAP & Lenis for Smooth Scroll Animations -->
-    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script defer src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     
     <!-- Swiper.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- Fast Average Color for Dynamic Gradients -->
-    <script src="https://unpkg.com/fast-average-color/dist/index.browser.min.js"></script>
+    <script defer src="https://unpkg.com/fast-average-color/dist/index.browser.min.js"></script>
     
     <!-- Modular Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -132,7 +160,7 @@
             <div class="relative w-16 h-16 flex items-center justify-center">
                 <div class="absolute inset-0 rounded-full bg-cyan-400/20 blur-xl animate-pulse"></div>
                 <div class="w-14 h-14 rounded-full border-2 border-white/10 border-t-cyan-400 border-r-lime-400 animate-spin"></div>
-                <img src="pase.png" alt="Pase" class="w-8 h-8 object-contain absolute opacity-85">
+                <img src="pase-icon.png" alt="Pase" class="w-9 h-9 object-contain absolute opacity-90 rounded-full">
             </div>
             <div class="flex items-center gap-2 text-[11px] font-mono tracking-[0.25em] text-white/50 uppercase">
                 <span>Loading Experience</span>
@@ -324,7 +352,7 @@
     
     <!-- Global Parallax Background -->
     <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
-        <div id="global-parallax-bg" class="absolute inset-[-20%] w-[140%] h-[140%] bg-[url('story-bg.jpg')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
+        <div id="global-parallax-bg" class="absolute inset-[-20%] w-[140%] h-[140%] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(163,230,53,0.1),rgba(0,0,0,0))] opacity-40"></div>
     </div>
 
     <div id="noise-overlay"></div>
@@ -560,7 +588,7 @@
                     <!-- Center Image (Absolute to container on desktop, flow on mobile) -->
                     <div class="flex-1 relative lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:translate-y-24 w-full lg:w-auto lg:h-[90vh] z-10 pointer-events-none flex justify-center items-end hero-img-anim mt-4 lg:mt-0 overflow-hidden lg:overflow-visible">
                         <!-- Portrait effect: scaled up, cinematic color grade, prominent shadow -->
-                        <img src="pranav-s-uiux-designer-portrait-1.png" alt="Pranav S (Pase) - UI/UX Designer and Creative Technologist" width="800" height="1200" class="w-full lg:w-auto h-full object-contain object-bottom scale-110 lg:scale-[1.15] drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] contrast-[1.1] saturate-[0.85] brightness-[0.95] hue-rotate-[5deg] sepia-[0.1]">
+                        <img src="pranav-s-uiux-designer-portrait-1.webp" alt="Pranav S (Pase) - UI/UX Designer and Creative Technologist" width="1047" height="1080" fetchpriority="high" decoding="async" class="w-full lg:w-auto h-full object-contain object-bottom scale-110 lg:scale-[1.15] drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] contrast-[1.1] saturate-[0.85] brightness-[0.95] hue-rotate-[5deg] sepia-[0.1]">
                     </div>
                 </div>
 
@@ -654,9 +682,13 @@
             </div>
             
             <div class="layer-mid">
-                <!-- Floating accent video -->
-                <div class="floating-video-box w-32 h-32 md:w-48 md:h-48 bottom-10 left-10 md:left-20">
-                    <video preload="none" loading="lazy" autoplay loop muted playsinline src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"></video>
+                <!-- Floating Accent Glass Badge -->
+                <div class="floating-video-box w-36 h-36 md:w-48 md:h-48 bottom-10 left-6 md:left-20 flex flex-col justify-center items-center p-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+                    <div class="w-10 h-10 rounded-full bg-lime-400/20 flex items-center justify-center text-lime-400 mb-2 animate-pulse">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-lime-400 font-bold">Pixel Precision</span>
+                    <span class="text-[9px] md:text-[10px] text-gray-400 font-mono mt-1 text-center">8px Grid & Scalable Systems</span>
                 </div>
             </div>
 
@@ -671,7 +703,7 @@
                 </div>
                 <div class="relative gs_reveal_img tilt-effect">
                     <div class="w-full h-[40vh] md:h-[60vh] rounded-[2rem] md:rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                        <img id="profile-img" src="pranav-s-uiux-designer-portrait.png" alt="Portrait of Pranav S (Pase), UI/UX Designer" width="800" height="1200" class="w-full h-full object-cover scale-110 origin-center">
+                        <img id="profile-img" src="pranav-s-uiux-designer-portrait.png" alt="Portrait of Pranav S (Pase), UI/UX Designer" width="1164" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover scale-110 origin-center">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     </div>
                 </div>
@@ -735,9 +767,12 @@
                         </div>
 
                         <!-- Cell: Mockup -->
-                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center">
-                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[Mockup Coming Soon: Full branding applied across mediums]</p>
-                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+                            <div class="z-10 flex flex-col items-center text-center space-y-2">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">Brand Blueprint</span>
+                                <p class="text-xs font-mono text-gray-400">IRIS • Dynamic Waveform System & Stage Visuals</p>
+                            </div>
                         </div>
 
                         <!-- Cell: Color System -->
@@ -801,9 +836,12 @@
                         </div>
 
                         <!-- Cell: Mockup -->
-                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center order-3 lg:order-4">
-                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[Mockup Coming Soon: Premium tuition identity]</p>
-                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center order-3 lg:order-4 p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+                            <div class="z-10 flex flex-col items-center text-center space-y-2">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-purple-400 bg-purple-400/10 px-3 py-1 rounded-full border border-purple-400/20">Brand Blueprint</span>
+                                <p class="text-xs font-mono text-gray-400">Ananthu's PCM • Academic Stationery & Premium Signage</p>
+                            </div>
                         </div>
                         
                     </div>
@@ -841,9 +879,12 @@
                         </div>
 
                         <!-- Cell: Mockup -->
-                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center">
-                            <p class="text-xs font-mono text-gray-500 z-10 bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10">[Mockup Coming Soon: Industrial identity applications]</p>
-                            <img src="https://placehold.co/800x400/111/333?text=Mockup+Slot" alt="Mockup Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/mockup:opacity-60 transition-opacity duration-500">
+                        <div class="lg:col-span-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2rem] relative overflow-hidden group/mockup min-h-[200px] md:min-h-[250px] flex items-center justify-center p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(163,230,53,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+                            <div class="z-10 flex flex-col items-center text-center space-y-2">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-lime-400 bg-lime-400/10 px-3 py-1 rounded-full border border-lime-400/20">Brand Blueprint</span>
+                                <p class="text-xs font-mono text-gray-400">Weltech • Safety Architecture & Fabrication Mark</p>
+                            </div>
                         </div>
 
                         <!-- Cell: Color System -->
@@ -908,7 +949,7 @@
                                     <h3 class="text-4xl font-black text-white mb-2">SIGNAL 4.0</h3>
                                     <p class="text-blue-400 font-mono text-sm tracking-wide">A tech networking & continuous connectivity hub.</p>
                                 </div>
-                                <img src="ui/ux works/signal-4-0-uiux-mockup-01.webp" alt="SIGNAL 4.0 Design" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
+                                <img src="ui/ux works/signal-4-0-uiux-mockup-01.webp" alt="SIGNAL 4.0 Design" width="700" height="550" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
 
@@ -935,7 +976,7 @@
                                     <h3 class="text-4xl font-black text-white mb-2">IRIS Platform</h3>
                                     <p class="text-cyan-400 font-mono text-sm tracking-wide">A signal processing technology firm platform.</p>
                                 </div>
-                                <img src="ui/ux works/iris-uiux-mockup-01.webp" alt="IRIS Website Design" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
+                                <img src="ui/ux works/iris-uiux-mockup-01.webp" alt="IRIS Website Design" width="700" height="550" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
 
@@ -959,7 +1000,7 @@
                                     <h3 class="text-4xl font-black text-white mb-2">House of Amoraa</h3>
                                     <p class="text-purple-400 font-mono text-sm tracking-wide">Premium invitations and creative collections.</p>
                                 </div>
-                                <img src="ui/ux works/house-of-amoraa-uiux-mockup-01.webp" alt="Invitations Collections" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
+                                <img src="ui/ux works/house-of-amoraa-uiux-mockup-01.webp" alt="Invitations Collections" width="700" height="550" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transition-[object-position] duration-[6000ms] ease-in-out group-hover:object-bottom pointer-events-none">
                             </div>
                         </div>
                     </div>
@@ -1204,10 +1245,10 @@
                         <a href="mailto:pranavs2005@ieee.org?subject=New%20Project%20Inquiry&body=Hi%20Pranav,%0D%0A%0D%0AI'd%20love%20to%20discuss%20a%20potential%20project%20with%20you.%0D%0A%0D%0AProject%20details:%0D%0A" class="magnetic bg-black text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-2 group text-xs md:text-sm">
                             Start a Project <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition-transform pointer-events-none"></i>
                         </a>
-                        <a href="https://drive.google.com/file/d/1uy5cZS1ig52GOcy8R26v8Kcydxxr1soR/view?usp=sharing" target="_blank" class="magnetic border-2 border-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2 text-xs md:text-sm">
+                        <a href="https://drive.google.com/file/d/1uy5cZS1ig52GOcy8R26v8Kcydxxr1soR/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="magnetic border-2 border-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2 text-xs md:text-sm">
                             View Resume
                         </a>
-                        <button id="horror-btn" class="magnetic border-2 border-black bg-transparent text-black px-4 py-4 rounded-full font-bold transition-all flex items-center justify-center group opacity-50 hover:opacity-100 hover:bg-black hover:text-red-500" title="Do not click">
+                        <button id="horror-btn" aria-label="Toggle dramatic dark theme" class="magnetic border-2 border-black bg-transparent text-black px-4 py-4 rounded-full font-bold transition-all flex items-center justify-center group opacity-50 hover:opacity-100 hover:bg-black hover:text-red-500" title="Do not click">
                             <i data-lucide="skull" class="w-5 h-5 pointer-events-none"></i>
                         </button>
                     </div>
@@ -1219,7 +1260,7 @@
                         <div class="relative w-full h-full rounded-lg overflow-hidden group bg-white" style="transform-style: preserve-3d; transform: translateZ(0);">
                             <!-- Background Image -->
                             <div class="absolute top-0 left-0 w-full h-[85%] overflow-hidden" style="transform: translateZ(20px); transform-style: preserve-3d;">
-                                <img src="pranav-s-uiux-designer-portrait.png" alt="Pranav S (Pase) Profile Picture" width="800" height="1200" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-top shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                                <img src="pranav-s-uiux-designer-portrait.png" alt="Pranav S (Pase) Profile Picture" width="1164" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 origin-top shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
                             </div>
                             
                             <!-- Proper Seamless Frosted Glass Fade -->
@@ -1255,7 +1296,7 @@
                                             <i data-lucide="image" class="w-5 h-5 stroke-[2.5]"></i> 48
                                         </div>
                                     </div>
-                                    <a href="https://www.linkedin.com/in/pranavs5/" target="_blank" class="bg-white hover:bg-white/[0.04] text-[#1a1a1a] font-bold py-2.5 px-6 rounded-full transition-all duration-300 text-[14px] shadow-sm hover:shadow-md flex items-center gap-1.5">
+                                    <a href="https://www.linkedin.com/in/pranavs5/" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-white/[0.04] text-[#1a1a1a] font-bold py-2.5 px-6 rounded-full transition-all duration-300 text-[14px] shadow-sm hover:shadow-md flex items-center gap-1.5">
                                         Follow <i data-lucide="plus" class="w-5 h-5 stroke-[3]"></i>
                                     </a>
                                 </div>
@@ -1264,10 +1305,10 @@
                     </div>
 
                     <!-- Hidden Audio Elements -->
-                    <audio id="bg-music" loop preload="auto">
+                    <audio id="bg-music" loop preload="none">
                         <source src="sunflower.mp3" type="audio/mpeg">
                     </audio>
-                    <audio id="horror-music" loop preload="auto" crossorigin="anonymous">
+                    <audio id="horror-music" loop preload="none" crossorigin="anonymous">
                         <source src="2nd song.mp3" type="audio/mpeg">
                     </audio>
                 </div>
@@ -1291,9 +1332,9 @@
                 </span>
                 <div class="flex gap-4 md:gap-6">
                     <a href="https://github.com/pase5" class="hover:text-white transition-colors">GitHub</a>
-                    <a href="https://www.linkedin.com/in/pranavs5/" class="hover:text-white transition-colors" target="_blank">LinkedIn</a>
-                    <a href="https://www.instagram.com/__pr.an.av_/" class="hover:text-white transition-colors" target="_blank">Instagram</a>
-                    <a href="https://wa.me/916282296414" class="hover:text-white transition-colors" target="_blank">WhatsApp</a>
+                    <a href="https://www.linkedin.com/in/pranavs5/" class="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.instagram.com/__pr.an.av_/" class="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://wa.me/916282296414" class="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                 </div>
                 <span id="live-time" class="font-mono"></span>
             </div>
